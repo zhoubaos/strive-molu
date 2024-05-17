@@ -1,0 +1,11 @@
+{
+  "name": "@strive-molu/utils",
+  "private": true,
+  "description": "该目录保存所有的工具函数",
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "license": "ISC",
+  "peerDependencies": {
+    "vue": "^3.3.13"
+  }
+}

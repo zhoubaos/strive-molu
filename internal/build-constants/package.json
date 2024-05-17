@@ -1,0 +1,27 @@
+{
+  "name": "@strive-molu/build-constants",
+  "version": "0.0.1",
+  "description": "一些构建时的常量",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "unbuild",
+    "dev": "pnpm run stub",
+    "stub": "unbuild --stub"
+  },
+  "devDependencies": {
+    "unbuild": "^2.0.0"
+  },
+  "keywords": [
+    "strive-molu"
+  ],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "WebWorker"
+    ],
+    "paths": {
+      //路径映射，配合vite配置的resolve.alias相关联别名使用
+      "@/*": [
+        "./.vitepress/*"
+      ],
+      "~/*": [
+        "./.vitepress/vitepress/*"
+      ]
+    },
+    "types": [
+      "vite/client",
+    ],
+    "jsx": "preserve"
+  },
+  "include": [
+    "**/*",
+    ".vitepress/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+  ]
+}
