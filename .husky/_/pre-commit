@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# echo "========= 执行lint-staged，自动格式化代码 ======="
+# pnpm exec lint-staged

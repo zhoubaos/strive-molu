@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+echo "========= 校验git提交msg信息是否符合规则 ======="
+pnpm exec commitlint --config commitlint.config.js --edit "${1}"

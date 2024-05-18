@@ -1,0 +1,37 @@
+{
+  "name": "@strive-molu/build-utils",
+  "version": "0.0.1",
+  "private": true,
+  "description": "该包导出一些关于组件库打包的工具库",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "unbuild",
+    "dev": "pnpm run stub",
+    "stub": "unbuild --stub"
+  },
+  "keywords": [
+    "strive-molu"
+  ],
+  "files": [
+    "dist"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@pnpm/find-workspace-packages": "^6.0.9",
+    "@pnpm/logger": "^5.0.0",
+    "@pnpm/types": "^9.4.2",
+    "consola": "^3.2.3"
+  },
+  "devDependencies": {
+    "unbuild": "2.0.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@strive-molu/hooks",
+  "version": "1.0.0",
+  "description": "关于hooks的一些封装",
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "peerDependencies": {
+    "vue": "^3.3.13"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

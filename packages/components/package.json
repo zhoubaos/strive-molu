@@ -1,0 +1,14 @@
+{
+  "name": "@strive-molu/components",
+  "description": "该目录保存所有的组件",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.d.ts",
+  "peerDependencies": {
+    "vue": "^3.3.13",
+    "element-plus": "^2.4.1"
+  },
+  "sideEffects": false,
+  "license": "ISC"
+}
