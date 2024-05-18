@@ -2,12 +2,18 @@
 
 import { $, question, cd, path, argv, fs, os, chalk, usePowerShell } from 'zx';
 import consola from 'consola';
+
 // 让powerShell可以兼容运行该脚本
-usePowerShell();
+// usePowerShell();
 /**
  * @desc 本地添加git tag标签，并推送到远程
  */
 void (async function () {
+  // 当前分支
+  const curBranchName = (await $`git rev-parse --abbrev-ref HEAD`).stdout.trim();
+  if (!['main', 'master'].includes(curBranchName)) {
+    exitWithError('当前不是main或master分支');
+  }
   // 获取本地当前所有的标签
   const tagList = (await $`git tag`).stdout.trim().split('\n');
 
