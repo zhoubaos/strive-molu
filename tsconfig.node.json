@@ -2,12 +2,11 @@
   "extends": "./tsconfig.base.json", //继承其他配置文件，官方文档说是只继承 compilerOptions 属性下的字段，但实际继承了include和exclude字段（ts版本：5.4.5）
   "compilerOptions": {
     "composite": true, //使得 TypeScript 项目可以进行增量构建 | 如果要tsconfig.json中的references生效，必须设置composite为true
-    "lib": [ //指定可以使用那个版本的es特性
+    "lib": [
+      //指定可以使用那个版本的es特性
       "ESNext"
     ],
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "skipLibCheck": true
   },
   "include": [
@@ -20,9 +19,5 @@
     "packages/strive-molu/package.json",
     "scripts/zx/tag.ts"
   ],
-  "exclude": [
-    "**/__tests__/**",
-    "**/tests/**",
-    "**/dist"
-  ]
+  "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
 }
