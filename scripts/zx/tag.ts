@@ -4,7 +4,9 @@ import { $, question, cd, path, argv, fs, os, chalk, usePowerShell } from 'zx';
 import consola from 'consola';
 
 // 让powerShell可以兼容运行该脚本
-// usePowerShell();
+if (os.platform() === 'win32') {
+  usePowerShell();
+}
 /**
  * @desc 本地添加git tag标签，并推送到远程
  */

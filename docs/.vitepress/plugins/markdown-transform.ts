@@ -24,6 +24,7 @@ export function MarkdownTransform(): Plugin {
     async transform(code, id) {
       if (!id.endsWith('.md') || id.includes('docs/index.md')) return;
       const componentId = path.basename(id, '.md');
+
       const append: Append = {
         headers: [],
         footers: [],
@@ -33,7 +34,7 @@ export function MarkdownTransform(): Plugin {
       code = transformVpScriptSetup(code, append);
 
       if (compPaths.some((compPath) => id.startsWith(compPath))) {
-        // code = transformComponentMarkdown(id, componentId, code, append);
+        code = transformComponentMarkdown(id, componentId, code, append);
       }
 
       return combineMarkdown(code, [combineScriptSetup(append.scriptSetups), ...append.headers], append.footers);

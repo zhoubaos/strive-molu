@@ -1,0 +1,31 @@
+name: Publish to Npm
+
+on:
+  # 创建release时触发
+  release:
+    types: [created]
+
+jobs:
+  test:
+
+  publish:
+    # 运行环境
+    runs-on: ubuntu-latest
+    steps:
+      # 签出github仓库代码
+      - uses: actions/checkout@v3
+
+      # 设置nodejs版本和npm仓库地址
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.com/
+
+      # 设置pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      # 创建 TAG_VERSION 变量，赋值tag版本，并写入到github actions 环境变量文件中（$GITHUB_ENV）
+      - name: Get version
+        run: echo "TAG_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
