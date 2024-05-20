@@ -41,8 +41,8 @@ void (async function () {
     writeComSameNameVueFile(),
     writeComSameNameTsFile(),
     writeComInstanceFile(),
-    writeComExportTsFile(),
-    appendExportContent()
+    writeComExportTsFile()
+    // appendExportContent()
   ]);
 
   // 写入同名vue文件

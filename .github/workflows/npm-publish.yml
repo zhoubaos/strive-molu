@@ -6,8 +6,6 @@ on:
     types: [created]
 
 jobs:
-  test:
-
   publish:
     # 运行环境
     runs-on: ubuntu-latest
