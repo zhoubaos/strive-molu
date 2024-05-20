@@ -11,6 +11,10 @@ if (os.platform() === 'win32') {
  * @desc 本地添加git tag标签，并推送到远程
  */
 void (async function () {
+  const s = await $`git status`;
+  console.log(s);
+
+  return;
   // 当前分支
   const curBranchName = (await $`git rev-parse --abbrev-ref HEAD`).stdout.trim();
   if (!['main', 'master'].includes(curBranchName)) {
