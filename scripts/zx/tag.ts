@@ -11,7 +11,7 @@ if (os.platform() === 'win32') {
  * @desc 本地添加git tag标签，并推送到远程
  */
 void (async function () {
-  const s = await $`git status`;
+  const s = (await $`git status`).stdout.split('\n');
   console.log(s);
 
   return;
