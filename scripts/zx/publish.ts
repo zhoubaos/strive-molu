@@ -1,8 +1,11 @@
 #!/usr/bin/env zx
 import { $, question, cd, path, argv, fs, os, chalk, usePowerShell } from 'zx';
 import consola from 'consola';
-// 让powerShell可以运行该脚本
-usePowerShell();
+
+// 让powerShell可以兼容运行该脚本
+if (os.platform() === 'win32') {
+  usePowerShell();
+}
 void (async function () {
   // 根据pnpm-lock.yaml文件中的版本安装依赖，且不会更新该文件
   consola.start('下载依赖中。。。');

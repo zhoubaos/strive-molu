@@ -74,6 +74,7 @@
 <script setup lang="ts">
 import { computed, getCurrentInstance, ref, toRef } from 'vue';
 import { isClient, useClipboard, useToggle } from '@vueuse/core';
+
 // @ts-ignore
 import { CaretTop } from '@element-plus/icons-vue';
 
@@ -118,6 +119,7 @@ const formatPathDemos = computed(() => {
   Object.keys(props.demos).forEach((key) => {
     demos[key.replace('../../examples/', '').replace('.vue', '')] = props.demos[key].default;
   });
+  console.log(props.demos);
 
   return demos;
 });

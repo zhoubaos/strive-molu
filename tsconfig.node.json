@@ -6,7 +6,9 @@
       //指定可以使用那个版本的es特性
       "ESNext"
     ],
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "skipLibCheck": true
   },
   "include": [
@@ -19,5 +21,9 @@
     "packages/strive-molu/package.json",
     "scripts/zx/tag.ts"
   ],
-  "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
+  "exclude": [
+    "**/__tests__/**",
+    "**/tests/**",
+    "**/dist"
+  ]
 }
