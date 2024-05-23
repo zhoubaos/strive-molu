@@ -419,6 +419,9 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^4.6.2
         version: 4.6.2(vite@4.5.3)(vue@3.4.21)
+      unplugin-element-plus:
+        specifier: ^0.8.0
+        version: 0.8.0
       unplugin-strive-molu:
         specifier: workspace:^
         version: link:../plugins/unplugin-strive-molu
@@ -10363,6 +10366,18 @@ packages:
       '@antfu/utils': 0.7.7
       unplugin: 1.10.1
       vite: 5.2.7(@types/node@20.12.2)(less@4.2.0)
+    dev: true
+
+  /unplugin-element-plus@0.8.0:
+    resolution: {integrity: sha512-jByUGY3FG2B8RJKFryqxx4eNtSTj+Hjlo8edcOdJymewndDQjThZ1pRUQHRjQsbKhTV2jEctJV7t7RJ405UL4g==}
+    engines: {node: '>=14.19.0'}
+    dependencies:
+      '@rollup/pluginutils': 5.1.0
+      es-module-lexer: 1.5.0
+      magic-string: 0.30.10
+      unplugin: 1.10.1
+    transitivePeerDependencies:
+      - rollup
     dev: true
 
   /unplugin-icons@0.18.5:
