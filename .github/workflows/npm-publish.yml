@@ -24,6 +24,28 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
 
-      # 创建 TAG_VERSION 变量，赋值tag版本，并写入到github actions 环境变量文件中（$GITHUB_ENV）
+      # 创建 TAG_VERSION 变量，被赋值tag版本，并写入到github actions 环境变量文件中（$GITHUB_ENV）,可以使用env变量访问
       - name: Get version
         run: echo "TAG_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      # 创建 GIT_HEAD 变量，被赋值为当前提交的SHA值，并写入到环境变量文件中
+      - name: Get git head
+        run: echo "GIT_HEAD=${GITHUB_SHA}" >> $GITHUB_ENV
+
+      # 配置 npm 认证，以便在不输入密码的情况下自动发布npm包
+      - name: Gen npmrc
+        run: echo "//registry.npmjs.com/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}"  >> ./.npmrc
+
+      - name: Install Dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Build&Publish
+        run: pnpm run zx:gen
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
+          TAG_VERSION: ${{env.TAG_VERSION}}
+          GIT_HEAD: ${{env.GIT_HEAD}}
+          REGISTRY: https://registry.npmjs.com/
+          FORCE_COLOR: 2
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN自动会生成，无需添加
+          NODE_OPTIONS: --max-old-space-size=4096

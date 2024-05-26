@@ -20,14 +20,13 @@ async function main() {
   consola.log(chalk.cyan(`$TAG_VERSION: ${tagVersion}`));
   consola.log(chalk.cyan(`$GIT_HEAD: ${gitHead}`));
 
-  consola.debug(chalk.yellow(`开始更新strive-molu模块package.json文件`));
-
   const pkgs = Object.fromEntries((await getWorkspacePackages()).map((pkg) => [pkg.manifest.name!, pkg]));
   const striveMolu = pkgs['strive-molu'];
   const eslintConfig = pkgs['@element-plus/eslint-config'];
   const metadata = pkgs['@element-plus/metadata'];
 
   // 重写package.json文件
+  consola.start(chalk.cyan(`开始更新strive-molu模块package.json文件`));
   const writeVersion = async (project: Project) => {
     await project.writeProjectManifest({
       ...project.manifest,
