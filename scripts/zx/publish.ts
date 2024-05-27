@@ -11,16 +11,26 @@ void (async function () {
   // consola.start('下载依赖中。。。');
   // await $`pnpm i --frozen-lockfile`;
 
-  // 更新版本号
-  consola.start('更新组件版本号中。。。');
-  await $`pnpm update:version`;
-  consola.start('组件打包中。。。');
-  await $`pnpm build`;
+  try {
+    // 更新版本号
+    consola.start('更新组件版本号中。。。');
+    await $`pnpm update:version`;
+    consola.start('组件打包中。。。');
+    await $`pnpm build`;
 
-  cd('dist/strive-molu');
-  consola.start('发布npm包中。。。');
-  await $`npm publish --provenance`;
-  cd('..');
+    cd('dist/strive-molu');
+    consola.start('发布npm包中。。。');
+    await $`npm publish --provenance`;
+    cd('..');
 
-  consola.success(chalk.green('发布成功！'));
+    consola.success(chalk.green('发布成功！'));
+  } catch (error) {
+    exitWithError(error);
+  }
 })();
+
+// 处理错误公共函数
+function exitWithError(errorMsg: unknown) {
+  consola.error(chalk.red(errorMsg));
+  process.exit(1);
+}
