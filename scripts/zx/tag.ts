@@ -20,7 +20,7 @@ void (async function () {
   const tagList = (await $`git tag`).stdout.trim().split('\n');
 
   // 标签名称
-  const tagName = await question('请输入标签：');
+  const tagName = await question('请输入标签名（eg：0.0.1 | 0.0.1-beta | 0.0.1-beta.1）：');
   /**
    * @example
    * 0.0.1 | 0.0.1-beta | 0.0.1-beta.1
@@ -33,7 +33,7 @@ void (async function () {
   }
 
   // 标签关联hash值
-  const tagHash = await question(`标签关联提交hash值(${chalk.gray('非必须，默认最后一次提交')})：`);
+  const tagHash = await question(`标签关联提交的SHA值(${chalk.gray('非必须，默认最后一次提交')})：`);
   if (tagHash.length) {
     gitHashIsExists(tagHash);
   }
@@ -60,7 +60,7 @@ void (async function () {
       // warn：$函数后不能直接跟 $ 符号
       await $`git tag ${tagCommand}`;
       await $`git push origin ${tagName}`;
-      consola.success('标签添加成功！');
+      consola.success('本地和远程标签添加成功！');
       break;
     }
   }
