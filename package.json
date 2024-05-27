@@ -14,7 +14,7 @@
     "demo": "tsx scripts/demo.ts",
     "zx:gen": "tsx scripts/zx/gen.ts",
     "zx:tag": "tsx scripts/zx/tag.ts",
-    "zx:publish": "zx scripts/zx/publish.ts",
+    "zx:publish": "tsx scripts/zx/publish.ts",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0",
     "lint:fix": "pnpm run lint --fix",
     "clean": "pnpm run clean:dist && pnpm run -r --parallel clean",
