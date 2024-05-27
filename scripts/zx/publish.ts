@@ -19,7 +19,7 @@ void (async function () {
 
   cd('dist/strive-molu');
   consola.start('发布npm包中。。。');
-  await $`npm publish`;
+  await $`npm publish --provenance`;
   cd('..');
 
   consola.success(chalk.green('发布成功！'));
