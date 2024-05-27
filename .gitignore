@@ -11,6 +11,7 @@ node_modules
 
 # Bundle
 dist
+docs/.vitepress/cache
 coverage
 packages/strive-molu/version.ts
 
