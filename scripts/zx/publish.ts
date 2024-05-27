@@ -13,13 +13,13 @@ void (async function () {
 
   try {
     // 更新版本号
-    consola.start('更新组件版本号中。。。');
+
     await $`pnpm update:version`;
-    consola.start('组件打包中。。。');
+    consola.success(chalk.green('更新组件版本号完成'));
     await $`pnpm build`;
+    consola.success(chalk.green('组件打包完成'));
 
     cd('dist/strive-molu');
-    consola.start('发布npm包中。。。');
     await $`npm publish --provenance`;
     cd('..');
 

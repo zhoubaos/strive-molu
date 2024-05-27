@@ -2,6 +2,15 @@
   "name": "strive-molu",
   "version": "0.0.0-dev",
   "description": "组件库",
+  "keywords": [
+    "ui",
+    "strive-molu",
+    "element-plus"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhoubaos/strive-molu.git"
+  },
   "main": "lib/index.js",
   "module": "es/index.mjs",
   "types": "es/index.d.ts",
@@ -23,11 +32,8 @@
   },
   "unpkg": "dist/index.full.js",
   "jsdelivr": "dist/index.full.js",
-  "keywords": [
-    "ui",
-    "strive-molu"
-  ],
   "publishConfig": {
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "author": "zhoubaos",

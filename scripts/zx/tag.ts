@@ -16,6 +16,7 @@ void (async function () {
   if (!['main', 'master'].includes(curBranchName)) {
     exitWithError('当前不是main或master分支');
   }
+
   // 获取本地当前所有的标签
   const tagList = (await $`git tag`).stdout.trim().split('\n');
 
