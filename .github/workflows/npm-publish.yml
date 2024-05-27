@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          registry-url: https://registry.npmjs.com/
+          registry-url: https://registry.npmjs.org
 
       # 设置pnpm
       - name: Setup pnpm
@@ -34,7 +34,7 @@ jobs:
 
       # 配置 npm 认证，以便在不输入密码的情况下自动发布npm包
       - name: Gen npmrc
-        run: echo "//registry.npmjs.com/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}"  >> ./.npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}"  >> ./.npmrc
 
       # 根据pnpm-lock.yaml文件中的版本安装依赖，且锁定该文件
       - name: Install Dependencies
@@ -47,7 +47,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}} # npm access token
           TAG_VERSION: ${{env.TAG_VERSION}}
           GIT_HEAD: ${{env.GIT_HEAD}}
-          REGISTRY: https://registry.npmjs.com/
+          REGISTRY: https://registry.npmjs.org
           FORCE_COLOR: 2
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN自动会生成，无需添加
           NODE_OPTIONS: --max-old-space-size=4096

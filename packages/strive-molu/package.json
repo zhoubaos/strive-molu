@@ -28,7 +28,6 @@
     "strive-molu"
   ],
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "author": "zhoubaos",
