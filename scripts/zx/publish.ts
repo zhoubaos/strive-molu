@@ -7,7 +7,7 @@ if (os.platform() === 'win32') {
   usePowerShell();
 }
 void (async function () {
-  // 根据pnpm-lock.yaml文件中的版本安装依赖，且不会更新该文件
+  // 根据pnpm-lock.yaml文件中的版本安装依赖，且锁定该文件
   // consola.start('下载依赖中。。。');
   // await $`pnpm i --frozen-lockfile`;
 
