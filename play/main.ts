@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-
+import './index.less';
 (async () => {
   const apps = import.meta.glob('./src/*.vue');
   const name = location.pathname.replace(/^\//, '') || 'demo';

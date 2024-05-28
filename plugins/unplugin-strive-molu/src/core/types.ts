@@ -12,12 +12,12 @@ export type Options = {
   exclude: FilterPattern;
   /**
    * 导入的包名
-   * @example 'strive-molu'
+   * @default strive-molu
    */
   lib: string;
   /**
    * 导入模块的前缀
-   * @example 'Sm'
+   * @default Sm
    */
   prefix: string;
   /**

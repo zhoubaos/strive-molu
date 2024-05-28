@@ -6,11 +6,13 @@ import type { App, Directive } from '@vue/runtime-core';
  * 给传入VNode对象添加 install 方法，用于Vue.use 注册该组件
  * @param comp 组件
  */
-export const withInstall = <T extends { name: string }>(comp: T) => {
-  (comp as SFCWithInstall<T>).install = (app: App) => {
-    app.component(comp.name, comp);
+export const withInstall = <T extends { name: string }, E extends Record<string, any>>(main: T, extra?: E) => {
+  (main as SFCWithInstall<T>).install = (app: App) => {
+    for (const comp of [main, ...Object.values(extra ?? {})]) {
+      app.component(comp.name, comp);
+    }
   };
-  return comp as SFCWithInstall<T>;
+  return main as SFCWithInstall<T>;
 };
 
 /**

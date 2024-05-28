@@ -41,7 +41,8 @@ void (async function () {
     writeComSameNameVueFile(),
     writeComSameNameTsFile(),
     writeComInstanceFile(),
-    writeComExportTsFile()
+    writeComExportTsFile(),
+    createComStyleTsFile()
     // appendExportContent()
   ]);
 
@@ -67,7 +68,7 @@ void (async function () {
     
     // init here
     </script>
-    <!-- 禁止在vue文件内些style标签 -->
+    <!-- 禁止在vue文件内添加style标签 -->
     `;
       await fs.writeFile(filePath, fileContent);
       consola.success(chalk.green(`创建成功：${filePath}`));
@@ -129,6 +130,21 @@ void (async function () {
     `;
       await fs.writeFile(filePath, fileContent);
       consola.success(chalk.green(`创建成功：${filePath}`));
+    } catch (error) {
+      exitWithError(error);
+    }
+  }
+
+  // 创建style文件
+  async function createComStyleTsFile() {
+    try {
+      const filePath1 = `${DIR_NAME}/style/index.ts`;
+      const filePath2 = `${DIR_NAME}/style/css.ts`;
+      const content = '// 该组件依赖的样式less文件\n';
+      await fs.writeFile(filePath1, content);
+      consola.success(chalk.green(`创建成功：${filePath1}`));
+      await fs.writeFile(filePath2, content);
+      consola.success(chalk.green(`创建成功：${filePath2}`));
     } catch (error) {
       exitWithError(error);
     }

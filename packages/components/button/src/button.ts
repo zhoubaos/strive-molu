@@ -18,7 +18,14 @@ export const buttonProps = buildProps({
   }
 });
 
+// 官网：https://cn.vuejs.org/guide/typescript/composition-api.html#typing-component-emits
+export const buttonEmits = {
+  click: (evt: MouseEvent) => evt instanceof MouseEvent
+};
+
 // 获取运行时且面向内部的prop类型
-// eg：https://cn.vuejs.org/api/utility-types.html#extractproptypes
+// 官网：https://cn.vuejs.org/api/utility-types.html#extractproptypes
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
+export type ButtonEmits = typeof buttonEmits;
+
 export type ButtonType = ButtonProps['type'];
