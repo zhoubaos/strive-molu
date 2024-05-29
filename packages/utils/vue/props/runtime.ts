@@ -17,8 +17,8 @@ import type {
 
 export const smPropKey = '__smPropKey';
 
-export type { PropType } from 'vue';
 export const definePropType = <T>(val: any): PropType<T> => val;
+
 export const isSmProp = (val: unknown): val is SmProp<any, any, any> => isObject(val) && !!(val as any)[smPropKey];
 
 /**

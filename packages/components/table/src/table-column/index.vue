@@ -22,9 +22,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { tableColumnProps } from './index';
-import { getColumnTitles, getColumnRenders } from './utils';
+import { getColumnTitles, getColumnRenders } from '../utils';
 defineOptions({
-  name: 'TableColumn'
+  name: 'SmTableColumn'
 });
 
 const props = defineProps(tableColumnProps);

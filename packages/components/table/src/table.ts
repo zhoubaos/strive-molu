@@ -8,38 +8,39 @@ export const tableProps = buildProps({
    */
   data: {
     type: definePropType<any[]>(Array),
-    required: true
+    default: () => []
   },
   /**
    * @desc 表格配置项
    */
   columns: {
     type: definePropType<Column[]>(Array),
-    required: true
+    default: () => []
   },
   /**
    * @desc 表格数据的总条数
    */
   total: {
     type: Number,
-    required: true
+    default: 0
   },
   /**
    * @desc 单元格的值满足 placeHolderValues 的占位符
    */
-  cellPlaceholder: {
+  placeholder: {
     type: String,
     default: '--'
   },
   /**
    * @desc 单元格的值包含在该属性的值内，使用站位符
    */
-  placeHolderValues: {
-    type: Array,
+  emptyValues: {
+    type: definePropType<any[]>(Array),
     default: () => [null, undefined, '']
   },
   /**
-   * @desc 是否自定义控制表格展示的列
+   * @desc 是否展示自定义控制表格展示的列的功能，
+   * 注意：自定义列暂时不支持多级表头
    */
   isCustomColumn: Boolean
 });

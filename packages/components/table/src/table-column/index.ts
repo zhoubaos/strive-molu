@@ -21,9 +21,9 @@ export type Column = {
    */
   prop: string;
   /**
-   * @desc 表头标题名称
+   * @desc 表头标题名称，必须填写，在自定义列时会使用其作为lable
    */
-  label?: string;
+  label: string;
   columnKey?: string;
   type?: 'selection' | 'index' | 'expand';
   index?: (index: number) => number | string;
@@ -59,9 +59,12 @@ export type Column = {
 };
 
 export const tableColumnProps = buildProps({
+  /**
+   * @desc 表格列的配置项
+   */
   column: {
     type: definePropType<Column>(Object),
-    required: true
+    default: () => []
   }
 });
 
