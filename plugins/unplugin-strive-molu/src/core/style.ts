@@ -4,6 +4,7 @@ import type { TransformResult } from 'unplugin';
 import MagicString from 'magic-string';
 import { pascalCase } from 'change-case';
 import consola from 'consola';
+import chalk from 'chalk';
 
 // 匹配多行注释正则
 const multilineCommentsRE = /\/\*\s(.|[\n\r])*?\*\//gm;
@@ -96,6 +97,8 @@ export const transformStyle = async (source: string, options: Options): Promise<
       .join('\n');
 
     const lastFilSpecifier = filterSpecifier.at(-1) as ImportSpecifier;
+
+    consola.info('导入样式文件：\n', chalk.green(lastFilSpecifier));
 
     const s = new MagicString(source);
     // 在最后一个导入语句的后面插入样式导入语句

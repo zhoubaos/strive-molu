@@ -1,10 +1,10 @@
 <template>
   <div class="sm-table">
     <!-- 自定义列 -->
-    <div v-if="isCustomColumn" class="custom-container">
-      <div class="custom-column-wp">
+    <div v-if="isCustomColumn" class="sm-table-container">
+      <div class="sm-table-btn-container">
         <div class="custom-btn" @click="onClick_openDialog">
-          <kj-svg-icon icon-name="setting" />
+          <el-icon><Setting /></el-icon>
           <span>自定义列</span>
         </div>
         <el-popover
@@ -13,7 +13,7 @@
           trigger="hover"
           content="可以通过此功能，选择自己想要在列表上展示的信息列">
           <template #reference>
-            <kj-svg-icon icon-name="question-circle" :size="14" />
+            <el-icon><Warning /></el-icon>
           </template>
         </el-popover>
       </div>
@@ -32,7 +32,7 @@
       header-cell-class-name="custom-table-header"
       cell-class-name="custom-table-body-cell">
       <template #empty> 空 </template>
-      <table-column v-for="col in tableShowColumns" :key="col.prop" :col="col">
+      <table-column v-for="col in tableShowColumns" :key="col.prop" :column="col">
         <template v-for="title in getColumnTitles(col)" #[title]="{ column, index }">
           <slot :name="title" :column="column" :index="index"></slot>
         </template>
@@ -41,11 +41,20 @@
         </template>
       </table-column>
     </el-table>
+    <footer v-show="isPaginationCompShow || true" class="sm-table-footer">
+      <el-pagination
+        v-bind="mergePaginConfig"
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :total="total"
+        @change="handle_pageAndSizeChange" />
+    </footer>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { tableProps } from './table';
+import { Setting, Warning } from '@element-plus/icons-vue';
+import { type PaginationConfig, tableProps, tableEmits, DEFAULT_PAGINATION_CONFIG } from './table';
 import { ref, reactive, onBeforeMount, computed, watch, watchEffect } from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
@@ -65,6 +74,7 @@ defineOptions({
 });
 
 const props = defineProps(tableProps);
+const emits = defineEmits(tableEmits);
 
 // #region 自定义列相关代码逻辑
 
@@ -91,22 +101,18 @@ const tableHash = ref('');
 
 // 处理需要有自定义列功能的逻辑
 const handleCustomColumns = () => {
+  const allColumnKeys = props.columns.map((item) => item.prop);
   // 生成表格的hash值
-  tableHash.value = genTableHash(props.columns.map((item) => item.prop));
+  tableHash.value = genTableHash(allColumnKeys);
 
-  const saveProps = getLocalColumnProps(tableHash.value);
-  if (!saveProps.length) {
+  const localProps = getLocalColumnProps(tableHash.value);
+
+  if (!localProps.length) {
     tableShowColumns.value = props.columns;
     const columnprops = tableShowColumns.value.map((item) => item.prop);
     setLocalColumnProps(tableHash.value, columnprops);
-  }
-};
-// 设置展示列最后一行的宽度为自适应，防止表格未撑满
-const setLastColumnAutoWidth = () => {
-  let len = tableShowColumns.value.length;
-  if (len > 0) {
-    Reflect.has(tableShowColumns.value[len - 1], 'width') &&
-      Reflect.deleteProperty(tableShowColumns.value[len - 1], 'width');
+  } else {
+    tableShowColumns.value = props.columns.filter((item) => localProps.includes(item.prop));
   }
 };
 
@@ -116,6 +122,18 @@ const setLastColumnAutoWidth = () => {
  */
 const handle_checkedColumnprops = (columnProps: string[]) => {
   tableShowColumns.value = props.columns.filter((item) => columnProps.includes(item.prop));
+  setLastColumnAutoWidth();
+};
+
+// 设置展示列最后一行的宽度为自适应，防止表格未撑满
+const setLastColumnAutoWidth = () => {
+  let len = tableShowColumns.value.length;
+  if (len == 1 && Reflect.has(tableShowColumns.value[len - 1], 'width')) {
+    tableShowColumns.value[len - 1] = {
+      ...tableShowColumns.value[len - 1]
+    };
+    Reflect.deleteProperty(tableShowColumns.value[len - 1], 'width');
+  }
 };
 
 // #endregion 自定义列相关代码逻辑
@@ -131,13 +149,70 @@ const updateTableData = () => {
   tableDataNoEmpty.value = replaceTreeEmptyToPlaceholder(props.data, props.emptyValues, props.placeholder);
 };
 watchEffect(() => {
-  if (props.data.length) {
-    updateTableData();
-  }
+  updateTableData();
 });
 
 // #endregion
 
-// init here
+// #region 处理表格分页相关逻辑
+const currentPage = ref(DEFAULT_PAGINATION_CONFIG.defaultCurrentPage);
+const pageSize = ref(DEFAULT_PAGINATION_CONFIG.defaultPageSize);
+
+// 合并分页配置
+const mergePaginConfig = ref<any>({});
+onBeforeMount(() => {
+  let mConfig = Object.assign(DEFAULT_PAGINATION_CONFIG, props.paginationConfig);
+  let config: any = {
+    ...mConfig
+  };
+
+  if (mConfig.layout?.length) {
+    config.layout = mConfig.layout.join(',');
+  }
+  // 如果传入的pageSize不在pageSizes内，就添加
+  if (!mConfig.pageSizes?.includes(mConfig.defaultPageSize as number)) {
+    config.pageSizes = mConfig.pageSizes
+      ?.concat(mConfig.defaultPageSize as number)
+      .sort((a: number, b: number) => a - b);
+  }
+  mergePaginConfig.value = config;
+
+  currentPage.value = config.defaultCurrentPage;
+  pageSize.value = config.defaultPageSize;
+});
+
+// 是否显示分页组件
+const isPaginationCompShow = computed(() => props.total / (pageSize.value as number) > 1);
+
+/**
+ * @desc 处理分页器currentPage或pageSize改变
+ * @param page
+ * @param size
+ */
+const handle_pageAndSizeChange = (page: number, size: number) => {
+  console.log('==组件更改==', page, size);
+  emits('pageAndSizeChange', page, size, resetFlag.value);
+  resetFlag.value = false;
+};
+
+// 重置标志
+const resetFlag = ref(false);
+
+// 重置分页配置信息
+const resetPageAndSize = () => {
+  let { defaultCurrentPage, defaultPageSize } = mergePaginConfig.value;
+  if (defaultCurrentPage != currentPage.value || defaultPageSize != pageSize.value) {
+    currentPage.value = defaultCurrentPage;
+    pageSize.value = defaultPageSize;
+    resetFlag.value = true;
+
+    console.log('==手动更改==', defaultCurrentPage, defaultPageSize);
+  }
+};
+
+defineExpose({
+  resetPageAndSize
+});
+// #endregion
 </script>
 <!-- 禁止在vue文件内写style标签 -->

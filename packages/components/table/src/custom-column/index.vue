@@ -1,9 +1,9 @@
 <template>
   <div class="custom-column-container">
     <el-dialog :model-value="visible" :width="618" title="自定义设置表格列" @closed="onClick_closeDialog">
-      <div class="required-column-box">
+      <div v-if="requiredColuProps.length" class="required-column-box">
         <el-checkbox-group :model-value="requiredColuProps">
-          <el-checkbox v-for="column in requiredColuOption" :key="column.prop" :label="column.prop" disabled>{{
+          <el-checkbox v-for="column in requiredColuOption" :key="column.prop" :value="column.prop" disabled>{{
             column.label
           }}</el-checkbox>
         </el-checkbox-group>
@@ -17,8 +17,8 @@
           >
         </div>
         <div class="content">
-          <el-checkbox-group v-model="curSelectedProps" @change="handleCheckAllChange">
-            <el-checkbox v-for="column in optionalColuOption" :key="column.prop" :label="column.prop">{{
+          <el-checkbox-group v-model="curSelectedProps" @change="handleCheckedChange">
+            <el-checkbox v-for="column in optionalColuOption" :key="column.prop" :value="column.prop">{{
               column.label
             }}</el-checkbox>
           </el-checkbox-group>
@@ -49,9 +49,9 @@ const emits = defineEmits(customColumnEmits);
 
 // 所有列的prop
 const allColuProps = ref<string[]>([]);
-
 // 必须展示的列的prop
 const requiredColuProps = ref<string[]>([]);
+
 // 必选列的配置
 const requiredColuOption = ref<Column[]>([]);
 // 可选的列的配置
@@ -77,7 +77,7 @@ onBeforeMount(() => {
   );
 });
 
-// region 列全选逻辑
+// #region 列全选逻辑
 // 全选框是否选中
 const allCheckboxValue = ref(false);
 // 是否现在选择框中间状态
@@ -93,23 +93,29 @@ onBeforeMount(() => {
  * @desc 全选框 change 事件
  * @param val
  */
-const handleCheckAllChange = (val: boolean) => {
+const handleCheckAllChange = (val: any) => {
   curSelectedProps.value = val
     ? [...allColuProps.value.filter((item: any) => !requiredColuProps.value.includes(item))]
     : [];
   isIndeterminate.value = false;
 };
 
-// endregion
+// #endregion
+
+/**
+ * @function 处理单选每一项
+ * @param val
+ */
+const handleCheckedChange = (val: string[] & any) => {
+  const checkedCount = val.length;
+  allCheckboxValue.value = checkedCount === optionalColuOption.value.length;
+  isIndeterminate.value = checkedCount > 0 && checkedCount < optionalColuOption.value.length;
+};
 
 /**
  * @desc 确认当前选择展示的列
  */
 const onClick_confirmCheckColumns = () => {
-  // if (!checkedKey.value.length) {
-  //   ElMessage.warning('至少选择一列');
-  //   return;
-  // }
   const allShowColumnProps = [...requiredColuProps.value, ...curSelectedProps.value];
   setLocalColumnProps(props.tableHash, [...allShowColumnProps]);
   emits('checked-column-props', [...allShowColumnProps]);

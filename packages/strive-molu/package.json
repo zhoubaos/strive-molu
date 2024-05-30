@@ -47,7 +47,8 @@
     "lib/components/*/style/*"
   ],
   "peerDependencies": {
-    "element-plus": "^2.4.1",
+    "@element-plus/icons-vue": "^2.3.1",
+    "element-plus": "^2.4.4",
     "vue": "^3.3.13"
   },
   "dependencies": {

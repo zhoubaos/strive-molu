@@ -23,6 +23,7 @@
 import { computed } from 'vue';
 import { tableColumnProps } from './index';
 import { getColumnTitles, getColumnRenders } from '../utils';
+import TableColumn from './index.vue';
 defineOptions({
   name: 'SmTableColumn'
 });
@@ -42,6 +43,7 @@ const excludeColumnAttrs = computed(() => {
       res[resKey] = props.column[resKey];
     }
   }
+
   return res;
 });
 </script>

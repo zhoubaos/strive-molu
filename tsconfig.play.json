@@ -2,6 +2,8 @@
   "extends": "./tsconfig.web.json",
   "compilerOptions": {
     "allowJs": true,
+    "strict": false,
+    "noImplicitAny": false, //是否不允许隐式any类型
     "lib": [
       "ESNext",
       "DOM",

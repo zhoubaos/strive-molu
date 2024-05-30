@@ -53,7 +53,7 @@ export const getColumnRenders = (columns: Column | Array<Column>) => {
 // 获取 localStorage 存储的列的prop值
 export const getLocalColumnProps = (key: string): string[] => {
   const saveKeyData: string = localStorage.getItem(key) || '';
-  return saveKeyData.split('&');
+  return saveKeyData ? saveKeyData.split('&') : [];
 };
 // localStorage 存入列的prop值
 export const setLocalColumnProps = (key: string, props: string[]) => {
@@ -61,7 +61,11 @@ export const setLocalColumnProps = (key: string, props: string[]) => {
 };
 
 // 获取当前表格所有的列的key的hash值
-export const genTableHash = (props: string[], extra?: string) => 'columnsProps-' + Md5.hashStr(props.join(''));
+export const genTableHash = (props: string[], extra?: string) => {
+  const path = location.pathname.replace(/^\//, '') || 'no-path';
+  return `columnsProps-${path.split('#')}-${Md5.hashStr(props.join(''))}`;
+};
+
 /**
  * @desc 把数据结构中的空值替换为占位符
  * @param tree

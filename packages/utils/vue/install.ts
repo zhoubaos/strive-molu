@@ -12,6 +12,7 @@ export const withInstall = <T extends { name: string }, E extends Record<string,
       app.component(comp.name, comp);
     }
   };
+
   return main as SFCWithInstall<T>;
 };
 
