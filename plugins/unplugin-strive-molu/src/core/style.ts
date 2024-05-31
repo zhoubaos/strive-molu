@@ -66,7 +66,7 @@ export const transformImportVar = (importStr: string) => {
   try {
     importVariables = parse(exportStr)[1];
   } catch (error) {
-    console.log(error);
+    consola.error(chalk.red('es-module-lexer解析错误：', error));
   }
 
   return importVariables;
@@ -97,8 +97,6 @@ export const transformStyle = async (source: string, options: Options): Promise<
       .join('\n');
 
     const lastFilSpecifier = filterSpecifier.at(-1) as ImportSpecifier;
-
-    consola.info('导入样式文件：\n', chalk.green(lastFilSpecifier));
 
     const s = new MagicString(source);
     // 在最后一个导入语句的后面插入样式导入语句

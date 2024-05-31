@@ -7,6 +7,8 @@ import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import StriveMolu from 'unplugin-strive-molu/vite';
 import ElementPlus from 'unplugin-element-plus/vite';
+import Icons from 'unplugin-icons/rollup';
+import IconsResolver from 'unplugin-icons/resolver';
 import { smPackage, smRoot, getPackageDependencies, pkgRoot, projRoot } from '@strive-molu/build-utils';
 import './vite.init';
 
@@ -20,10 +22,14 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       // mkcert(),
       Components({
         //自动导入ElementPlus组件，并设置生成dts文件路径
-        resolvers: [ElementPlusResolver()]
+        resolvers: [ElementPlusResolver(), IconsResolver()]
       }),
       StriveMolu(), //自动导入strive-molu的样式文件
       ElementPlus({}),
+      Icons({
+        scale: 1,
+        autoInstall: true
+      }),
       Inspect()
     ] as any,
     resolve: {

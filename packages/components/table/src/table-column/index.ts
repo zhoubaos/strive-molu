@@ -1,4 +1,4 @@
-import { buildProps, definePropType } from '@strive-molu/utils';
+import { buildProps, definePropType, type PartialKey } from '@strive-molu/utils';
 import type { ExtractPropTypes } from 'vue';
 
 // 表格排序值
@@ -65,6 +65,20 @@ export const tableColumnProps = buildProps({
   column: {
     type: definePropType<Column>(Object),
     default: () => []
+  },
+  /**
+   * @desc 单元格的值满足 placeHolderValues 的占位符
+   */
+  placeholder: {
+    type: String,
+    default: '--'
+  },
+  /**
+   * @desc 单元格的值包含在该属性的值内，使用站位符
+   */
+  emptyValues: {
+    type: definePropType<any[]>(Array),
+    default: () => [null, undefined, '']
   }
 });
 

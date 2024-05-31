@@ -10,6 +10,7 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
+    ElCion: typeof import('element-plus/es')['ElCion']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
@@ -18,5 +19,8 @@ declare module 'vue' {
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    IRiQuestionLine: typeof import('~icons/ri/question-line')['default']
+    IRiSettings3Line: typeof import('~icons/ri/settings3-line')['default']
+    IRiSettings4Line: typeof import('~icons/ri/settings4-line')['default']
   }
 }

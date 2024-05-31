@@ -71,9 +71,7 @@ export default defineConfig(async ({ mode }: ConfigEnv) => {
         allowOverrides: true,
         include: [/\.vue$/, /\.vue\?vue/]
       }),
-      Icons({
-        autoInstall: true
-      }),
+      Icons(),
       UnoCSS() as any,
       MarkdownTransform()
       // mkcert({

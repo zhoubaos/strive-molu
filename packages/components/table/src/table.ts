@@ -23,7 +23,7 @@ export const tableProps = buildProps({
    */
   data: {
     type: definePropType<any[]>(Array),
-    default: () => []
+    required: true
   },
   /**
    * @desc 表格配置项

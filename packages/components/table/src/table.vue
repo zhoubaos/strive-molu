@@ -13,7 +13,9 @@
           trigger="hover"
           content="可以通过此功能，选择自己想要在列表上展示的信息列">
           <template #reference>
-            <el-icon><Warning /></el-icon>
+            <el-icon :size="14">
+              <Warning />
+            </el-icon>
           </template>
         </el-popover>
       </div>
@@ -28,16 +30,21 @@
     <el-table
       ref="tableRef"
       v-bind="$attrs"
-      :data="tableDataNoEmpty"
+      :data="data"
       header-cell-class-name="custom-table-header"
       cell-class-name="custom-table-body-cell">
       <template #empty> 空 </template>
-      <table-column v-for="col in tableShowColumns" :key="col.prop" :column="col">
+      <table-column
+        v-for="col in tableShowColumns"
+        :key="col.prop"
+        :column="col"
+        :placeholder="placeholder"
+        :emptyValues="emptyValues">
         <template v-for="title in getColumnTitles(col)" #[title]="{ column, index }">
           <slot :name="title" :column="column" :index="index"></slot>
         </template>
         <template v-for="render in getColumnRenders(col)" #[render]="{ row, column, index }">
-          <slot :name="render" :column="column" :row="sourceTableData[index]" :index="index"> </slot>
+          <slot :name="render" :column="column" :row="row" :index="index"></slot>
         </template>
       </table-column>
     </el-table>
@@ -137,22 +144,6 @@ const setLastColumnAutoWidth = () => {
 };
 
 // #endregion 自定义列相关代码逻辑
-
-// #region 处理单元格数据站位符情况
-
-// 表格源数据
-const sourceTableData = ref<any[]>([]);
-const tableDataNoEmpty = ref<any[]>([]);
-// 更新表格数据
-const updateTableData = () => {
-  sourceTableData.value = deepClone(props.data);
-  tableDataNoEmpty.value = replaceTreeEmptyToPlaceholder(props.data, props.emptyValues, props.placeholder);
-};
-watchEffect(() => {
-  updateTableData();
-});
-
-// #endregion
 
 // #region 处理表格分页相关逻辑
 const currentPage = ref(DEFAULT_PAGINATION_CONFIG.defaultCurrentPage);

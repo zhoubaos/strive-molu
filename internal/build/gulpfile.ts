@@ -13,6 +13,7 @@ export const copyFiles = () =>
     copyFile(smPackage, path.join(smOutput, 'package.json')),
     copyFile(path.resolve(projRoot, 'README.md'), path.resolve(smOutput, 'README.md')),
     copyFile(path.resolve(projRoot, 'global.d.ts'), path.resolve(smOutput, 'global.d.ts'))
+    // copyFile(path.resolve(projRoot, 'typings/element-plus.d.ts'), path.resolve(smOutput, 'typings/element-plus.d.ts'))
   ]);
 // 拷贝 dist/types/packages 目录下的文件到 dist/esm 和 dist/cjs 目录下
 export const copyTypesDefinitions: TaskFunction = (done) => {
@@ -45,8 +46,8 @@ export default series(
     series(
       withTaskName('buildTheme', () => run('pnpm run -C packages/theme build')), //打包组件样式文件
       copyFullStyle //拷贝全量css样式
-    ),
-    runTask('buildPlugins') //构建插件
+    )
+    // runTask('buildPlugins') //构建插件
   ),
   parallel(copyFiles, copyTypesDefinitions) //复制package.json文件和ts类型定义文件
 );

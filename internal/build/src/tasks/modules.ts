@@ -11,6 +11,8 @@ import { generateExternal, writeBundles, withTaskName } from '../utils';
 import { StriveMoluAlias } from '../plugins/strive-molu-alias';
 import { buildConfigEntries, target } from '../build-info';
 import Components from 'unplugin-vue-components/rollup';
+import Icons from 'unplugin-icons/rollup';
+import IconsResolver from 'unplugin-icons/resolver';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import type { OutputOptions } from 'rollup';
 
@@ -44,7 +46,7 @@ export const buildModules = async () => {
       // 支持导入CommonJS模块
       // 注意：该插件应该放在转换模块功能的其他创建之前，防止其他插件对 CommonJS 检测产生影响，例外是 Babel 插件，如果你使用它，请将它放在 commonjs 插件之前。
       commonjs(),
-      // 处理ts,vue类型文件
+      // 处理ts,vue类型文件，将vue文件转为ts文件，前提是vue文件中没有使用style标签
       esbuild({
         sourceMap: true,
         target,
@@ -57,6 +59,7 @@ export const buildModules = async () => {
         dts: '../../typings/element-plus.d.ts',
         resolvers: [ElementPlusResolver()]
       })
+      // Icons()
     ] as any,
     external: await generateExternal({ full: false }),
     treeshake: false
@@ -69,9 +72,10 @@ export const buildModules = async () => {
         dir: config.output.path,
         exports: module === 'cjs' ? 'named' : undefined,
         preserveModules: true, //让打包输出文件保持源目录结构
-        preserveModulesRoot: smRoot, //将 smRoot目录 从删除
+        preserveModulesRoot: smRoot, //将包含smRoot变量下的路径删除，详情请看 https://www.rollupjs.com/configuration-options/#output-preservemodulesroot
         sourcemap: true,
         entryFileNames: ({ name }) => {
+          // 自定义打包后的文件路径
           if (name.includes('packages/')) {
             return `${name.split('packages/')[1]}.${config.ext}`;
           }

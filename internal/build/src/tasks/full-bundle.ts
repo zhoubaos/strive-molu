@@ -53,7 +53,7 @@ async function buildFullEntry(minify: boolean) {
         'process.env.NODE_ENV': JSON.stringify('production') // 设置全局变量值
       },
       treeShaking: true,
-      legalComments: 'eof' //处理打包后的代码注释
+      legalComments: 'eof' //处理打包后的代码注释 eof: 保留最后一个注释
     })
   ];
   if (minify) {
