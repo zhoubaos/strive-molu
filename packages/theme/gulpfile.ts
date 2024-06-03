@@ -59,24 +59,25 @@ const compressWithCssnano = () => {
   });
 };
 /**
- * 压缩css
+ * 打包样式文件
  */
 const buildTheme = () => {
   // 不需要添加 sm 前缀的文件名
   const noSmPrefixFile = /(index|base)/;
   return src(path.resolve(__dirname, 'src/*.less'))
-    .pipe(gulpLess())
-    .pipe(autoprefixer({ cascade: false }))
-    .pipe(compressWithCssnano())
+    .pipe(gulpLess()) // less转css
+    .pipe(autoprefixer({ cascade: false })) // css属性添加浏览器兼容前缀
+    .pipe(compressWithCssnano()) // 压缩css
     .pipe(
       rename((path) => {
         //给组件样式文件添加前缀
+
         if (!noSmPrefixFile.test(path.basename)) {
           path.basename = `sm-${path.basename}`;
         }
       })
     )
-    .pipe(dest(distFolder));
+    .pipe(dest(distFolder)); //输出资源
 };
 /**
  * 把packages/theme/dist 到 dist/strive-molu/theme

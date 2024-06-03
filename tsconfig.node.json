@@ -19,11 +19,10 @@
     "plugins/**/*",
     "packages/strive-molu/version.ts",
     "packages/strive-molu/package.json",
-    "scripts/zx/tag.ts"
   ],
   "exclude": [
     "**/__tests__/**",
     "**/tests/**",
-    "**/dist"
+    "**/dist",
   ]
 }
