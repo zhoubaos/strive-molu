@@ -7,7 +7,7 @@ import type { App, Directive } from '@vue/runtime-core';
  * @param comp 组件
  */
 export const withInstall = <T extends { name: string }, E extends Record<string, any>>(main: T, extra?: E) => {
-  (main as SFCWithInstall<T>).install = (app: App) => {
+  (main as any).install = (app: App) => {
     for (const comp of [main, ...Object.values(extra ?? {})]) {
       app.component(comp.name, comp);
     }
@@ -22,7 +22,7 @@ export const withInstall = <T extends { name: string }, E extends Record<string,
  * @param name 指令名称
  */
 export const withInstallDirective = <T extends Directive>(directive: T, name: string): SFCWithInstall<T> => {
-  (directive as SFCWithInstall<T>).install = (app: App) => {
+  (directive as any).install = (app: App) => {
     app.directive(name, directive);
   };
   return directive as SFCWithInstall<T>;

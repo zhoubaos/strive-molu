@@ -18,7 +18,7 @@ const version = getVersion();
 
 async function main() {
   consola.info(`Version: ${version}`);
-  await writeFile(path.resolve(smRoot, 'version.ts'), `export const version = '${version}'\n`);
+  await writeFile(path.resolve(smRoot, 'version.ts'), `export const version = '${version}';\n`);
 }
 
 main();

@@ -147,7 +147,7 @@ const checkData = () => {
 
   tableData.value = data.slice(s, s + pageSize.size);
 };
-checkData();
+// checkData();
 
 const handle_pagesizeChane = (page, size, isReset) => {
   console.log(page, size, isReset);

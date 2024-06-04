@@ -1,4 +1,5 @@
 import { PKG_NAME, PKG_PREFIX } from '@strive-molu/build-constants';
+import chalk from 'chalk';
 
 import type { Plugin } from 'rollup';
 
@@ -7,17 +8,25 @@ import type { Plugin } from 'rollup';
  * @returns
  */
 export function StriveMoluAlias(): Plugin<any> {
-  const themeChalk = 'theme';
-  const sourceThemeChalk = `${PKG_PREFIX}/${themeChalk}` as const;
-  const bundleThemeChalk = `${PKG_NAME}/${themeChalk}` as const;
+  const sourceThemeChalk = `${PKG_PREFIX}/theme` as const;
+  const bundleThemeChalk = `${PKG_NAME}/theme` as const;
+
+  const sourceAssetsChalk = `${PKG_PREFIX}/assets/src` as const;
+  const buildAssetsChalk = `${PKG_NAME}/assets` as const;
 
   return {
     name: 'strive-molu-alias-plugin',
-    resolveId(source) {
-      // source 导入模块的元素路径
-      if (!source.startsWith(sourceThemeChalk)) return;
+    resolveId(sourceId) {
+      if (!sourceId.startsWith(sourceThemeChalk) && !sourceId.includes(sourceAssetsChalk)) return;
+
+      let transformId = sourceId;
+      if (sourceId.startsWith(sourceThemeChalk)) {
+        transformId = sourceId.replaceAll(sourceThemeChalk, bundleThemeChalk);
+      } else if (sourceId.startsWith(sourceAssetsChalk)) {
+        transformId = sourceId.replaceAll(sourceAssetsChalk, buildAssetsChalk);
+      }
       return {
-        id: source.replaceAll(sourceThemeChalk, bundleThemeChalk), // 替换模块的路径
+        id: transformId, // 替换模块的路径
         external: 'absolute' // 保持绝对路径
       };
     }

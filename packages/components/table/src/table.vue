@@ -33,7 +33,12 @@
       :data="data"
       header-cell-class-name="custom-table-header"
       cell-class-name="custom-table-body-cell">
-      <template #empty> 空 </template>
+      <template #empty>
+        <div class="sm-table-empty">
+          <img src="@strive-molu/assets/src/images/404.png" alt="" />
+          <p class="empty-text">暂无数据~</p>
+        </div>
+      </template>
       <table-column
         v-for="col in tableShowColumns"
         :key="col.prop"
@@ -206,4 +211,3 @@ defineExpose({
 });
 // #endregion
 </script>
-<!-- 禁止在vue文件内写style标签 -->

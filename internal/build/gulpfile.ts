@@ -39,6 +39,7 @@ export const copyFullStyle = async () => {
 export default series(
   withTaskName('clean', () => run('pnpm run clean')),
   withTaskName('createOutput', () => mkdir(smOutput, { recursive: true })),
+
   parallel(
     runTask('buildModules'), // 构建单模块
     runTask('buildFullBundle'), //构建全量包
@@ -46,8 +47,8 @@ export default series(
     series(
       withTaskName('buildTheme', () => run('pnpm run -C packages/theme build')), //打包组件样式文件
       copyFullStyle //拷贝全量css样式
-    )
-    // runTask('buildPlugins') //构建插件
+    ),
+    withTaskName('buildAssets', () => run('pnpm run -C packages/assets build'))
   ),
   parallel(copyFiles, copyTypesDefinitions) //复制package.json文件和ts类型定义文件
 );

@@ -11,8 +11,6 @@ import { generateExternal, writeBundles, withTaskName } from '../utils';
 import { StriveMoluAlias } from '../plugins/strive-molu-alias';
 import { buildConfigEntries, target } from '../build-info';
 import Components from 'unplugin-vue-components/rollup';
-import Icons from 'unplugin-icons/rollup';
-import IconsResolver from 'unplugin-icons/resolver';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import type { OutputOptions } from 'rollup';
 
@@ -43,7 +41,7 @@ export const buildModules = async () => {
         }
       }),
       nodeResolve({ extensions: ['.mjs', '.js', '.json', '.ts'] }),
-      // 支持导入CommonJS模块
+      // 用于将commonjs格式的代码转换为ESM格式
       // 注意：该插件应该放在转换模块功能的其他创建之前，防止其他插件对 CommonJS 检测产生影响，例外是 Babel 插件，如果你使用它，请将它放在 commonjs 插件之前。
       commonjs(),
       // 处理ts,vue类型文件，将vue文件转为ts文件，前提是vue文件中没有使用style标签
@@ -59,7 +57,6 @@ export const buildModules = async () => {
         dts: '../../typings/element-plus.d.ts',
         resolvers: [ElementPlusResolver()]
       })
-      // Icons()
     ] as any,
     external: await generateExternal({ full: false }),
     treeshake: false

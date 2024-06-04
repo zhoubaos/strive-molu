@@ -12,3 +12,5 @@ export type ReplaceObjKeyType<T, Key, NewType> =
  * @desc 让对象中的某一个属性变为可选
  */
 export type PartialKey<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+export {};
