@@ -57,7 +57,7 @@ export const tableProps = buildProps({
    * @desc 是否展示自定义控制表格展示的列的功能，
    * 注意：自定义列暂时不支持多级表头
    */
-  isCustomColumn: Boolean,
+  canCustomColumn: Boolean,
   /**
    * @desc 分页配置
    */

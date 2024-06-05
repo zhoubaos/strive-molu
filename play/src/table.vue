@@ -9,8 +9,7 @@
       row-key="id"
       :pagination-config="{
         defaultCurrentPage: pageSize.page,
-        defaultPageSize: pageSize.size,
-        pageSizes: [10, 20]
+        defaultPageSize: pageSize.size
       }"
       @page-and-size-change="handle_pagesizeChane">
       <template #name="{ row }">{{ row.name }}</template>
@@ -137,6 +136,18 @@ const data = reactive([
     name: '胜sd多负少',
     age: 153,
     address: '北京收到了'
+  },
+  {
+    id: 10,
+    name: '胜多负少',
+    age: 1453,
+    address: '江苏地第三方'
+  },
+  {
+    id: 11,
+    name: '胜sd多负少',
+    age: 153,
+    address: '北京收到了'
   }
 ]);
 const tableData = ref([]);
@@ -147,7 +158,7 @@ const checkData = () => {
 
   tableData.value = data.slice(s, s + pageSize.size);
 };
-// checkData();
+checkData();
 
 const handle_pagesizeChane = (page, size, isReset) => {
   console.log(page, size, isReset);

@@ -65,29 +65,3 @@ export const genTableHash = (props: string[], extra?: string) => {
   const path = location.pathname.replace(/^\//, '') || 'no-path';
   return `columnsProps-${path.split('#')}-${Md5.hashStr(props.join(''))}`;
 };
-
-/**
- * @desc 把数据结构中的空值替换为占位符
- * @param tree
- * @param emptyV
- * @param placeholder
- */
-export const replaceTreeEmptyToPlaceholder = (
-  tree: Record<string | 'children', any>[],
-  emptyV = ['', null, undefined],
-  placeholder = '--'
-) => {
-  if (Array.isArray(tree)) {
-    for (const item of tree) {
-      for (const key in item) {
-        if (key == 'children') {
-          replaceTreeEmptyToPlaceholder(item['children'], emptyV, placeholder);
-        } else {
-          emptyV.includes(item[key]) && (item[key] = placeholder);
-        }
-      }
-    }
-  }
-
-  return tree;
-};

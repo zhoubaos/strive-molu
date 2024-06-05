@@ -1,23 +1,12 @@
 <template>
   <div class="sm-table">
     <!-- 自定义列 -->
-    <div v-if="isCustomColumn" class="sm-table-container">
+    <div v-if="canCustomColumn" class="sm-table-container">
       <div class="sm-table-btn-container">
         <div class="custom-btn" @click="onClick_openDialog">
           <el-icon><Setting /></el-icon>
           <span>自定义列</span>
         </div>
-        <el-popover
-          placement="top"
-          :width="200"
-          trigger="hover"
-          content="可以通过此功能，选择自己想要在列表上展示的信息列">
-          <template #reference>
-            <el-icon :size="14">
-              <Warning />
-            </el-icon>
-          </template>
-        </el-popover>
       </div>
       <custom-column
         :key="visible"
@@ -65,20 +54,12 @@
 </template>
 
 <script lang="ts" setup>
-import { Setting, Warning } from '@element-plus/icons-vue';
-import { type PaginationConfig, tableProps, tableEmits, DEFAULT_PAGINATION_CONFIG } from './table';
-import { ref, reactive, onBeforeMount, computed, watch, watchEffect } from 'vue';
+import { Setting } from '@element-plus/icons-vue';
+import { tableProps, tableEmits, DEFAULT_PAGINATION_CONFIG } from './table';
+import { ref, onBeforeMount, computed } from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
-import {
-  getColumnTitles,
-  getColumnRenders,
-  getLocalColumnProps,
-  setLocalColumnProps,
-  genTableHash,
-  replaceTreeEmptyToPlaceholder
-} from './utils';
-import { deepClone } from '@strive-molu/utils';
+import { getColumnTitles, getColumnRenders, getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
 import TableColumn from './table-column/index.vue';
 
 defineOptions({
@@ -100,7 +81,7 @@ const onClick_openDialog = () => {
 // 表格展示的列
 const tableShowColumns = ref<Array<Column>>([]);
 onBeforeMount(() => {
-  if (props.isCustomColumn) {
+  if (props.canCustomColumn) {
     handleCustomColumns();
   } else {
     tableShowColumns.value = props.columns;
