@@ -14,6 +14,9 @@ void (async function () {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // 将每个单词的首字母大写
     .join(''); // 将单词连接起来
 
+  // 首字母转换为小写
+  const LOWER_NAME = NORRMAL_NAME.charAt(0).toLowerCase() + NORRMAL_NAME.slice(1);
+
   // 检查输入的组件名称
   if (argv._.length !== 0 || /\s+/.test(NAME) || NAME === '') {
     exitWithError('组件名称不能是空格或空');
@@ -38,8 +41,8 @@ void (async function () {
   await $`mkdir -p ${DIR_NAME}/style`;
 
   await Promise.all([
-    writeComSameNameVueFile(),
-    writeComSameNameTsFile(),
+    writeComSameNameVueFileV2(),
+    writeComSameNameTsFileV2(),
     writeComInstanceFile(),
     writeComExportTsFile(),
     createComStyleTsFile()
@@ -58,13 +61,44 @@ void (async function () {
     </template>
     
     <script lang="ts" setup>
-    import { ${NAME}Props } from './${NAME}'
+    import { ${LOWER_NAME}Props } from './${NAME}'
     
     defineOptions({
       name: 'Sm${NORRMAL_NAME}',
     })
     
-    const props = defineProps(${NAME}Props)
+    const props = defineProps(${LOWER_NAME}Props)
+    
+    // init here
+    </script>
+    <!-- 禁止在vue文件内添加style标签 -->
+    `;
+      await fs.writeFile(filePath, fileContent);
+      consola.success(chalk.green(`创建成功：${filePath}`));
+    } catch (error) {
+      exitWithError(error);
+    }
+  }
+
+  // 写入同名vue文件
+  async function writeComSameNameVueFileV2() {
+    try {
+      const filePath = `${DIR_NAME}/src/${NAME}.vue`;
+      const fileContent = `
+    <template>
+    <div class="sm-${NAME.toLowerCase()}">
+      <slot />
+    </div>
+    </template>
+    
+    <script lang="ts" setup>
+    import { type ${NORRMAL_NAME}Props, default${NORRMAL_NAME}Props } from './${NAME}'
+    
+    defineOptions({
+      name: 'Sm${NORRMAL_NAME}',
+    })
+    
+    const props = withDefaults(defineProps<${NORRMAL_NAME}Props>(), default${NORRMAL_NAME}Props);
     
     // init here
     </script>
@@ -85,11 +119,28 @@ void (async function () {
     import { buildProps } from '@strive-molu/utils';
     import type { ExtractPropTypes } from 'vue';
     
-    export const ${NAME}Props = buildProps({});
+    export const ${LOWER_NAME}Props = buildProps({});
 
     // 获取运行时且面向内部的prop类型
     // eg：https://cn.vuejs.org/api/utility-types.html#extractproptypes
-    export type ${NORRMAL_NAME}Props = ExtractPropTypes<typeof ${NAME}Props>;
+    export type ${NORRMAL_NAME}Props = ExtractPropTypes<typeof ${LOWER_NAME}Props>;
+    `;
+      await fs.writeFile(filePath, fileContent);
+      consola.success(chalk.green(`创建成功：${filePath}`));
+    } catch (error) {
+      exitWithError(error);
+    }
+  }
+
+  // 写入同名js文件
+  async function writeComSameNameTsFileV2() {
+    try {
+      const filePath = `${DIR_NAME}/src/${NAME}.ts`;
+      const fileContent = `
+      // 组件props类型 
+    export type ${NORRMAL_NAME}Props = {};
+      // 组件props默认值
+    export const default${NORRMAL_NAME}Props: Partial<${NORRMAL_NAME}Props> = {};
     `;
       await fs.writeFile(filePath, fileContent);
       consola.success(chalk.green(`创建成功：${filePath}`));
@@ -138,12 +189,16 @@ void (async function () {
   // 创建style文件
   async function createComStyleTsFile() {
     try {
+      // 创建less文件
       const filePath1 = `${DIR_NAME}/style/index.ts`;
-      const filePath2 = `${DIR_NAME}/style/css.ts`;
-      const content = '// 该组件依赖的样式less文件\n';
-      await fs.writeFile(filePath1, content);
+      const content1 = `// 该组件依赖的样式less文件\nimport '@strive-molu/components/base/style';`;
+      await fs.writeFile(filePath1, content1);
       consola.success(chalk.green(`创建成功：${filePath1}`));
-      await fs.writeFile(filePath2, content);
+
+      // 创建css文件
+      const filePath2 = `${DIR_NAME}/style/css.ts`;
+      const content2 = `// 该组件依赖的样式css文件\nimport '@strive-molu/components/base/style/css';`;
+      await fs.writeFile(filePath2, content2);
       consola.success(chalk.green(`创建成功：${filePath2}`));
     } catch (error) {
       exitWithError(error);

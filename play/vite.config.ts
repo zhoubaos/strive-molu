@@ -24,7 +24,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         //自动导入ElementPlus组件，并设置生成dts文件路径
         resolvers: [ElementPlusResolver(), IconsResolver()]
       }),
-      StriveMolu(), //自动导入strive-molu的样式文件
+      // StriveMolu(), //自动导入strive-molu的样式文件
       ElementPlus({}),
       Icons({
         scale: 1,

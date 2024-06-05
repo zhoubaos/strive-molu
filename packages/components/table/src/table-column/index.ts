@@ -1,4 +1,4 @@
-import { buildProps, definePropType, type PartialKey } from '@strive-molu/utils';
+import { buildProps, definePropType } from '@strive-molu/utils';
 import type { ExtractPropTypes } from 'vue';
 
 // 表格排序值

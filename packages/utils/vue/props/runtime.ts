@@ -1,4 +1,4 @@
-import { warn } from 'vue';
+import { warn, withDefaults, defineProps } from 'vue';
 // import { fromPairs } from 'lodash-unified';
 import { isObject } from '../../types';
 import { hasOwn } from '../../objects';

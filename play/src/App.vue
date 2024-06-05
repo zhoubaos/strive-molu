@@ -3,11 +3,18 @@
     <h1>每个组件的路由地址为：域名+src目录下的文件名称，例如</h1>
     <h2>http://192.168.2.58:5173/App</h2>
     <h2>http://192.168.2.58:5173/Button</h2>
-    <img src="../../packages/assets/dist/images/404.jpeg" alt="" />
+    <div>
+      所有组件名称：
+      <ul class="name-list">
+        <li v-for="name in globNames" :key="name">{{ name }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const globNames = Object.keys(import.meta.glob('./*.vue')).map((name) => name.replace(/^.*\/([^/]+)\.vue$/, '$1'));
+
 // code here
 </script>
 

@@ -18,8 +18,6 @@ export const customColumnProps = buildProps({
   }
 });
 
-console.log(customColumnProps);
-
 export const customColumnEmits = {
   'update:visible': (visible: boolean) => true,
   'checked-column-props': (cols: string[]) => Array.isArray(cols)

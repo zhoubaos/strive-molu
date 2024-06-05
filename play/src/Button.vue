@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="dd"
-    @click="onClick_d">
+  <div class="dd" @click="onClick_d">
     <SmButton />
   </div>
 </template>
