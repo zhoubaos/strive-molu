@@ -11,9 +11,6 @@ export const directiveRoot = resolve(pkgRoot, 'directives');
 export const smRoot = resolve(pkgRoot, 'strive-molu');
 export const utilRoot = resolve(pkgRoot, 'utils');
 
-// 插件根目录
-export const pluginsRoot = resolve(projRoot, 'plugins');
-
 // 打包配置文件根目录
 export const buildRoot = resolve(projRoot, 'internal', 'build');
 

@@ -16,9 +16,9 @@
     "internal/**/*.json",
     "scripts/*",
     "scripts/zx/*",
-    "plugins/**/*",
     "packages/strive-molu/version.ts",
     "packages/strive-molu/package.json",
+    "packages/**/gulpfile.*"
   ],
   "exclude": [
     "**/__tests__/**",

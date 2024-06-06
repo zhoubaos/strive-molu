@@ -3,7 +3,6 @@
   "packageManager": "pnpm@8.15.5",
   "workspaces": [
     "packages/*",
-    "plugins/*",
     "internal/*",
     "docs",
     "play"

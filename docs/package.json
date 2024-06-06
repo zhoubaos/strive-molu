@@ -28,7 +28,7 @@
     "prismjs": "^1.29.0",
     "unocss": "^0.60.0",
     "unplugin-icons": "^0.18.5",
-    "unplugin-strive-molu": "workspace:^",
+    "unplugin-strive-molu": "0.0.1-beta-7",
     "unplugin-vue-components": "^0.26.0",
     "vitepress": "^1.0.1"
   }

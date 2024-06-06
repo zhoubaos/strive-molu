@@ -3,4 +3,3 @@ packages:
   - docs
   - play
   - internal/*
-  - plugins/*

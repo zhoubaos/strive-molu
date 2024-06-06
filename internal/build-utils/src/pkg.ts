@@ -19,7 +19,6 @@ export const getWorkspaceNames = async (dir = projRoot) => {
 /**
  * @description 获取目录下所有工作区间的目录
  * @param rootdir 目录
- * @example ['unplugin-strive-molu', 'd:/strive-molu/plugins/unplugin-strive-molu']
  */
 export const getWorkspaceNameDirs = async (rootdir = projRoot) => {
   const pkgs = await findWorkspacePackages(rootdir);
