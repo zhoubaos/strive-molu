@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "vue.official",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "antfu.unocss",
+  ]
+}

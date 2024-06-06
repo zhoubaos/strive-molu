@@ -1,7 +1,7 @@
 <template>
   <el-form ref="elFormRef" :model="formData" v-bind="$attrs">
     <template v-for="(item, index) in formItems" :key="index">
-      <form-item-render :form-state="item" :form="formData" v-model="formData[item.payload.prop]"></form-item-render>
+      <form-item-render v-model="formData[item.payload.prop]" :form-state="item" :form="formData"></form-item-render>
     </template>
     <!-- 按钮操作 -->
     <el-form-item>

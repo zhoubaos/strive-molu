@@ -1,4 +1,6 @@
 dist
 node_modules
 .husky
+# .github
+.vscode
 pnpm-lock.yaml

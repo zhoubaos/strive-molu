@@ -18,14 +18,10 @@
     "allowJs": false, //允许使用js
     "baseUrl": ".", //查询的基础路径
     "types": [],
-    "paths": { //路径映射，配合vite配置的resolve.alias相关联别名使用
-      "@strive-molu/*": [
-        "packages/*",
-        "internal/*",
-      ]
-    },
+    "paths": {
+      //路径映射，配合vite配置的resolve.alias相关联别名使用
+      "@strive-molu/*": ["packages/*", "internal/*"]
+    }
   },
-  "exclude": [
-    "dist"
-  ]
+  "exclude": ["dist"]
 }

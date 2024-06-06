@@ -18,8 +18,8 @@ const props = withDefaults(
   <div class="example-showcase">
     <ClientOnly>
       <component
-        v-if="demo"
         :is="demo"
+        v-if="demo"
         v-bind="$attrs" />
     </ClientOnly>
   </div>

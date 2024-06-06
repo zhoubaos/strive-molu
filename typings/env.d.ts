@@ -24,7 +24,7 @@ declare module '*.vue' {
 /**
  * @description 扩展vue实例类型支持
  */
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface GlobalComponents {
     Component: (props: { is: Component | string }) => void;
   }

@@ -1,6 +1,6 @@
-import '@vue/runtime-core';
+import 'vue';
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // GlobalComponents for Volar
 
   export interface GlobalComponents {

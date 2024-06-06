@@ -22,6 +22,6 @@
   "exclude": [
     "**/__tests__/**",
     "**/tests/**",
-    "**/dist",
+    "**/dist"
   ]
 }

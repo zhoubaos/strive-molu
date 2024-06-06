@@ -2,9 +2,9 @@
   <el-form :model="formData" v-bind="$attrs">
     <template v-for="(item, index) in formItems" :key="index">
       <form-item-comp-render
+        v-model="formData[item.payload.prop]"
         :form-state="item"
-        :form="formData"
-        v-model="formData[item.payload.prop]"></form-item-comp-render>
+        :form="formData"></form-item-comp-render>
     </template>
   </el-form>
 </template>

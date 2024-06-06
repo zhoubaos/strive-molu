@@ -5,17 +5,17 @@
       <el-input
         v-if="formState.type == 'input'"
         :model-value="modelValue"
-        @update:model-value="updateModelValue"
-        v-bind="formState.payload"></el-input>
+        v-bind="formState.payload"
+        @update:model-value="updateModelValue"></el-input>
       <!-- el-input-number -->
       <el-input-number
         v-if="formState.type == 'inputNumber'"
         :model-value="modelValue"
-        @update:model-value="updateModelValue"
-        v-bind="formState.payload"></el-input-number>
+        v-bind="formState.payload"
+        @update:model-value="updateModelValue"></el-input-number>
     </el-form-item>
     <!-- next -->
-    <form-item-comp :form-state="nextItem" :form="form" v-model="form[nextItem?.payload.prop]"></form-item-comp>
+    <form-item-comp v-model="form[nextItem?.payload.prop]" :form-state="nextItem" :form="form"></form-item-comp>
   </template>
 </template>
 

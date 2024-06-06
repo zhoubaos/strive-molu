@@ -4,7 +4,7 @@
       <component :is="render" />
     </el-form-item>
     <!-- Next Item -->
-    <form-item-comp-two :form-state="nextItem" :form="form" v-model="form[nextItem?.payload.prop]"></form-item-comp-two>
+    <form-item-comp-two v-model="form[nextItem?.payload.prop]" :form-state="nextItem" :form="form"></form-item-comp-two>
   </template>
 </template>
 

@@ -1,5 +1,5 @@
 import { version } from './version';
-import type { App, Plugin } from '@vue/runtime-core';
+import type { App, Plugin } from 'vue';
 
 const INSTALLED_KEY = 'INSTALLED_KEY';
 

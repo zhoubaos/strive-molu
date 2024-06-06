@@ -33,7 +33,7 @@
         :key="col.prop"
         :column="col"
         :placeholder="placeholder"
-        :emptyValues="emptyValues">
+        :empty-values="emptyValues">
         <template v-for="title in getColumnTitles(col)" #[title]="{ column, index }">
           <slot :name="title" :column="column" :index="index"></slot>
         </template>

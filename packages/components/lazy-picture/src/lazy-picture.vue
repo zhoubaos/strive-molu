@@ -1,5 +1,5 @@
 <template>
-  <div class="sm-lazy-picture" ref="lazyPictureRef">
+  <div ref="lazyPictureRef" class="sm-lazy-picture">
     <img v-if="isLoading" class="sm-lazy-picture__load" :src="mergerLoadUrl" alt="加载中。。。" />
     <img
       v-else

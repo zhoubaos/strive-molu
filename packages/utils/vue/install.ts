@@ -1,6 +1,6 @@
 import type { SFCWithInstall, SFCInstallWithContext } from './typescript';
-import { NOOP } from '@vue/shared';
-import type { App, Directive } from '@vue/runtime-core';
+import { NOOP } from 'vue';
+import type { App, Directive } from 'vue';
 
 /**
  * 给传入VNode对象添加 install 方法，用于Vue.use 注册该组件

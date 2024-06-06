@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.node.json",
   "compilerOptions": {
-    "composite": false, // 必须为false，否则tsup或unbuild打包生成dts会报错
-  },
+    "composite": false // 必须为false，否则tsup或unbuild打包生成dts会报错
+  }
 }
