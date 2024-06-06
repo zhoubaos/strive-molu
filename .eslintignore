@@ -4,3 +4,4 @@ dist
 pnpm-lock.yaml
 !.*
 scripts/*.mjs
+.github

@@ -6,6 +6,28 @@ on:
     types: [created]
 
 jobs:
+  test: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        # 克隆整个仓库的历史记录；默认情况为1，克隆最近的一次提交
+        fetch-depth: 0
+
+    - name: Add dev branch
+      run: git branch dev origin/dev
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        registry-url: https://registry.npmjs.org
+
+    - name: Install dependencies
+      run: pnpm i --frozen-lockfile
+
   publish:
     # 运行环境
     runs-on: ubuntu-latest
