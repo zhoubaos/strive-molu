@@ -33,4 +33,6 @@ export type PartialKey<T> = {
   [K in keyof T]-?: {} extends Pick<T, K> ? K : never;
 }[keyof T];
 
+export type Arrayable<T> = T | T[];
+
 export {};

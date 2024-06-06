@@ -1,15 +1,19 @@
 <template>
   <div>
-    <sm-dynamic-form :form-data="formData" :form-items="formItems">
+    <sm-dynamic-form ref="smDynamicFormRef" :form-data="formData" :form-items="formItems">
       <el-button type="primary" @click="onSubmit">Create</el-button>
-      <el-button>Cancel</el-button>
+      <el-button @click="onCancel">Cancel</el-button>
     </sm-dynamic-form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { SmDynamicForm, type FormItem, createFormItem } from '@strive-molu/components';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
+
+const smDynamicFormRef = ref();
+
+// 表单数据
 const formData = reactive({
   name: '',
   age: undefined,
@@ -23,7 +27,7 @@ const formItems = reactive([
     prop: 'name',
     type: 'text',
     elFormItemAttrs: {
-      rules: [{ required: true }],
+      rules: [{ required: true, message: '请输入名称' }],
       labelWidth: 120
     },
     elCompAttrs: {
@@ -53,6 +57,10 @@ const formItems = reactive([
 
 const onSubmit = () => {
   console.log(formData);
+};
+
+const onCancel = () => {
+  smDynamicFormRef.value!.clearValidate('name');
 };
 </script>
 
