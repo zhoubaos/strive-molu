@@ -6,7 +6,8 @@ on:
     types: [created]
 
 jobs:
-  test: ubuntu-latest
+  test:
+  runs-on: ubuntu-latest
   steps:
     - uses: actions/checkout@v3
       with:
