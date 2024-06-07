@@ -1,4 +1,4 @@
-require('tsx/cjs');
+// require('tsx/cjs');
 import path from 'node:path';
 import { dest, series, src } from 'gulp';
 import imagemin, { mozjpeg, optipng, svgo } from 'gulp-imagemin';

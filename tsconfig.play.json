@@ -4,7 +4,16 @@
     "allowJs": true,
     "strict": false,
     "noImplicitAny": false, //是否不允许隐式any类型
-    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ]
   },
-  "include": ["typings/env.d.ts", "play/main.ts", "play/env.d.ts", "play/src/**/*"]
+  "include": [
+    "typings/env.d.ts",
+    "play/main.ts",
+    "play/env.d.ts",
+    "play/src/**/*"
+  ]
 }

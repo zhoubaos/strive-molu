@@ -18,7 +18,6 @@ export function StriveMoluAlias(): Plugin<any> {
     name: 'strive-molu-alias-plugin',
     resolveId(sourceId) {
       if (!sourceId.startsWith(sourceThemeChalk) && !sourceId.includes(sourceAssetsChalk)) return;
-
       let transformId = sourceId;
       if (sourceId.startsWith(sourceThemeChalk)) {
         transformId = sourceId.replaceAll(sourceThemeChalk, bundleThemeChalk);

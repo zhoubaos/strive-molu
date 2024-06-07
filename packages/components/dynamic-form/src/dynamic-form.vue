@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { type DynamicFormProps, defaultDynamicFormProps } from './dynamic-form';
+import { dynamicFormProps } from './dynamic-form';
 import FormItemRender from './form-item-render.vue';
 import type { FormValidateCallback, FormItemProp } from 'element-plus';
 import { type Arrayable } from '@strive-molu/utils';
@@ -21,7 +21,7 @@ defineOptions({
   name: 'SmDynamicForm'
 });
 
-const props = withDefaults(defineProps<DynamicFormProps>(), defaultDynamicFormProps);
+const props = defineProps(dynamicFormProps);
 
 const elFormRef = ref();
 

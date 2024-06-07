@@ -1,5 +1,5 @@
 <template>
-  <template v-if="formState">
+  <div v-if="formState">
     <el-form-item
       v-bind="formState.payload.elFormItemAttrs"
       :label="formState.payload.label"
@@ -8,16 +8,17 @@
     </el-form-item>
     <!-- Next Item -->
     <form-item-render v-model="form[nextItem?.payload.prop]" :form-state="nextItem" :form="form"></form-item-render>
-  </template>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ElInput, ElInputNumber } from 'element-plus';
 import { computed, type VNode, h, type Component } from 'vue';
+import FormItemRender from './form-item-render.vue';
 import type { FormItem, FormItemType } from './form-item';
-import { type FormItemRenderProps, defaultFormItemRenderProps, formItemRenderEmits } from './form-item-render';
+import { formItemRenderProps, formItemRenderEmits } from './form-item-render';
 
-const props = withDefaults(defineProps<FormItemRenderProps>(), defaultFormItemRenderProps);
+const props = defineProps(formItemRenderProps);
 
 const emits = defineEmits(formItemRenderEmits);
 
@@ -38,10 +39,10 @@ const nextItem = computed(() => {
  * @desc Element组件render函数
  */
 const render = () => {
+  // ... 扩展其他ElementPlus组件类型
   const elRenderStrategy: Record<FormItemType, VNode> = {
     input: createElFormItem(ElInput),
     inputNumber: createElFormItem(ElInputNumber)
-    // ... 扩展其他ElementPlus组件类型
   };
   return elRenderStrategy[props.formState!.type];
 };

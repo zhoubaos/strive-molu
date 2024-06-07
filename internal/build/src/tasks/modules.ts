@@ -11,6 +11,7 @@ import { generateExternal, writeBundles, withTaskName } from '../utils';
 import { StriveMoluAlias } from '../plugins/strive-molu-alias';
 import { buildConfigEntries, target } from '../build-info';
 import Components from 'unplugin-vue-components/rollup';
+import alias from '@rollup/plugin-alias';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import type { OutputOptions } from 'rollup';
 

@@ -14,6 +14,8 @@ import { version } from '../../../../packages/strive-molu/version';
 import { StriveMoluAlias } from '../plugins/strive-molu-alias';
 import { formatBundleFilename, generateExternal, withTaskName, writeBundles } from '../utils';
 import { target } from '../build-info';
+import Components from 'unplugin-vue-components/rollup';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import type { TaskFunction } from 'gulp';
 import type { Plugin } from 'rollup';
 
@@ -54,6 +56,11 @@ async function buildFullEntry(minify: boolean) {
       },
       treeShaking: true,
       legalComments: 'eof' //处理打包后的代码注释 eof: 保留最后一个注释
+    }),
+    Components({
+      //自动导入ElementPlus组件，并设置生成dts文件路径
+      dts: '../../typings/element-plus.d.ts',
+      resolvers: [ElementPlusResolver()]
     })
   ];
   if (minify) {
@@ -97,6 +104,6 @@ async function buildFullEntry(minify: boolean) {
 export const buildFull = (minify: boolean) => async () => Promise.all([buildFullEntry(minify)]);
 
 export const buildFullBundle: TaskFunction = parallel(
-  withTaskName('buildFullMinified', buildFull(true)),
-  withTaskName('buildFull', buildFull(false))
+  withTaskName('buildFull', buildFull(false)),
+  withTaskName('buildFullMinified', buildFull(true))
 );
