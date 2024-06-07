@@ -48,8 +48,15 @@ jobs:
         run: pnpm lint
 
   publish:
+    # 必须运行完成test步骤后再运行该步骤
+    needs: test
     # 运行环境
     runs-on: ubuntu-latest
+    permissions:
+      # 设置工作流对代码仓库只读权限
+      contents: read
+      # 设置工作流可以写入 ID 令牌的权限
+      id-token: write
     steps:
       # 签出github仓库代码
       - uses: actions/checkout@v3
