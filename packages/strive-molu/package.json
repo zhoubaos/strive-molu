@@ -33,7 +33,6 @@
   "unpkg": "dist/index.full.js",
   "jsdelivr": "dist/index.full.js",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "author": "zhoubaos",
