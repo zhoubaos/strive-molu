@@ -7,45 +7,45 @@ on:
 
 jobs:
   test:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
-      with:
-        # 克隆整个仓库的历史记录；默认情况为1，克隆最近的一次提交
-        fetch-depth: 0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # 克隆整个仓库的历史记录；默认情况为1，克隆最近的一次提交
+          fetch-depth: 0
 
-    - name: Add dev branch
-      run: git branch dev origin/dev
+      - name: Add dev branch
+        run: git branch dev origin/dev
 
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
 
-    - name: Setup node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        registry-url: https://registry.npmjs.org
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org
 
-    # 获取pnpm 依赖的缓存地址，并存入到 $GITHUB_OUTPUT 文件中
-    - name: Get pnpm store directory
-      id: pnpm-cache
-      run: |
-        echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+      # 获取pnpm 依赖的缓存地址，并存入到 $GITHUB_OUTPUT 文件中
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-    # 设置pnpm缓存
-    - name: Setup pnpm cache
-      uses: actions/cache@v3
-      with:
-        path: ${{steps.pnpm-cache.outputs.pnpm_cache_dir}}
-        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-store-
+      # 设置pnpm缓存
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{steps.pnpm-cache.outputs.pnpm_cache_dir}}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
-    - name: Install dependencies
-      run: pnpm i --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
 
-    - name: Lint
-      run: pnpm lint
+      - name: Lint
+        run: pnpm lint
 
   publish:
     # 运行环境
