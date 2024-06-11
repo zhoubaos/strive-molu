@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: 开始
-      link: /pages/component/el-table
+      link: /pages/component/table
     - theme: alt
       text: 在 GitHub 上查看
       link: https://github.com/ox4f5da2

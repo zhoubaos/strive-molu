@@ -1,23 +1,15 @@
 <template>
   <ClientOnly>
     <!-- danger here DO NOT USE INLINE SCRIPT TAG -->
-    <p
-      text="sm"
-      v-html="decodedDescription"></p>
+    <p text="sm" v-html="decodedDescription"></p>
 
     <div class="example">
-      <Example
-        :file="path"
-        :demo="formatPathDemos[path]" />
+      <Example :file="path" :demo="formatPathDemos[path]" />
 
       <ElDivider class="m-0" />
 
       <div class="op-btns">
-        <ElTooltip
-          content="复制代码"
-          :show-arrow="false"
-          :trigger="['hover', 'focus']"
-          :trigger-keys="[]">
+        <ElTooltip content="复制代码" :show-arrow="false" :trigger="['hover', 'focus']" :trigger-keys="[]">
           <ElIcon
             :size="16"
             aria-label="复制代码"
@@ -30,11 +22,7 @@
             <i-ri-file-copy-line />
           </ElIcon>
         </ElTooltip>
-        <ElTooltip
-          content="查看源代码"
-          :show-arrow="false"
-          :trigger="['hover', 'focus']"
-          :trigger-keys="[]">
+        <ElTooltip content="查看源代码" :show-arrow="false" :trigger="['hover', 'focus']" :trigger-keys="[]">
           <button
             ref="sourceCodeRef"
             :aria-label="sourceVisible ? '隐藏源代码' : '查看源代码'"
@@ -48,9 +36,7 @@
       </div>
 
       <ElCollapseTransition>
-        <SourceCode
-          v-show="sourceVisible"
-          :source="source" />
+        <SourceCode v-show="sourceVisible" :source="source" />
       </ElCollapseTransition>
 
       <Transition name="el-fade-in-linear">
@@ -119,7 +105,6 @@ const formatPathDemos = computed(() => {
   Object.keys(props.demos).forEach((key) => {
     demos[key.replace('../../examples/', '').replace('.vue', '')] = props.demos[key].default;
   });
-  console.log(props.demos);
 
   return demos;
 });

@@ -6,12 +6,12 @@ const options: Option[] = [
     text: '基于ElementPlus组件',
     items: [
       {
-        text: 'Table',
-        link: '/el-table'
+        text: 'Table 表格',
+        link: '/table'
       },
       {
         text: 'Button',
-        link: '/el-button'
+        link: '/button'
       }
     ]
   },
@@ -19,8 +19,12 @@ const options: Option[] = [
     text: '其他组件',
     items: [
       {
-        text: 'NetworkImg',
-        link: '/network-img'
+        text: 'LazyPicture 懒加载图片',
+        link: '/lazy-picture'
+      },
+      {
+        text: 'DynamicForm 动态表单',
+        link: '/dynamic-form'
       }
     ]
   }

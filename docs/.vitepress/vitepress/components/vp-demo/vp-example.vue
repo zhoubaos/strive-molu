@@ -15,12 +15,9 @@ const props = withDefaults(
 </script>
 
 <template>
-  <div class="example-showcase">
+  <div class="example-showcase vp-raw">
     <ClientOnly>
-      <component
-        :is="demo"
-        v-if="demo"
-        v-bind="$attrs" />
+      <component :is="demo" v-if="demo" v-bind="$attrs" />
     </ClientOnly>
   </div>
 </template>

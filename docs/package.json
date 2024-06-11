@@ -15,7 +15,7 @@
     "clipboard-copy": "^4.0.1",
     "element-plus": "^2.6.3",
     "markdown-it": "^14.1.0",
-    "strive-molu": "0.0.1-beta-1"
+    "strive-molu": "0.0.1"
   },
   "devDependencies": {
     "@strive-molu/build-constants": "workspace:^",
@@ -25,11 +25,12 @@
     "escape-html": "^1.0.3",
     "fast-glob": "^3.3.2",
     "markdown-it-container": "^4.0.0",
+    "postcss": "^8.4.38",
     "prismjs": "^1.29.0",
     "unocss": "^0.60.0",
     "unplugin-icons": "^0.18.5",
     "unplugin-strive-molu": "0.0.1",
     "unplugin-vue-components": "^0.26.0",
-    "vitepress": "^1.0.1"
+    "vitepress": "^1.2.3"
   }
 }

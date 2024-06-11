@@ -13,4 +13,5 @@ import type { Component } from 'vue';
 // 和vitepress关联的组件
 import VPDemo from './components/vp-demo/index.vue';
 
+export * from './el-component';
 export const globals: [string, Component | any][] = [['Demo', VPDemo]];
