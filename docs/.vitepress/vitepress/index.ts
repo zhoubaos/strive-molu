@@ -13,5 +13,10 @@ import type { Component } from 'vue';
 // 和vitepress关联的组件
 import VPDemo from './components/vp-demo/index.vue';
 
+import ApiTyping from './components/globals/vp-api-typing.vue';
+
 export * from './el-component';
-export const globals: [string, Component | any][] = [['Demo', VPDemo]];
+export const globals: [string, Component | any][] = [
+  ['Demo', VPDemo],
+  ['ApiTyping', ApiTyping]
+];

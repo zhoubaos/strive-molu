@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     IRiCodeLine: typeof import('~icons/ri/code-line')['default']
     IRiFileCopyLine: typeof import('~icons/ri/file-copy-line')['default']
+    VpApiTyping: typeof import('./.vitepress/vitepress/components/globals/vp-api-typing.vue')['default']
     VpDemo: typeof import('./.vitepress/vitepress/components/vp-demo/index.vue')['default']
     VpExample: typeof import('./.vitepress/vitepress/components/vp-demo/vp-example.vue')['default']
     VpSourceCode: typeof import('./.vitepress/vitepress/components/vp-demo/vp-source-code.vue')['default']
