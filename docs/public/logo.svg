@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160px" height="160px" viewBox="0 0 160 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>画板</title>
+    <defs>
+        <linearGradient x1="28.875%" y1="100%" x2="71.125%" y2="-7.99168902%" id="linearGradient-1">
+            <stop stop-color="#0055F4" offset="0%"></stop>
+            <stop stop-color="#6904F9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="20.1285449%" y1="86.8233561%" x2="77.2419265%" y2="13.1766439%" id="linearGradient-2">
+            <stop stop-color="#0055F4" offset="0%"></stop>
+            <stop stop-color="#6904F9" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="画板" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组-3备份-3" transform="translate(27.000000, 50.000000)" fill-rule="nonzero">
+            <path d="M34,0 L39,36.3934426 L30,36.3934426 C28.1082099,36.3934426 26.5231558,37.6852064 26.1068003,39.4209022 L19,60 L0,60 L16.2085916,2.79320606 C16.6768194,1.14063734 18.1855375,-5.72656627e-16 19.9031582,0 L34,0 Z" id="形状结合" fill="url(#linearGradient-1)"></path>
+            <path d="M71,0 L76,36.3934426 L67,36.3934426 C65.1082099,36.3934426 63.5231558,37.6852064 63.1068003,39.4209022 L56,60 L37,60 L53.2085916,2.79320606 C53.6768194,1.14063734 55.1855375,-5.72656627e-16 56.9031582,0 L71,0 Z" id="形状结合备份" fill="url(#linearGradient-1)"></path>
+            <path d="M97.7271166,36.3934426 C99.5457445,36.3934426 101.135472,37.6202632 101.596471,39.3794924 L107,60 L99,60 L99,55 L94,55 L94,60 L89,60 L89,55 L84.8151926,54.9994426 L79.4921926,36.3934426 Z M94,50 L89,50 L89,55 L94,55 L94,50 Z" id="形状结合" fill="url(#linearGradient-2)"></path>
+        </g>
+    </g>
+</svg>

@@ -45,6 +45,14 @@ module.exports = defineConfig({
       rules: {
         'no-undef': 'off' //关闭未声明变量检查
       }
+    },
+    {
+      files: ['**/*.md/*.js', '**/*.md/*.ts'],
+      rules: {
+        'no-console': 'off',
+        'import/no-unresolved': 'off',
+        '@typescript-eslint/no-unused-vars': 'off'
+      }
     }
   ],
   rules: {

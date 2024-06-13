@@ -52,28 +52,24 @@ table/custom-column
 
 ## 属性
 
-| 属性名           | 说明                                                                                                                      | 类型     | 默认值              |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------- |
-| data             | 表格数据                                                                                                                  | `any[]`  | []                  |
-| columns          | 表格的列配置，详情情况下面                                                                                                | Column[] | []                  |
-| total            | 表格数据总数                                                                                                              | number   | 0                   |
-| placeholder      | 当属性值满足 emptyValues 时的占位符                                                                                       | string   | --                  |
-| emptyValues      | 需要被占位的属性值                                                                                                        | any[]    | ['',null,undefined] |
-| canCustomColumn  | 是否自定义展示的列，为true会显示一个控制自定义类的按钮                                                                    | boolean  | false               |
-| paginationConfig | 表格分页属性配置，详情请查看[Pagination组件](https://element-plus.org/zh-CN/component/pagination.html#%E5%B1%9E%E6%80%A7) |          |                     |
+| 属性名           | 说明                                                                                                                      | 类型       | 默认值              |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- |
+| data             | 表格数据                                                                                                                  | `any[]`    | []                  |
+| columns          | 表格的列配置，详情情况下面                                                                                                | `Column[]` | []                  |
+| total            | 表格数据总数                                                                                                              | `number`   | 0                   |
+| placeholder      | 当属性值满足 emptyValues 时的占位符                                                                                       | `string`   | --                  |
+| emptyValues      | 需要被占位的属性值                                                                                                        | `any[]`    | ['',null,undefined] |
+| canCustomColumn  | 是否自定义展示的列，为true会显示一个控制自定义类的按钮                                                                    | `boolean`  | false               |
+| paginationConfig | 表格分页属性配置，详情请查看[Pagination组件](https://element-plus.org/zh-CN/component/pagination.html#%E5%B1%9E%E6%80%A7) |            |                     |
 
 ### Column属性
 
-以下只列出部分属性，其余属性请参 [table-column](https://element-plus.org/zh-CN/component/table.html#table-column-api)
+以下只列出部分属性，其余属性请参 [table-column](https://element-plus.org/zh-CN/component/table.html#table-column-api)。
 
-| 属性名     | 说明                                                         | 类型           | 默认值 |
-| ---------- | ------------------------------------------------------------ | -------------- | ------ |
-| prop       | 和列内容对应的字段名对应                                     | string         | —      |
-| label      | 显示的标题                                                   | string         | —      |
-| isRequired | 在使用自定义列的功能时，该属性用于约束该列能一直可以显示     | boolean        | false  |
-| slots      | 定义表头或单元格插槽名称。title配置表头插槽名称，customRender配置单元格名称 | {title:string} |        |
-| children   |                                                              |                |        |
-
-
-
-## 方法
+| 属性名     | 说明                                                                          | 类型                                 | 默认值 |
+| ---------- | ----------------------------------------------------------------------------- | ------------------------------------ | ------ |
+| prop       | 和列内容对应的字段名对应                                                      | `string`                             | —      |
+| label      | 显示的标题                                                                    | `string`                             | —      |
+| isRequired | 在使用自定义列的功能时，该属性用于约束该列能一直可以显示                      | `boolean`                            | false  |
+| slots      | 定义表头或单元格插槽名称。title配置表头插槽名称，customRender配置单元格名称。 | `{title:string,customRender:string}` |        |
+| children   | 配置多级表头时会使用。                                                        | `Column[]`                           |        |

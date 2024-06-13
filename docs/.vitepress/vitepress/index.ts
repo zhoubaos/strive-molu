@@ -5,6 +5,9 @@ import 'element-plus/dist/index.css';
 import '../../../packages/theme/src/reset.less';
 import '../../../packages/theme/src/index.less';
 
+// 动态改变主题色
+import './styles/css/rainbow.css';
+import './styles/css/css-vars.css';
 import './styles/index.less';
 
 import 'virtual:uno.css';
@@ -15,8 +18,9 @@ import VPDemo from './components/vp-demo/index.vue';
 
 import ApiTyping from './components/globals/vp-api-typing.vue';
 
-export * from './el-component';
 export const globals: [string, Component | any][] = [
   ['Demo', VPDemo],
   ['ApiTyping', ApiTyping]
 ];
+
+//
