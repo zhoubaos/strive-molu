@@ -1,15 +1,23 @@
 <template>
   <ClientOnly>
     <!-- danger here DO NOT USE INLINE SCRIPT TAG -->
-    <p text="sm" v-html="decodedDescription"></p>
+    <p
+      text="sm"
+      v-html="decodedDescription"></p>
 
     <div class="example">
-      <Example :file="path" :demo="formatPathDemos[path]" />
+      <Example
+        :file="path"
+        :demo="formatPathDemos[path]" />
 
       <ElDivider class="m-0" />
 
       <div class="op-btns">
-        <ElTooltip content="复制代码" :show-arrow="false" :trigger="['hover', 'focus']" :trigger-keys="[]">
+        <ElTooltip
+          content="复制代码"
+          :show-arrow="false"
+          :trigger="['hover', 'focus']"
+          :trigger-keys="[]">
           <ElIcon
             :size="16"
             aria-label="复制代码"
@@ -22,7 +30,11 @@
             <i-ri-file-copy-line />
           </ElIcon>
         </ElTooltip>
-        <ElTooltip content="查看源代码" :show-arrow="false" :trigger="['hover', 'focus']" :trigger-keys="[]">
+        <ElTooltip
+          content="查看源代码"
+          :show-arrow="false"
+          :trigger="['hover', 'focus']"
+          :trigger-keys="[]">
           <button
             ref="sourceCodeRef"
             :aria-label="sourceVisible ? '隐藏源代码' : '查看源代码'"
@@ -36,7 +48,9 @@
       </div>
 
       <ElCollapseTransition>
-        <SourceCode v-show="sourceVisible" :source="source" />
+        <SourceCode
+          v-show="sourceVisible"
+          :source="source" />
       </ElCollapseTransition>
 
       <Transition name="el-fade-in-linear">
@@ -103,14 +117,17 @@ const formatPathDemos = computed(() => {
   const demos = {};
 
   Object.keys(props.demos).forEach((key) => {
-    demos[key.replace('../../examples/', '').replace('.vue', '')] = props.demos[key].default;
+    demos[key.replace('../../examples/', '').replace('.vue', '')] =
+      props.demos[key].default;
   });
 
   return demos;
 });
 
 // 描述
-const decodedDescription = computed(() => decodeURIComponent(props.description));
+const decodedDescription = computed(() =>
+  decodeURIComponent(props.description)
+);
 
 const [sourceVisible, toggleSourceVisible] = useToggle();
 
@@ -127,16 +144,17 @@ const onSourceVisibleKeydown = (e: KeyboardEvent) => {
 };
 
 const { copy, isSupported } = useClipboard({
-  source: decodeURIComponent(props.rawSource),
-  read: false
+  source: decodeURIComponent(props.rawSource)
 });
 /**
  * @description 复制源代码
+ * warn：useClipboard 的底层是是使用 navigator.clipboard 实现的，在http协议中navigator.clipboard打印undefined，所以会失效。
  */
 const copyCode = async () => {
   const { $message } = vm.appContext.config.globalProperties;
-  if (!isSupported) {
+  if (!isSupported || !navigator.clipboard) {
     $message.error('复制失败');
+    return;
   }
   try {
     await copy();

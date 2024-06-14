@@ -1,5 +1,10 @@
 <template>
-  <sm-table can-custom-column :data="tableData" :columns="tableColumns" :total="tableData.length"> </sm-table>
+  <sm-table
+    can-custom-column
+    :data="tableData"
+    :columns="tableColumns"
+    :total="tableData.length">
+  </sm-table>
 </template>
 
 <script setup lang="ts">

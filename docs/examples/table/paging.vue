@@ -1,5 +1,9 @@
 <template>
-  <el-button class="btn" @click="onClick_reset">重置分页</el-button>
+  <el-button
+    class="btn"
+    @click="onClick_reset"
+    >重置分页</el-button
+  >
   <sm-table
     ref="smTableRef"
     :data="tableData"

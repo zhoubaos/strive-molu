@@ -47,6 +47,10 @@ module.exports = defineConfig({
       }
     },
     {
+      files: ['**/*.md'],
+      processor: 'markdown/markdown'
+    },
+    {
       files: ['**/*.md/*.js', '**/*.md/*.ts'],
       rules: {
         'no-console': 'off',

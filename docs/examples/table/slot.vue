@@ -1,5 +1,8 @@
 <template>
-  <sm-table :data="tableData" :columns="tableColumns" :total="tableData.length">
+  <sm-table
+    :data="tableData"
+    :columns="tableColumns"
+    :total="tableData.length">
     <template #dateTitle>
       <span>自定义日期</span>
     </template>

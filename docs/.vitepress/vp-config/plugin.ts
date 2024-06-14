@@ -20,7 +20,13 @@ interface ContainerOpts {
 
   validate?(params: string): boolean;
 
-  render?(tokens: Token[], index: number, options: any, env: any, self: Renderer): string;
+  render?(
+    tokens: Token[],
+    index: number,
+    options: any,
+    env: any,
+    self: Renderer
+  ): string;
 }
 
 export const mdPlugin = (md: MarkdownIt) => {
@@ -39,7 +45,10 @@ export const mdPlugin = (md: MarkdownIt) => {
         const sourceFile = sourceFileToken.children?.[0].content ?? '';
         if (sourceFileToken.type === 'inline') {
           // 读取示列代码文件
-          source = fs.readFileSync(path.resolve(docRoot, 'examples', `${sourceFile}.vue`), 'utf-8');
+          source = fs.readFileSync(
+            path.resolve(docRoot, 'examples', `${sourceFile}.vue`),
+            'utf-8'
+          );
         }
 
         if (!source) throw new Error(`源文件不正确: ${sourceFile}`);

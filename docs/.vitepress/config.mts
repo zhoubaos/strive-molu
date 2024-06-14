@@ -28,6 +28,10 @@ export default defineConfig({
         link: 'https://github.com/zhoubaos/strive-molu'
       }
     ],
+    docFooter: {
+      prev: '上一页',
+      next: '下一页'
+    },
     nav: nav as any,
     sidebar
   },

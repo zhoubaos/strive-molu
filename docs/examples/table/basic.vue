@@ -1,5 +1,9 @@
 <template>
-  <sm-table :data="tableData" :columns="tableColumns" :total="tableData.length"> </sm-table>
+  <sm-table
+    :data="tableData"
+    :columns="tableColumns"
+    :total="tableData.length">
+  </sm-table>
 </template>
 
 <script setup lang="ts">
