@@ -9,7 +9,13 @@ import StriveMolu from 'unplugin-strive-molu/vite';
 import ElementPlus from 'unplugin-element-plus/vite';
 import Icons from 'unplugin-icons/rollup';
 import IconsResolver from 'unplugin-icons/resolver';
-import { smPackage, smRoot, getPackageDependencies, pkgRoot, projRoot } from '@strive-molu/build-utils';
+import {
+  smPackage,
+  smRoot,
+  getPackageDependencies,
+  pkgRoot,
+  projRoot
+} from '@strive-molu/build-utils';
 import './vite.init';
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {

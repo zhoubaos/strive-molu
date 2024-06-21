@@ -490,8 +490,8 @@ importers:
         specifier: ^0.8.0
         version: 0.8.0
       unplugin-strive-molu:
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: ^0.0.2
+        version: 0.0.2
       unplugin-vue-components:
         specifier: ^0.26.0
         version: 0.26.0(rollup@4.17.0)(vue@3.4.21)
@@ -3032,7 +3032,7 @@ packages:
       estree-walker: 2.0.2
       glob: 8.1.0
       is-reference: 1.2.1
-      magic-string: 0.30.9
+      magic-string: 0.30.10
       rollup: 3.29.4
     dev: true
 
@@ -12562,6 +12562,18 @@ packages:
 
   /unplugin-strive-molu@0.0.1:
     resolution: {integrity: sha512-b77mR83nhv4qiarqXWqOFACaV/cwEoDGsLAf9FYGp/XhmqLbgDNOIyTLMxxCcJdGCO+PuK8en4tK/p717Xly2w==}
+    engines: {node: '>=16.20.2'}
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.17.0)
+      es-module-lexer: 1.5.0
+      magic-string: 0.30.10
+      unplugin: 1.10.1
+    transitivePeerDependencies:
+      - rollup
+    dev: true
+
+  /unplugin-strive-molu@0.0.2:
+    resolution: {integrity: sha512-gRs/NZESGM8I5I9gv9NORVw0iSUpZsXX5AYiVxO3m8xe21P9c/L8ZFe4Qu3bopgO4MDYgxAuPp5tY6kDCk/mbg==}
     engines: {node: '>=16.20.2'}
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.17.0)

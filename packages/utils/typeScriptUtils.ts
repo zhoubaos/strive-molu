@@ -11,7 +11,15 @@ export type ReplaceObjKeyType<T, Key, NewType> =
 /**
  * @desc 让对象中的某一个属性变为可选
  */
-export type SetPartialKey<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+export type SetPartialKey<T, K extends keyof T> = Omit<T, K> &
+  Partial<Pick<T, K>>;
+
+/**
+ * @desc 让对象中的某一个属性变为必选
+ *
+ * `-?`：去掉可选标志
+ */
+export type SetRequiredKey<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 
 /**
  * @desc 获取对象中必填的属性类型
@@ -25,6 +33,7 @@ export type RequiredKey<T> = {
 
 /**
  * @desc 获取对象中可选的属性类型
+ *
  * @example
  * type A = { a: string, b?: number, c: string };
  * type B = OptionalKey<A>; // "b"

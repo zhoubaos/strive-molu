@@ -20,7 +20,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.6.2",
     "unplugin-element-plus": "^0.8.0",
-    "unplugin-strive-molu": "^0.0.1",
+    "unplugin-strive-molu": "^0.0.2",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^4.5.3",
     "vite-plugin-inspect": "^0.8.3",
