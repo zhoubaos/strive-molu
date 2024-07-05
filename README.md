@@ -1,9 +1,11 @@
-## Strive Molu
+# Strive Molu
 
-111
+## 依赖安装
 
-```javascript
-dfd;
+```shell
+npm install strive-molu
 ```
 
-U+010000
+## 文档
+
+文档`docs`模块下，基于vitepress搭建，暂未编写完成。

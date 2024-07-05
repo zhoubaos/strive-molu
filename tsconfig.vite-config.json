@@ -3,16 +3,9 @@
   "compilerOptions": {
     "composite": true,
     "moduleResolution": "Bundler",
-    "types": [
-      "node"
-    ]
+    // "module": "Node16",
+    "types": ["node"]
   },
-  "include": [
-    "**/vite.config.*",
-    "**/vitest.config.*",
-    "**/vite.init.*"
-  ],
-  "exclude": [
-    "docs"
-  ]
+  "include": ["**/vite.config.*", "**/vitest.config.*", "**/vite.init.*"],
+  "exclude": ["docs"]
 }
