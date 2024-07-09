@@ -6,14 +6,25 @@
     <div>
       所有组件名称：
       <ul class="name-list">
-        <li v-for="name in globNames" :key="name">{{ name }}</li>
+        <li
+          v-for="name in globNames"
+          :key="name">
+          {{ name }}
+        </li>
       </ul>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const globNames = Object.keys(import.meta.glob('./*.vue')).map((name) => name.replace(/^.*\/([^/]+)\.vue$/, '$1'));
+const globNames = Object.keys(import.meta.glob('./*.vue')).map((name) =>
+  name.replace(/^.*\/([^/]+)\.vue$/, '$1')
+);
+import { countdown } from '@strive-molu/utils';
+
+countdown(4000, (td) => {
+  console.log(td);
+});
 
 // code here
 </script>

@@ -8,3 +8,4 @@ export * from './error'; //错误、警告处理函数
 export * from './dom'; //dom相关处理函数
 export * from './deepClone';
 export * from './typeScriptUtils'; //ts相关类型工具函数
+export * from './countdown';

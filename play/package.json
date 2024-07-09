@@ -18,6 +18,7 @@
     "vue": "^3.3.13"
   },
   "devDependencies": {
+    "@strive-molu/utils": "workspace:^",
     "@vitejs/plugin-vue": "^4.6.2",
     "unplugin-element-plus": "^0.8.0",
     "unplugin-strive-molu": "^0.0.2",

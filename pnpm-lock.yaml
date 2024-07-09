@@ -483,6 +483,9 @@ importers:
         specifier: ^3.3.13
         version: 3.4.21(typescript@5.4.5)
     devDependencies:
+      '@strive-molu/utils':
+        specifier: workspace:^
+        version: link:../packages/utils
       '@vitejs/plugin-vue':
         specifier: ^4.6.2
         version: 4.6.2(vite@4.5.3)(vue@3.4.21)
