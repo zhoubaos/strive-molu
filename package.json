@@ -31,7 +31,7 @@
     "typecheck:vite-config": "vue-tsc -p tsconfig.vite-config.json --composite false --noEmit",
     "docs:dev": "pnpm run -C docs dev",
     "docs:build": "pnpm run -C docs build",
-    "docs:serve": "pnpm run -C docs serve",
+    "docs:preview": "pnpm run -C docs preview",
     "play:dev": "pnpm run -C play dev",
     "stub": "pnpm run -r --parallel stub",
     "postinstall": "pnpm stub && concurrently \"pnpm gen:version\""

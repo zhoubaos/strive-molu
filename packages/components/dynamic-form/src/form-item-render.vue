@@ -7,7 +7,10 @@
       <component :is="render" />
     </el-form-item>
     <!-- Next Item -->
-    <form-item-render v-model="form[nextItem?.payload.prop]" :form-state="nextItem" :form="form"></form-item-render>
+    <form-item-render
+      v-model="form[nextItem?.payload.prop]"
+      :form-state="nextItem"
+      :form="form"></form-item-render>
   </div>
 </template>
 
@@ -33,7 +36,11 @@ const nextItem = computed(() => {
   while ((current = current.parent)) {
     acients.unshift(current);
   }
-  return props.formState!.next(props.formState?.payload.val, props.formState as FormItem, acients);
+  return props.formState!.next(
+    props.formState?.payload.val,
+    props.formState as FormItem,
+    acients
+  );
 });
 /**
  * @desc Element组件render函数

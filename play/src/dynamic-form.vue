@@ -1,15 +1,26 @@
 <template>
   <div>
-    <sm-dynamic-form ref="smDynamicFormRef" :form-data="formData" :form-items="formItems">
-      <el-button type="primary" @click="onSubmit">Create</el-button>
+    <sm-dynamic-form
+      ref="smDynamicFormRef"
+      :form-data="formData"
+      :form-items="formItems">
+      <el-button
+        type="primary"
+        @click="onSubmit"
+        >Create</el-button
+      >
       <el-button @click="onCancel">Cancel</el-button>
     </sm-dynamic-form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { SmDynamicForm, type FormItem, createFormItem } from '@strive-molu/components';
-import { reactive, ref } from 'vue';
+import {
+  SmDynamicForm,
+  type FormItem,
+  createFormItem
+} from '@strive-molu/components';
+import { onMounted, reactive, ref } from 'vue';
 
 const smDynamicFormRef = ref();
 
@@ -20,7 +31,14 @@ const formData = reactive({
   email: ''
 });
 
-const formItems = reactive([
+onMounted(() => {
+  setTimeout(() => {
+    formData.age = 32;
+    formItems.value = getItems();
+  }, 2000);
+});
+
+const getItems = () => [
   createFormItem('input', {
     val: formData.name,
     label: '名字',
@@ -53,7 +71,9 @@ const formItems = reactive([
       });
     }
   )
-]);
+];
+
+const formItems = ref(getItems());
 
 const onSubmit = () => {
   console.log(formData);

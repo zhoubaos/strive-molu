@@ -1,7 +1,15 @@
 <template>
-  <el-form ref="elFormRef" :model="formData" v-bind="$attrs">
-    <template v-for="(item, index) in formItems" :key="index">
-      <form-item-render v-model="formData[item.payload.prop]" :form-state="item" :form="formData"></form-item-render>
+  <el-form
+    ref="elFormRef"
+    :model="formData"
+    v-bind="$attrs">
+    <template
+      v-for="(item, index) in formItems"
+      :key="index">
+      <form-item-render
+        v-model="formData[item.payload.prop]"
+        :form-state="item"
+        :form="formData"></form-item-render>
     </template>
     <!-- 按钮操作 -->
     <el-form-item>
@@ -30,7 +38,10 @@ const validate = (callback?: FormValidateCallback) => {
   return elFormRef.value?.validate(callback);
 };
 
-const validateField = (props?: Arrayable<FormItemProp> | undefined, callback?: FormValidateCallback) => {
+const validateField = (
+  props?: Arrayable<FormItemProp> | undefined,
+  callback?: FormValidateCallback
+) => {
   return elFormRef.value?.validateField(props, callback);
 };
 
