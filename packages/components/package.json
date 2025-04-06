@@ -13,6 +13,7 @@
   "sideEffects": false,
   "license": "ISC",
   "dependencies": {
-    "@strive-molu/assets": "workspace:^"
+    "@strive-molu/assets": "workspace:^",
+    "@strive-molu/theme": "workspace:^"
   }
 }

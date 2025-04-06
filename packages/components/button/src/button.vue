@@ -1,5 +1,9 @@
 <template>
-  <button class="sm-button" @click="onClick_d">我是SM按钮</button>
+  <button
+    class="sm-button"
+    @click="onClick_d">
+    我是SM按钮
+  </button>
 </template>
 
 <script setup lang="ts">

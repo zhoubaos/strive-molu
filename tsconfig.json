@@ -2,19 +2,19 @@
   "files": [],
   "references": [
     {
-      "path": "./tsconfig.web.json" //主要用于项目中的web模块
+      "path": "./tsconfig.web.json"
     },
     {
       "path": "./tsconfig.play.json"
-      //用于项目中的play模块
     },
     {
       "path": "./tsconfig.node.json"
-      // 用于项目中的node模块
     },
     {
       "path": "./tsconfig.vite-config.json"
-      // 用于项目中的vite相关的config文件
+    },
+    {
+      "path": "./tsconfig.vitest.json"
     }
   ]
 }

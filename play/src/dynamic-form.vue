@@ -9,8 +9,13 @@
         @click="onSubmit"
         >Create</el-button
       >
-      <el-button @click="onCancel">Cancel</el-button>
+      <el-button
+        type="primary"
+        @click="onCancel"
+        >Cancel</el-button
+      >
     </sm-dynamic-form>
+    <el-button type="primary">11</el-button>
   </div>
 </template>
 
