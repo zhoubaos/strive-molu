@@ -1,0 +1,25 @@
+@use 'sass:color';
+@use 'sass:string';
+
+/// rgb color to hex color
+/// @example
+///   rgb2hex(rgb(255, 255, 255)) // "#ffffff"
+///   rgb2hex(rgb(255, 255, 255, 0.5)) // "#ffffff"
+@function rgb2hex($color) {
+  @return string.unquote('#' + #{string.slice(color.ie-hex-str($color), 4)});
+}
+
+/// 混合两种颜色
+@function mix-overlay-color($upper, $lower) {
+  // 获取颜色的透明度
+  $opacity: color.alpha($upper);
+
+  $red: color.channel($upper, 'red') * $opacity + color.channel($lower, 'red') *
+    (1 - $opacity);
+  $green: color.channel($upper, 'green') * $opacity +
+    color.channel($lower, 'green') * (1 - $opacity);
+  $blue: color.channel($upper, 'blue') * $opacity +
+    color.channel($lower, 'blue') * (1 - $opacity);
+
+  @return rgb2hex(rgb($red, $green, $blue));
+}
