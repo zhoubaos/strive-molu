@@ -2,8 +2,9 @@
 
 /// 连接name
 /// joinVarName(('button', 'text-color')) => '--sm-button-text-color'
-@function joinVarName($list) {
-  $name: '--' + config.$namespace;
+/// joinVarName(('button', 'text-color'),'el') => '--el-button-text-color'
+@function joinVarName($list, $namespace: config.$namespace) {
+  $name: '--' + $namespace;
   @each $item in $list {
     @if $item != '' {
       $name: $name + '-' + $item;
@@ -13,6 +14,7 @@
 }
 
 // getCssVarName('button', 'text-color') => '--sm-button-text-color'
+/// @warn 不能自定义namespace
 @function getCssVarName($args...) {
   @return joinVarName($args);
 }
@@ -42,4 +44,61 @@
 
   // @debug $name;
   @return $name;
+}
+
+// BEM support Func
+@function selectorToString($selector) {
+  /// 返回selector字符串表达形式
+  /// meta.inspect(10px 20px 30px); // unquote("10px 20px 30px")
+  $selector: meta.inspect($selector);
+  /// 截取第2到最后第二个字符
+  /// string.slice("abcdefg", 2, -2) // "bcdef"
+  $selector: string.slice($selector, 2, -2);
+  @return $selector;
+}
+/// 是否包括修饰符连接
+/// @example
+///   containsModifier(.sm-button__header--wrapper) => true
+@function containsModifier($selector) {
+  $selector: selectorToString($selector);
+
+  @if string.index($selector, config.$modifier-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+/// 是否包含.is-
+/// @example
+///   containWhenFlag(.is-active) => true
+///   containWhenFlag(.is-active:hover) => true
+@function containWhenFlag($selector) {
+  $selector: selectorToString($selector);
+
+  @if string.index($selector, '.' + config.$state-prefix) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+/// 是否包含伪类
+/// @example
+///   containPseudoClass(.is-active:hover) => true
+///   containPseudoClass(.is-active) => false
+@function containPseudoClass($selector) {
+  $selector: selectorToString($selector);
+
+  @if string.index($selector, ':') {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+/// 是否命中所有嵌套规则
+@function hitAllSpecialNestRule($selector) {
+  @return containsModifier($selector) or containWhenFlag($selector) or
+    containPseudoClass($selector);
 }
