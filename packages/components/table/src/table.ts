@@ -1,10 +1,22 @@
-import { buildProps, definePropType, type ReplaceObjKeyType } from '@strive-molu/utils';
+import {
+  buildProps,
+  definePropType,
+  type ReplaceObjKeyType
+} from '@strive-molu/utils';
 import type { ExtractPropTypes } from 'vue';
 import { type Column } from './table-column';
 import type { PaginationProps } from 'element-plus';
 
 // 分页布局组件
-type LayoutKey = 'prev' | 'pager' | 'next' | 'jumper' | '->' | 'total' | 'sizes' | 'slot';
+type LayoutKey =
+  | 'prev'
+  | 'pager'
+  | 'next'
+  | 'jumper'
+  | '->'
+  | 'total'
+  | 'sizes'
+  | 'slot';
 export type PaginationConfig = Omit<
   ReplaceObjKeyType<Partial<PaginationProps>, 'layout', LayoutKey[]>,
   'pageSize' | 'currentPage'
@@ -30,7 +42,7 @@ export const tableProps = buildProps({
    */
   columns: {
     type: definePropType<Column[]>(Array),
-    default: () => []
+    default: () => [] as Column[]
   },
   /**
    * @desc 表格数据的总条数
@@ -64,10 +76,10 @@ export const tableProps = buildProps({
   paginationConfig: {
     type: definePropType<PaginationConfig>(Object),
     default: () => {
-      return {};
+      return {} as PaginationConfig;
     }
   }
-});
+} as const);
 
 export const tableEmits = {
   pageAndSizeChange: (page: number, size: number, isReset?: boolean) => true

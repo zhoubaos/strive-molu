@@ -14,7 +14,13 @@ const statePrefix = 'is-';
  * @param element 子元素类名 eg: button__icon
  * @param modifier 修饰符类名 eg: button--primary
  */
-const _bem = (namespace: string, block: string, blockSuffix: string, element?: string, modifier?: string) => {
+const _bem = (
+  namespace: string,
+  block: string,
+  blockSuffix: string,
+  element?: string,
+  modifier?: string
+) => {
   let cls = `${namespace}-${block}`;
   if (blockSuffix) {
     cls += `-${blockSuffix}`;
@@ -28,17 +34,22 @@ const _bem = (namespace: string, block: string, blockSuffix: string, element?: s
   return cls;
 };
 
-export const namespaceContextKey: InjectionKey<Ref<string | undefined>> = Symbol('namespaceContextKey');
+export const namespaceContextKey: InjectionKey<Ref<string | undefined>> =
+  Symbol('namespaceContextKey');
 
 /**
- * 获取参数传入|注入|默认的命名
+ * 获取参数传入|注入|默认的命名空间
  * @param namespaceOverrides
  * @returns
  */
-export const useGetDerivedNamespace = (namespaceOverrides?: Ref<string | undefined>) => {
+export const useGetDerivedNamespace = (
+  namespaceOverrides?: Ref<string | undefined>
+) => {
   const derivedNamespace =
     namespaceOverrides ||
-    (getCurrentInstance() ? inject(namespaceContextKey, ref(defaultNamespace)) : ref(defaultNamespace));
+    (getCurrentInstance()
+      ? inject(namespaceContextKey, ref(defaultNamespace))
+      : ref(defaultNamespace));
   const namespace = computed(() => {
     return unref(derivedNamespace) || defaultNamespace;
   });
@@ -50,22 +61,36 @@ export const useGetDerivedNamespace = (namespaceOverrides?: Ref<string | undefin
  * @param namespaceOverrides 重写命名空间
  * @returns
  */
-export const useNamespace = (block: string, namespaceOverrides?: Ref<string | undefined>) => {
+export const useNamespace = (
+  block: string,
+  namespaceOverrides?: Ref<string | undefined>
+) => {
   const namespace = useGetDerivedNamespace(namespaceOverrides);
   // 获取组件后缀名
-  const b = (blockSuffix = '') => _bem(namespace.value, block, blockSuffix, '', '');
+  const b = (blockSuffix = '') =>
+    _bem(namespace.value, block, blockSuffix, '', '');
   // 获取组件子元素名
-  const e = (element?: string) => (element ? _bem(namespace.value, block, '', element, '') : '');
+  const e = (element?: string) =>
+    element ? _bem(namespace.value, block, '', element, '') : '';
   // 获取组件修饰符名
-  const m = (modifier?: string) => (modifier ? _bem(namespace.value, block, '', '', modifier) : '');
+  const m = (modifier?: string) =>
+    modifier ? _bem(namespace.value, block, '', '', modifier) : '';
   const be = (blockSuffix?: string, element?: string) =>
-    blockSuffix && element ? _bem(namespace.value, block, blockSuffix, element, '') : '';
+    blockSuffix && element
+      ? _bem(namespace.value, block, blockSuffix, element, '')
+      : '';
   const em = (element?: string, modifier?: string) =>
-    element && modifier ? _bem(namespace.value, block, '', element, modifier) : '';
+    element && modifier
+      ? _bem(namespace.value, block, '', element, modifier)
+      : '';
   const bm = (blockSuffix?: string, modifier?: string) =>
-    blockSuffix && modifier ? _bem(namespace.value, block, blockSuffix, '', modifier) : '';
+    blockSuffix && modifier
+      ? _bem(namespace.value, block, blockSuffix, '', modifier)
+      : '';
   const bem = (blockSuffix?: string, element?: string, modifier?: string) =>
-    blockSuffix && element && modifier ? _bem(namespace.value, block, blockSuffix, element, modifier) : '';
+    blockSuffix && element && modifier
+      ? _bem(namespace.value, block, blockSuffix, element, modifier)
+      : '';
   // 获取状态类名
   const is: {
     (name: string, state: boolean | undefined): string;
@@ -98,7 +123,8 @@ export const useNamespace = (block: string, namespaceOverrides?: Ref<string | un
   };
 
   const cssVarName = (name: string) => `--${namespace.value}-${name}`;
-  const cssVarBlockName = (name: string) => `--${namespace.value}-${block}-${name}`;
+  const cssVarBlockName = (name: string) =>
+    `--${namespace.value}-${block}-${name}`;
 
   return {
     namespace,
@@ -117,3 +143,5 @@ export const useNamespace = (block: string, namespaceOverrides?: Ref<string | un
     cssVarBlockName
   };
 };
+
+export type UseNamespaceReturn = ReturnType<typeof useNamespace>;

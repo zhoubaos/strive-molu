@@ -1,9 +1,13 @@
 <template>
-  <div class="sm-table">
+  <div :class="nsTable.b()">
     <!-- 自定义列 -->
-    <div v-if="canCustomColumn" class="sm-table-container">
-      <div class="sm-table-btn-container">
-        <div class="custom-btn" @click="onClick_openDialog">
+    <header
+      v-if="canCustomColumn"
+      :class="nsTable.b('header')">
+      <div :class="nsTable.be('header', 'custom-btn')">
+        <div
+          :class="nsTable.bem('header', 'custom-btn', 'inner')"
+          @click="onClick_openDialog">
           <el-icon><Setting /></el-icon>
           <span>自定义列</span>
         </div>
@@ -14,18 +18,21 @@
         :columns="columns"
         :table-hash="tableHash"
         @checked-column-props="handle_checkedColumnprops" />
-    </div>
+    </header>
     <!--  自定义列 -->
     <el-table
       ref="tableRef"
+      :class="nsTable.b('body')"
       v-bind="$attrs"
       :data="data"
-      header-cell-class-name="custom-table-header"
-      cell-class-name="custom-table-body-cell">
+      :header-cell-class-name="nsTable.b('el-table-header')"
+      :cell-class-name="nsTable.b('el-table-body-cell')">
       <template #empty>
-        <div class="sm-table-empty">
-          <img src="@strive-molu/assets/src/images/404.png" alt="" />
-          <p class="empty-text">暂无数据~</p>
+        <div :class="nsTable.e('empty')">
+          <img
+            src="@strive-molu/assets/src/images/404.png"
+            alt="" />
+          <p :class="nsTable.em('empty', 'text')">暂无数据~</p>
         </div>
       </template>
       <table-column
@@ -34,15 +41,30 @@
         :column="col"
         :placeholder="placeholder"
         :empty-values="emptyValues">
-        <template v-for="title in getColumnTitles(col)" #[title]="{ column, index }">
-          <slot :name="title" :column="column" :index="index"></slot>
+        <template
+          v-for="title in getColumnTitles(col)"
+          :key="title"
+          #[title]="{ column, index }">
+          <slot
+            :name="title"
+            :column="column"
+            :index="index"></slot>
         </template>
-        <template v-for="render in getColumnRenders(col)" #[render]="{ row, column, index }">
-          <slot :name="render" :column="column" :row="row" :index="index"></slot>
+        <template
+          v-for="render in getColumnRenders(col)"
+          :key="render"
+          #[render]="{ row, column, index }">
+          <slot
+            :name="render"
+            :column="column"
+            :row="row"
+            :index="index"></slot>
         </template>
       </table-column>
     </el-table>
-    <footer v-show="isPaginationCompShow || true" class="sm-table-footer">
+    <footer
+      v-show="isPaginationCompShow || true"
+      :class="nsTable.b('footer')">
       <el-pagination
         v-bind="mergePaginConfig"
         v-model:current-page="currentPage"
@@ -56,10 +78,17 @@
 <script lang="ts" setup>
 import { Setting } from '@element-plus/icons-vue';
 import { tableProps, tableEmits, DEFAULT_PAGINATION_CONFIG } from './table';
+import { useNamespace } from '@strive-molu/hooks';
 import { ref, onBeforeMount, computed } from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
-import { getColumnTitles, getColumnRenders, getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
+import {
+  getColumnTitles,
+  getColumnRenders,
+  getLocalColumnProps,
+  setLocalColumnProps,
+  genTableHash
+} from './utils';
 import TableColumn from './table-column/index.vue';
 
 defineOptions({
@@ -68,6 +97,8 @@ defineOptions({
 
 const props = defineProps(tableProps);
 const emits = defineEmits(tableEmits);
+
+const nsTable = useNamespace('table');
 
 // #region 自定义列相关代码逻辑
 
@@ -105,7 +136,9 @@ const handleCustomColumns = () => {
     const columnprops = tableShowColumns.value.map((item) => item.prop);
     setLocalColumnProps(tableHash.value, columnprops);
   } else {
-    tableShowColumns.value = props.columns.filter((item) => localProps.includes(item.prop));
+    tableShowColumns.value = props.columns.filter((item) =>
+      localProps.includes(item.prop)
+    );
   }
 };
 
@@ -114,7 +147,9 @@ const handleCustomColumns = () => {
  * @param columnProps
  */
 const handle_checkedColumnprops = (columnProps: string[]) => {
-  tableShowColumns.value = props.columns.filter((item) => columnProps.includes(item.prop));
+  tableShowColumns.value = props.columns.filter((item) =>
+    columnProps.includes(item.prop)
+  );
   setLastColumnAutoWidth();
 };
 
@@ -138,7 +173,10 @@ const pageSize = ref(DEFAULT_PAGINATION_CONFIG.defaultPageSize);
 // 合并分页配置
 const mergePaginConfig = ref<any>({});
 onBeforeMount(() => {
-  let mConfig = Object.assign(DEFAULT_PAGINATION_CONFIG, props.paginationConfig);
+  let mConfig = Object.assign(
+    DEFAULT_PAGINATION_CONFIG,
+    props.paginationConfig
+  );
   let config: any = {
     ...mConfig
   };
@@ -159,7 +197,9 @@ onBeforeMount(() => {
 });
 
 // 是否显示分页组件
-const isPaginationCompShow = computed(() => props.total / (pageSize.value as number) > 1);
+const isPaginationCompShow = computed(
+  () => props.total / (pageSize.value as number) > 1
+);
 
 /**
  * @desc 处理分页器currentPage或pageSize改变
@@ -178,7 +218,10 @@ const resetFlag = ref(false);
 // 重置分页配置信息
 const resetPageAndSize = () => {
   let { defaultCurrentPage, defaultPageSize } = mergePaginConfig.value;
-  if (defaultCurrentPage != currentPage.value || defaultPageSize != pageSize.value) {
+  if (
+    defaultCurrentPage != currentPage.value ||
+    defaultPageSize != pageSize.value
+  ) {
     currentPage.value = defaultCurrentPage;
     pageSize.value = defaultPageSize;
     resetFlag.value = true;

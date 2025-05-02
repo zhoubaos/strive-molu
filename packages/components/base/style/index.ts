@@ -1,1 +1,1 @@
-import '@strive-molu/theme/src/base.less';
+import '@strive-molu/theme/src/base.scss';

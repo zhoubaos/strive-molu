@@ -23,6 +23,9 @@
       "@strive-molu/*": [
         "packages/*",
         "internal/*"
+      ],
+      "strive-molu": [
+        "packages/strive-molu"
       ]
     }
   },

@@ -26,7 +26,7 @@ const globNames = Object.keys(import.meta.glob('./*.vue')).map((name) =>
 // code here
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .play-container {
   height: 100%;
   width: 100%;

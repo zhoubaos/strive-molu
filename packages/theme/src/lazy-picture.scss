@@ -1,0 +1,14 @@
+@use 'mixins/utils' as *;
+@use 'mixins/mixins.scss' as *;
+
+@include b(lazy-picture) {
+  @include utils-wh;
+
+  @include e(load) {
+    @include utils-wh;
+    object-fit: cover;
+  }
+  @include e(img) {
+    @include utils-wh;
+  }
+}

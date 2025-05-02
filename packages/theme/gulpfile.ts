@@ -1,8 +1,9 @@
 import path from 'node:path';
 import { Transform } from 'node:stream';
-import chalk from 'chalk'; // 修改打印文本颜色库
+import chalk from 'chalk'; // 打印文本颜色库
 import { type TaskFunction, dest, parallel, series, src } from 'gulp';
-import gulpLess from 'gulp-less';
+import gulpSass from 'gulp-sass';
+import dSass from 'sass';
 import autoprefixer from 'gulp-autoprefixer';
 import rename from 'gulp-rename';
 import consola from 'consola';
@@ -62,22 +63,25 @@ const compressWithCssnano = () => {
  * 打包样式文件
  */
 const buildTheme = () => {
+  const sass = gulpSass(dSass);
   // 不需要添加 sm 前缀的文件名
   const noSmPrefixFile = /(index|base)/;
-  return src(path.resolve(__dirname, 'src/*.less'))
-    .pipe(gulpLess()) // less转css
-    .pipe(autoprefixer({ cascade: false })) // css属性添加浏览器兼容前缀
-    .pipe(compressWithCssnano()) // 压缩css
-    .pipe(
-      rename((path) => {
-        //给组件样式文件添加前缀
+  return (
+    src(path.resolve(__dirname, 'src/*.scss'))
+      .pipe(sass.sync()) // scss转css
+      .pipe(autoprefixer({ cascade: false })) // css属性添加浏览器兼容前缀
+      // .pipe(compressWithCssnano()) // 压缩css
+      .pipe(
+        rename((path) => {
+          //给组件样式文件添加前缀
 
-        if (!noSmPrefixFile.test(path.basename)) {
-          path.basename = `sm-${path.basename}`;
-        }
-      })
-    )
-    .pipe(dest(distFolder)); //输出资源
+          if (!noSmPrefixFile.test(path.basename)) {
+            path.basename = `sm-${path.basename}`;
+          }
+        })
+      )
+      .pipe(dest(distFolder))
+  ); //输出资源
 };
 /**
  * 把packages/theme/dist 到 dist/strive-molu/theme
@@ -91,8 +95,13 @@ export const copyThemeBundle = () => {
  * @returns
  */
 export const copyThemeSource = () => {
-  return src(path.resolve(__dirname, 'src/**')).pipe(dest(path.resolve(distBundle, 'src')));
+  return src(path.resolve(__dirname, 'src/**')).pipe(
+    dest(path.resolve(distBundle, 'src'))
+  );
 };
 
-export const build: TaskFunction = parallel(copyThemeSource, series(buildTheme, copyThemeBundle));
+export const build: TaskFunction = parallel(
+  copyThemeSource,
+  series(buildTheme, copyThemeBundle)
+);
 export default build;

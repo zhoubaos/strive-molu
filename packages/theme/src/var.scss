@@ -1,0 +1,68 @@
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+@use 'mixins/mixins' as *;
+
+// common
+:root {
+  // --sm-color-white: #ffffff;
+  @include set-css-var-value('color-white', $color-white);
+  @include set-css-var-value('color-black', $color-black);
+
+  // 获取colors rgb格式
+  // --sm-color-primary-rgb: 255,255,255
+  @each $type in (primary, success, warning, danger, error, info) {
+    @include set-css-color-rgb($type);
+  }
+
+  @include set-component-css-var('font-size', $font-size);
+  @include set-component-css-var('font-family', $font-family);
+
+  @include set-css-var-value('font-weight-primary', 500);
+  @include set-css-var-value('font-line-height-primary', 20px);
+
+  // z-index --sm-index-#{$type}
+  @include set-component-css-var('index', $z-index);
+
+  // --sm-border-radius-#{$type}
+  @include set-component-css-var('border-radius', $border-radius);
+
+  // line-height
+  @include set-component-css-var('line-height', $line-height);
+}
+
+// light
+:root {
+  color-scheme: light;
+
+  @each $n in ($namespace, el) {
+    // --el-color-#{$type}
+    // --el-color-#{$type}-light-{$i}
+    @each $type in (primary, success, warning, danger, error, info) {
+      @include set-css-color-type($colors, $type, $n);
+    }
+
+    // --#{$n}-bg-color-#{$type}
+    @include set-component-css-var('bg-color', $bg-color, $n);
+    // --#{$n}-text-color-#{$type}
+    @include set-component-css-var('text-color', $text-color, $n);
+    // --#{$n}-border-color-#{$type}
+    @include set-component-css-var('border-color', $border-color, $n);
+    // --#{$n}-fill-color-#{$type}
+    @include set-component-css-var('fill-color', $fill-color, $n);
+
+    // --el-box-shadow-#{$type}
+    @include set-component-css-var('box-shadow', $box-shadow, $n);
+    // Disable base
+    @include set-component-css-var('disabled', $disabled, $n);
+  }
+
+  // Border
+  @include set-css-var-value('border-width', $border-width);
+  @include set-css-var-value('border-style', $border-style);
+  @include set-css-var-value('border-color-hover', $border-color-hover);
+  @include set-css-var-value(
+    'border',
+    getCssVar('border-width') getCssVar('border-style')
+      getCssVar('border-color')
+  );
+}

@@ -64,7 +64,9 @@ export const tableColumnProps = buildProps({
    */
   column: {
     type: definePropType<Column>(Object),
-    default: () => []
+    default: () => {
+      return {} as Column;
+    }
   },
   /**
    * @desc 单元格的值满足 placeHolderValues 的占位符

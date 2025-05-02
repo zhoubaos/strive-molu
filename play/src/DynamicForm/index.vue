@@ -1,6 +1,10 @@
 <template>
-  <el-form :model="formData" v-bind="$attrs">
-    <template v-for="(item, index) in formItems" :key="index">
+  <el-form
+    :model="formData"
+    v-bind="$attrs">
+    <template
+      v-for="(item, index) in formItems"
+      :key="index">
       <form-item-comp-render
         v-model="formData[item.payload.prop]"
         :form-state="item"
@@ -29,4 +33,4 @@ const props = withDefaults(
 );
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="scss"></style>

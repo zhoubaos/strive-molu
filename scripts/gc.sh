@@ -38,7 +38,7 @@ cat > $DIRNAME/src/$INPUT_NAME.vue <<EOF
 import { ${PROP_NAME}Emits, ${PROP_NAME}Props } from './$INPUT_NAME'
 
 defineOptions({
-  name: 'El$NAME',
+  name: 'Sm$NAME',
 })
 
 const props = defineProps(${PROP_NAME}Props)
@@ -49,7 +49,7 @@ const emit = defineEmits(${PROP_NAME}Emits)
 EOF
 
 cat > $DIRNAME/src/$INPUT_NAME.ts <<EOF
-import { buildProps } from '@element-plus/utils'
+import { buildProps } from '@strive-molu/utils'
 
 import type { ExtractPropTypes } from 'vue'
 
@@ -67,12 +67,12 @@ export type ${NAME}Instance = InstanceType<typeof $NAME>
 EOF
 
 cat <<EOF >"$DIRNAME/index.ts"
-import { withInstall } from '@element-plus/utils'
+import { withInstall } from '@strive-molu/utils'
 import $NAME from './src/$INPUT_NAME.vue'
-import type { SFCWithInstall } from '@element-plus/utils'
+import type { SFCWithInstall } from '@strive-molu/utils'
 
-export const El$NAME: SFCWithInstall<typeof $NAME> = withInstall($NAME)
-export default El$NAME
+export const Sm$NAME: SFCWithInstall<typeof $NAME> = withInstall($NAME)
+export default Sm$NAME
 
 export * from './src/$INPUT_NAME'
 export type { ${NAME}Instance } from './src/instance'
@@ -95,20 +95,20 @@ describe('$NAME.vue', () => {
 EOF
 
 cat > $DIRNAME/style/index.ts <<EOF
-import '@element-plus/components/base/style'
-import '@element-plus/theme-chalk/src/$INPUT_NAME.scss'
+import '@strive-molu/components/base/style'
+import '@strive-molu/theme/src/$INPUT_NAME.scss'
 EOF
 
 cat > $DIRNAME/style/css.ts <<EOF
-import '@element-plus/components/base/style/css'
-import '@element-plus/theme-chalk/el-$INPUT_NAME.css'
+import '@strive-molu/components/base/style/css'
+import '@strive-molu/theme/sm-$INPUT_NAME.css'
 EOF
 
-cat > $FILE_PATH/theme-chalk/src/$INPUT_NAME.scss <<EOF
+cat > $FILE_PATH/theme/src/$INPUT_NAME.scss <<EOF
 EOF
 
 perl -0777 -pi -e "s/\n\n/\nexport * from '.\/$INPUT_NAME'\n\n/" $FILE_PATH/components/index.ts
 
 TYPE_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")/../typings" && pwd)
 
-perl -0777 -pi -e "s/\n\s+}/\n    El$NAME: typeof import('element-plus')['El$NAME']\n  }/" $TYPE_PATH/global.d.ts
+perl -0777 -pi -e "s/\n\s+}/\n    Sm$NAME: typeof import('strive-molu')['Sm$NAME']\n  }/" $TYPE_PATH/global.d.ts

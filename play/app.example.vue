@@ -8,7 +8,7 @@
 // code here
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .play-container {
   height: 100%;
   width: 100%;

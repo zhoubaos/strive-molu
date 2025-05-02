@@ -1,33 +1,55 @@
 <template>
-  <div class="custom-column-container">
-    <el-dialog :model-value="visible" :width="618" title="自定义设置表格列" @closed="onClick_closeDialog">
-      <div v-if="requiredColuProps.length" class="required-column-box">
+  <div :class="nsCC.b()">
+    <el-dialog
+      :model-value="visible"
+      :width="618"
+      title="自定义设置表格列"
+      @closed="onClick_closeDialog">
+      <div
+        v-if="requiredColuProps.length"
+        :class="nsCC.em('required-column', 'box')">
         <el-checkbox-group :model-value="requiredColuProps">
-          <el-checkbox v-for="column in requiredColuOption" :key="column.prop" :value="column.prop" disabled>{{
-            column.label
-          }}</el-checkbox>
+          <el-checkbox
+            v-for="column in requiredColuOption"
+            :key="column.prop"
+            :value="column.prop"
+            disabled
+            >{{ column.label }}</el-checkbox
+          >
         </el-checkbox-group>
       </div>
 
-      <div class="tips">请选择需要在表格中显示的数据列</div>
-      <div class="column-setting-box">
-        <div class="top">
-          <el-checkbox v-model="allCheckboxValue" :indeterminate="isIndeterminate" @change="handleCheckAllChange"
+      <div :class="nsCC.e('tips')">请选择需要在表格中显示的数据列</div>
+      <div :class="nsCC.e('column-setting ')">
+        <div :class="nsCC.em('column-setting', 'header')">
+          <el-checkbox
+            v-model="allCheckboxValue"
+            :indeterminate="isIndeterminate"
+            @change="handleCheckAllChange"
             >全选</el-checkbox
           >
         </div>
-        <div class="content">
-          <el-checkbox-group v-model="curSelectedProps" @change="handleCheckedChange">
-            <el-checkbox v-for="column in optionalColuOption" :key="column.prop" :value="column.prop">{{
-              column.label
-            }}</el-checkbox>
+        <div :class="nsCC.em('column-setting', 'content')">
+          <el-checkbox-group
+            v-model="curSelectedProps"
+            @change="handleCheckedChange">
+            <el-checkbox
+              v-for="column in optionalColuOption"
+              :key="column.prop"
+              :value="column.prop"
+              >{{ column.label }}</el-checkbox
+            >
           </el-checkbox-group>
         </div>
       </div>
       <template #footer>
-        <div class="dialog-footer">
+        <div :class="nsCC.e('dialog-footer')">
           <el-button @click="onClick_closeDialog">取消</el-button>
-          <el-button type="primary" @click="onClick_confirmCheckColumns">确认</el-button>
+          <el-button
+            type="primary"
+            @click="onClick_confirmCheckColumns"
+            >确认</el-button
+          >
         </div>
       </template>
     </el-dialog>
@@ -39,6 +61,7 @@ import { customColumnEmits, customColumnProps } from './index';
 import { type Column } from '../table-column';
 import { getLocalColumnProps, setLocalColumnProps } from '../utils';
 import { onBeforeMount, ref } from 'vue';
+import { useNamespace } from '@strive-molu/hooks';
 
 defineOptions({
   name: 'SmCustomColumn'
@@ -46,6 +69,8 @@ defineOptions({
 
 const props = defineProps(customColumnProps);
 const emits = defineEmits(customColumnEmits);
+
+const nsCC = useNamespace('table-custom-column');
 
 // 所有列的prop
 const allColuProps = ref<string[]>([]);
@@ -63,8 +88,12 @@ onBeforeMount(() => {
     return pre;
   }, [] as string[]);
 
-  requiredColuOption.value = columns.filter((item) => requiredColuProps.value.includes(item.prop));
-  optionalColuOption.value = columns.filter((item) => !requiredColuProps.value.includes(item.prop));
+  requiredColuOption.value = columns.filter((item) =>
+    requiredColuProps.value.includes(item.prop)
+  );
+  optionalColuOption.value = columns.filter(
+    (item) => !requiredColuProps.value.includes(item.prop)
+  );
 
   allColuProps.value = columns.map((item) => item.prop);
 });
@@ -84,9 +113,11 @@ const allCheckboxValue = ref(false);
 const isIndeterminate = ref(false);
 
 onBeforeMount(() => {
-  allCheckboxValue.value = optionalColuOption.value.length === curSelectedProps.value.length;
+  allCheckboxValue.value =
+    optionalColuOption.value.length === curSelectedProps.value.length;
   isIndeterminate.value =
-    optionalColuOption.value.length !== curSelectedProps.value.length && curSelectedProps.value.length > 0;
+    optionalColuOption.value.length !== curSelectedProps.value.length &&
+    curSelectedProps.value.length > 0;
 });
 
 /**
@@ -95,7 +126,11 @@ onBeforeMount(() => {
  */
 const handleCheckAllChange = (val: any) => {
   curSelectedProps.value = val
-    ? [...allColuProps.value.filter((item: any) => !requiredColuProps.value.includes(item))]
+    ? [
+        ...allColuProps.value.filter(
+          (item: any) => !requiredColuProps.value.includes(item)
+        )
+      ]
     : [];
   isIndeterminate.value = false;
 };
@@ -109,14 +144,18 @@ const handleCheckAllChange = (val: any) => {
 const handleCheckedChange = (val: string[] & any) => {
   const checkedCount = val.length;
   allCheckboxValue.value = checkedCount === optionalColuOption.value.length;
-  isIndeterminate.value = checkedCount > 0 && checkedCount < optionalColuOption.value.length;
+  isIndeterminate.value =
+    checkedCount > 0 && checkedCount < optionalColuOption.value.length;
 };
 
 /**
  * @desc 确认当前选择展示的列
  */
 const onClick_confirmCheckColumns = () => {
-  const allShowColumnProps = [...requiredColuProps.value, ...curSelectedProps.value];
+  const allShowColumnProps = [
+    ...requiredColuProps.value,
+    ...curSelectedProps.value
+  ];
   setLocalColumnProps(props.tableHash, [...allShowColumnProps]);
   emits('checked-column-props', [...allShowColumnProps]);
   onClick_closeDialog();

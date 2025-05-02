@@ -1,4 +1,6 @@
 @use 'config';
+@use 'sass:meta';
+@use 'sass:string';
 
 /// 连接name
 /// joinVarName(('button', 'text-color')) => '--sm-button-text-color'

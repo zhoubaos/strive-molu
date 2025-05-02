@@ -15,7 +15,7 @@
     "clipboard-copy": "^4.0.1",
     "element-plus": "^2.6.3",
     "markdown-it": "^14.1.0",
-    "strive-molu": "0.0.1"
+    "strive-molu": "npm:element-plus@latest"
   },
   "devDependencies": {
     "@strive-molu/build-constants": "workspace:^",

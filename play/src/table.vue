@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { SmTable, type Column } from '@strive-molu/components';
+import { SmTable, type Column } from 'strive-molu';
 // @ts-ignore
 import '@strive-molu/components/table/style/index';
 import { reactive, ref } from 'vue';
@@ -169,7 +169,7 @@ const handle_pagesizeChane = (page, size, isReset) => {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .dd {
   height: 100px;
 }

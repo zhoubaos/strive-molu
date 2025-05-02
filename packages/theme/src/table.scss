@@ -1,0 +1,121 @@
+@use 'mixins/mixins' as *;
+@use './mixins/utils' as *;
+@use 'common/var' as *;
+
+@include b(table) {
+  // 重置element-plus table css变量
+  @include b(table, el) {
+    @include set-component-css-var('table', $epTable, 'el');
+  }
+  @include set-component-css-var('table', $table);
+  @include set-component-css-var('table-custom-btn', $table-custom-btn);
+}
+
+@include b(table) {
+  @include utils-wh;
+
+  @include b(table-header) {
+    margin-bottom: 14px;
+
+    @include e(custom-btn) {
+      display: flex;
+      align-items: center;
+
+      @include m(inner) {
+        display: inline-flex;
+        align-items: center;
+        height: 28px;
+        margin-right: 14px;
+        padding: 0 16px;
+        color: getCssVar('table-custom-btn', 'text-color');
+        border: getCssVar('border');
+        border-color: getCssVar('table-custom-btn', 'border-color');
+        border-radius: getCssVar('table-custom-btn', 'radus');
+        cursor: pointer;
+
+        > span {
+          margin-left: 8px;
+          line-height: 22px;
+        }
+      }
+    }
+  }
+
+  @include b(table-body) {
+    @include e(empty) {
+      @include utils-flex-center;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 20px 0;
+
+      > img {
+        width: 140px;
+      }
+
+      @include m(text) {
+        margin-top: 12px;
+        line-height: 16px;
+        color: getCssVar('text-color', 'placeholder');
+      }
+    }
+  }
+
+  @include b(table-footer) {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 0;
+    overflow-x: auto;
+  }
+
+  // element-plus table 样式
+  @include b('el-table-header') {
+    color: getCssVar('text-color', 'primary');
+    background-color: getCssVar('fill-color', 'light');
+  }
+
+  @include b('el-table-body-cell') {
+    color: getCssVar('text-color', 'primary');
+  }
+}
+
+@include b(table-custom-column) {
+  @include e(required-column) {
+    @include m(box) {
+      padding: 16px 24px;
+      border: getCssVar('border');
+      border-color: getCssVar('border-color');
+    }
+  }
+
+  @include e(tips) {
+    margin-top: 16px;
+    color: getCssVar('text-color', 'primary');
+    line-height: getCssVar('line-height');
+  }
+  @include e(column-setting) {
+    margin-top: 24px;
+    border: getCssVar('border');
+    border-color: getCssVar('border-color');
+    border-radius: getCssVar('border-radius', 'base');
+    @include m(header) {
+      display: flex;
+      align-items: center;
+      height: 46px;
+      padding: 0 24px;
+      border-bottom: getCssVar('border');
+      border-color: getCssVar('border-color');
+    }
+
+    @include m(content) {
+      padding: 24px;
+    }
+  }
+
+  @include e(dialog-footer) {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 0;
+    overflow-x: auto;
+  }
+}

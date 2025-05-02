@@ -28,28 +28,31 @@
     $namespace
   );
 
-  @each $i in (3, 5, 7, 8, 9) {
+  // el 或 sm primary
+  @if $namespace == 'el' or $type == 'primary' {
+    @each $i in (3, 5, 7, 8, 9) {
+      @include set-css-var-value(
+        ('color', $type, 'light', $i),
+        map.get($colors, $type, 'light-#{$i}'),
+        $namespace
+      );
+    }
+
     @include set-css-var-value(
-      ('color', $type, 'light', $i),
-      map.get($colors, $type, 'light-#{$i}'),
+      ('color', $type, 'dark-2'),
+      map.get($colors, $type, 'dark-2'),
       $namespace
     );
   }
-
-  @include set-css-var-value(
-    ('color', $type, 'dark-2'),
-    map.get($colors, $type, 'dark-2'),
-    $namespace
-  );
 }
 
 // set all css var for component by map
-@mixin set-component-css-var($name, $variables) {
+@mixin set-component-css-var($name, $variables, $namespace: config.$namespace) {
   @each $attribute, $value in $variables {
     @if $attribute == 'default' {
-      #{getCssVarName($name)}: #{$value};
+      #{joinVarName(($name),$namespace)}: #{$value};
     } @else {
-      #{getCssVarName($name, $attribute)}: #{$value};
+      #{joinVarName(($name, $attribute),$namespace)}: #{$value};
     }
   }
 }

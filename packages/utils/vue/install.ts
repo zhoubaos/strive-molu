@@ -6,14 +6,40 @@ import type { App, Directive } from 'vue';
  * 给传入VNode对象添加 install 方法，用于Vue.use 注册该组件
  * @param comp 组件
  */
-export const withInstall = <T extends { name: string }, E extends Record<string, any>>(main: T, extra?: E) => {
-  (main as any).install = (app: App) => {
+export const withInstall = <
+  T extends { name: string },
+  E extends Record<string, any>
+>(
+  main: T,
+  extra?: E
+) => {
+  (main as SFCWithInstall<T>).install = (app: App) => {
     for (const comp of [main, ...Object.values(extra ?? {})]) {
       app.component(comp.name, comp);
     }
   };
 
-  return main as SFCWithInstall<T>;
+  if (extra) {
+    for (const [key, comp] of Object.entries(extra)) {
+      (main as any)[key] = comp;
+    }
+  }
+
+  return main as SFCWithInstall<T> & E;
+};
+
+/**
+ *
+ * @param fn
+ * @param name
+ */
+export const withInstallFunction = <T>(fn: T, name: string) => {
+  (fn as SFCWithInstall<T>).install = (app: App) => {
+    (fn as SFCInstallWithContext<T>)._context = app._context;
+    app.config.globalProperties[name] = fn;
+  };
+
+  return fn as SFCInstallWithContext<T>;
 };
 
 /**
@@ -21,8 +47,11 @@ export const withInstall = <T extends { name: string }, E extends Record<string,
  * @param directive 指令
  * @param name 指令名称
  */
-export const withInstallDirective = <T extends Directive>(directive: T, name: string): SFCWithInstall<T> => {
-  (directive as any).install = (app: App) => {
+export const withInstallDirective = <T extends Directive>(
+  directive: T,
+  name: string
+): SFCWithInstall<T> => {
+  (directive as SFCWithInstall<T>).install = (app: App) => {
     app.directive(name, directive);
   };
   return directive as SFCWithInstall<T>;

@@ -15,7 +15,7 @@ const onClick_d = throttle(() => {
 }, 1000);
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .dd {
   height: 100px;
 }

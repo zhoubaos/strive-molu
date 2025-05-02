@@ -1,8 +1,7 @@
 // require('tsx/cjs');
 import path from 'node:path';
-import { dest, series, src } from 'gulp';
+import { TaskFunction, dest, series, src } from 'gulp';
 import imagemin, { mozjpeg, optipng, svgo } from 'gulp-imagemin';
-import cache from 'gulp-cache';
 import { smOutput } from '@strive-molu/build-utils';
 
 const distFolder = path.resolve(__dirname, 'dist');
@@ -35,5 +34,5 @@ export const copyAssetsBundle = () => {
   }).pipe(dest(distBundle));
 };
 
-export const build = series(buildAssets, copyAssetsBundle);
+export const build: TaskFunction = series(buildAssets, copyAssetsBundle);
 export default build;
