@@ -13,7 +13,7 @@
     "@iconify-json/ri": "^1.1.20",
     "@vueuse/core": "^10.9.0",
     "clipboard-copy": "^4.0.1",
-    "element-plus": "^2.6.3",
+    "element-plus": "^2.7.8",
     "markdown-it": "^14.1.0",
     "strive-molu": "npm:element-plus@latest"
   },

@@ -221,8 +221,8 @@ $font-size: map.merge(
     'large': 18px,
     'medium': 16px,
     'base': 14px,
-    'small': 13px,
-    'extra-small': 12px
+    'small': 12px,
+    'extra-small': 10px
   ),
   $font-size
 );
@@ -287,17 +287,6 @@ $button-text-color: () !default;
 }
 
 // Table
-
-// ep table
-$epTable: () !default;
-$epTable: map.merge(
-  (
-    'text-color': getCssVar('text-color', 'primary'),
-    'header-text-color': getCssVar('text-color', 'primary')
-  ),
-  $epTable
-);
-
 $table: () !default;
 $table: map.merge((), $table);
 
@@ -309,4 +298,46 @@ $table-custom-btn: map.merge(
     'border-color': getCssVar('color-primary')
   ),
   $table-custom-btn
+);
+
+$table-font-size: () !default;
+$table-font-size: map.merge(
+  (
+    'small': getCssVar('font-size', 'small'),
+    'default': getCssVar('font-size', 'base'),
+    'large': getCssVar('font-size', 'medium')
+  ),
+  $table-font-size
+);
+
+$table-cell-line-height: () !default;
+$table-cell-line-height: map.merge(
+  (
+    'small': getCssVar('line-height', 'small'),
+    'default': getCssVar('line-height'),
+    'large': getCssVar('line-height')
+  ),
+  $table-cell-line-height
+);
+
+// 垂直padding
+$table-cell-padding-vertical: () !default;
+$table-cell-padding-vertical: map.merge(
+  (
+    'small': 6px,
+    'default': 8px,
+    'large': 8px
+  ),
+  $table-cell-padding-vertical
+);
+
+// 水平padding
+$table-cell-padding-horizontal: () !default;
+$table-cell-padding-horizontal: map.merge(
+  (
+    'small': 10px,
+    'default': 12px,
+    'large': 12px
+  ),
+  $table-cell-padding-horizontal
 );

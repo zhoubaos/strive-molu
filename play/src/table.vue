@@ -5,7 +5,9 @@
       :data="tableData"
       :columns="columns"
       :total="total"
-      is-custom-column
+      border
+      can-custom-column
+      size="small"
       row-key="id"
       :pagination-config="{
         defaultCurrentPage: pageSize.page,
@@ -25,6 +27,7 @@
 
 <script setup lang="ts">
 import { SmTable, type Column } from 'strive-molu';
+
 // @ts-ignore
 import '@strive-molu/components/table/style/index';
 import { reactive, ref } from 'vue';
@@ -50,13 +53,13 @@ const columns: Column[] = [
   },
   {
     prop: 'age1',
-    label: '年龄',
-    children: [
-      {
-        prop: 'age',
-        label: '年龄1'
-      }
-    ]
+    label: '年龄'
+    // children: [
+    //   {
+    //     prop: 'age',
+    //     label: '年龄1'
+    //   }
+    // ]
   },
   {
     prop: 'address',

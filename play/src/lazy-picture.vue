@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { SmLazyPicture } from '@strive-molu/components';
-import '@strive-molu/theme/src/lazy-picture.less';
+import '@strive-molu/components/lazy-picture/style/index';
 </script>
 
 <style scoped>

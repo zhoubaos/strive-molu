@@ -71,7 +71,7 @@
     "lib/components/*/style/*"
   ],
   "peerDependencies": {
-    "element-plus": "^2.4.4",
+    "element-plus": "^2.7.8",
     "vue": "^3.3.13"
   },
   "dependencies": {

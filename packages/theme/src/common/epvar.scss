@@ -1,0 +1,12 @@
+@use 'sass:map';
+@use '../mixins/function.scss' as *;
+
+// table
+$epTable: () !default;
+$epTable: map.merge(
+  (
+    'text-color': getCssVar('text-color', 'primary'),
+    'header-text-color': getCssVar('text-color', 'primary')
+  ),
+  $epTable
+);

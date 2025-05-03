@@ -6,6 +6,7 @@ import {
 import type { ExtractPropTypes } from 'vue';
 import { type Column } from './table-column';
 import type { PaginationProps } from 'element-plus';
+import { useSizeProp } from '@strive-molu/hooks';
 
 // 分页布局组件
 type LayoutKey =
@@ -78,7 +79,18 @@ export const tableProps = buildProps({
     default: () => {
       return {} as PaginationConfig;
     }
-  }
+  },
+  /**
+   * @desc 是否展示圆角
+   */
+  round: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * 大小
+   */
+  size: useSizeProp
 } as const);
 
 export const tableEmits = {

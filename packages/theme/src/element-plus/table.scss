@@ -1,0 +1,7 @@
+@use '../common/epvar.scss' as *;
+@use '../mixins/mixins' as *;
+
+// 重置table css变量
+.el-table {
+  @include set-component-css-var('table', $epTable, 'el');
+}

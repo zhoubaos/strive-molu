@@ -22,11 +22,13 @@
     <!--  自定义列 -->
     <el-table
       ref="tableRef"
-      :class="nsTable.b('body')"
+      :class="[
+        nsTable.b('body'),
+        nsTable.m(props.size),
+        nsTable.is('round', props.round)
+      ]"
       v-bind="$attrs"
-      :data="data"
-      :header-cell-class-name="nsTable.b('el-table-header')"
-      :cell-class-name="nsTable.b('el-table-body-cell')">
+      :data="data">
       <template #empty>
         <div :class="nsTable.e('empty')">
           <img
@@ -69,9 +71,11 @@
         v-bind="mergePaginConfig"
         v-model:current-page="currentPage"
         v-model:page-size="pageSize"
+        :size="props.size"
         :total="total"
         @change="handle_pageAndSizeChange" />
     </footer>
+    <el-button>详情</el-button>
   </div>
 </template>
 
@@ -79,7 +83,7 @@
 import { Setting } from '@element-plus/icons-vue';
 import { tableProps, tableEmits, DEFAULT_PAGINATION_CONFIG } from './table';
 import { useNamespace } from '@strive-molu/hooks';
-import { ref, onBeforeMount, computed } from 'vue';
+import { provide, ref, reactive, toRef, onBeforeMount, computed } from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
 import {
@@ -90,6 +94,7 @@ import {
   genTableHash
 } from './utils';
 import TableColumn from './table-column/index.vue';
+import { buttonGroupContextKey } from 'element-plus';
 
 defineOptions({
   name: 'SmTable'
@@ -99,6 +104,14 @@ const props = defineProps(tableProps);
 const emits = defineEmits(tableEmits);
 
 const nsTable = useNamespace('table');
+
+// 透传size给el-button
+provide(
+  buttonGroupContextKey,
+  reactive({
+    size: toRef(props, 'size')
+  })
+);
 
 // #region 自定义列相关代码逻辑
 

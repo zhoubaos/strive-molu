@@ -1,2 +1,7 @@
 @use './base.scss';
+@use './element-plus/index.scss';
+
 // 组件
+@use './table.scss';
+@use './dynamic-form.scss';
+@use './lazy-picture.scss';

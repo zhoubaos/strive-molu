@@ -1,12 +1,9 @@
 @use 'mixins/mixins' as *;
 @use './mixins/utils' as *;
 @use 'common/var' as *;
+@use 'sass:map';
 
 @include b(table) {
-  // 重置element-plus table css变量
-  @include b(table, el) {
-    @include set-component-css-var('table', $epTable, 'el');
-  }
   @include set-component-css-var('table', $table);
   @include set-component-css-var('table-custom-btn', $table-custom-btn);
 }
@@ -59,6 +56,10 @@
         color: getCssVar('text-color', 'placeholder');
       }
     }
+
+    @include when(round) {
+      border-radius: 8px 8px 0 0;
+    }
   }
 
   @include b(table-footer) {
@@ -68,14 +69,19 @@
     overflow-x: auto;
   }
 
-  // element-plus table 样式
-  @include b('el-table-header') {
-    color: getCssVar('text-color', 'primary');
-    background-color: getCssVar('fill-color', 'light');
-  }
-
-  @include b('el-table-body-cell') {
-    color: getCssVar('text-color', 'primary');
+  @each $size in (small, large) {
+    @include m($size) {
+      &.el-table {
+        font-size: map.get($table-font-size, $size);
+      }
+      .el-table__cell {
+        padding: map.get($table-cell-padding-vertical, $size) 0;
+        .cell {
+          padding: 0 map.get($table-cell-padding-horizontal, $size);
+          line-height: map.get($table-cell-line-height, $size);
+        }
+      }
+    }
   }
 }
 

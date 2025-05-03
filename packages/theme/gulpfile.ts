@@ -59,6 +59,7 @@ const compressWithCssnano = () => {
     }
   });
 };
+
 /**
  * 打包样式文件
  */
@@ -67,16 +68,24 @@ const buildTheme = () => {
   // 不需要添加 sm 前缀的文件名
   const noSmPrefixFile = /(index|base)/;
   return (
-    src(path.resolve(__dirname, 'src/*.scss'))
+    src(
+      ['src/*.scss', 'src/element-plus/*.scss'].map((glob) =>
+        path.resolve(__dirname, glob)
+      )
+    )
       .pipe(sass.sync()) // scss转css
       .pipe(autoprefixer({ cascade: false })) // css属性添加浏览器兼容前缀
-      // .pipe(compressWithCssnano()) // 压缩css
+      // .pipe(compressWithCssnano()) // TODO：压缩css
       .pipe(
-        rename((path) => {
+        rename((path, file) => {
           //给组件样式文件添加前缀
-
           if (!noSmPrefixFile.test(path.basename)) {
-            path.basename = `sm-${path.basename}`;
+            if (file.dirname.includes('element-plus')) {
+              path.dirname = `element-plus/${path.dirname}`;
+              path.basename = `el-${path.basename}`;
+            } else {
+              path.basename = `sm-${path.basename}`;
+            }
           }
         })
       )
