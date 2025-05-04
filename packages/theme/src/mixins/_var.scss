@@ -74,8 +74,8 @@
 // for example:
 // @include css-var-from-global(('button', 'text-color'), ('color', 'primary’))
 // --el-button-text-color: var(--el-color-primary);
-@mixin css-var-from-global($var, $gVar) {
-  $varName: joinVarName($var);
-  $gVarName: joinVarName($gVar);
+@mixin css-var-from-global($var, $gVar, $ns: config.$namespace) {
+  $varName: joinVarName($var, $ns);
+  $gVarName: joinVarName($gVar, $ns);
   #{$varName}: var(#{$gVarName});
 }

@@ -1,34 +1,13 @@
-import {
-  buildProps,
-  definePropType,
-  type ReplaceObjKeyType
-} from '@strive-molu/utils';
+import { buildProps, definePropType, isNumber } from '@strive-molu/utils';
 import type { ExtractPropTypes } from 'vue';
 import { type Column } from './table-column';
-import type { PaginationProps } from 'element-plus';
 import { useSizeProp } from '@strive-molu/hooks';
-
-// 分页布局组件
-type LayoutKey =
-  | 'prev'
-  | 'pager'
-  | 'next'
-  | 'jumper'
-  | '->'
-  | 'total'
-  | 'sizes'
-  | 'slot';
-export type PaginationConfig = Omit<
-  ReplaceObjKeyType<Partial<PaginationProps>, 'layout', LayoutKey[]>,
-  'pageSize' | 'currentPage'
->;
-// 分页默认配置
-export const DEFAULT_PAGINATION_CONFIG: PaginationConfig = {
-  defaultCurrentPage: 1,
-  defaultPageSize: 10,
-  pageSizes: [10, 20, 50, 100],
-  layout: ['total', 'sizes', 'prev', 'pager', 'next', 'jumper']
-};
+import {
+  UPDATE_MODEL_EVENT,
+  UPDATE_PAGE_EVENT,
+  UPDATE_PAGE_SIZE_EVENT
+} from '@strive-molu/constants';
+import { PaginationConfig, DEFAULT_PAGINATION_CONFIG } from './pagination';
 
 export const tableProps = buildProps({
   /**
@@ -51,6 +30,14 @@ export const tableProps = buildProps({
   total: {
     type: Number,
     default: 0
+  },
+
+  /**
+   * @desc 是否在只有一页时隐藏分页组件
+   */
+  hideOnSinglePage: {
+    type: Boolean,
+    default: false
   },
   /**
    * @desc 单元格的值满足 placeHolderValues 的占位符
@@ -94,7 +81,8 @@ export const tableProps = buildProps({
 } as const);
 
 export const tableEmits = {
-  pageAndSizeChange: (page: number, size: number, isReset?: boolean) => true
+  pageAndSizeChange: (page: number, size: number, isReset?: boolean) =>
+    isNumber(page) && isNumber(size)
 };
 
 // 获取运行时且面向内部的prop类型

@@ -4,3 +4,4 @@ import '@strive-molu/theme/src/table.scss';
 
 // 重置的element-plus样式
 import '@strive-molu/theme/src/element-plus/table.scss';
+import '@strive-molu/theme/src/element-plus/button.scss';

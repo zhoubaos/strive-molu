@@ -1,6 +1,15 @@
 @use 'sass:map';
 @use '../mixins/function.scss' as *;
 
+// button
+$epButton: () !default;
+$epButton: map.merge(
+  (
+    'text-color': getCssVar('text-color', 'primary')
+  ),
+  $epButton
+);
+
 // table
 $epTable: () !default;
 $epTable: map.merge(

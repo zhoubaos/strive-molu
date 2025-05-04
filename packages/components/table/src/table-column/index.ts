@@ -23,7 +23,7 @@ export type Column = {
   /**
    * @desc 表头标题名称，必须填写，在自定义列时会使用其作为lable
    */
-  label: string;
+  label?: string;
   columnKey?: string;
   type?: 'selection' | 'index' | 'expand';
   index?: (index: number) => number | string;

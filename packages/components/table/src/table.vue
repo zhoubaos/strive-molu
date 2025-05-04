@@ -1,5 +1,5 @@
 <template>
-  <div :class="nsTable.b()">
+  <div :class="[nsTable.b(), nsTable.m(props.size)]">
     <!-- 自定义列 -->
     <header
       v-if="canCustomColumn"
@@ -22,11 +22,7 @@
     <!--  自定义列 -->
     <el-table
       ref="tableRef"
-      :class="[
-        nsTable.b('body'),
-        nsTable.m(props.size),
-        nsTable.is('round', props.round)
-      ]"
+      :class="[nsTable.b('body'), nsTable.is('round', props.round)]"
       v-bind="$attrs"
       :data="data">
       <template #empty>
@@ -45,7 +41,6 @@
         :empty-values="emptyValues">
         <template
           v-for="title in getColumnTitles(col)"
-          :key="title"
           #[title]="{ column, index }">
           <slot
             :name="title"
@@ -54,7 +49,6 @@
         </template>
         <template
           v-for="render in getColumnRenders(col)"
-          :key="render"
           #[render]="{ row, column, index }">
           <slot
             :name="render"
@@ -65,14 +59,13 @@
       </table-column>
     </el-table>
     <footer
-      v-show="isPaginationCompShow || true"
+      v-show="!props.hideOnSinglePage"
       :class="nsTable.b('footer')">
       <el-pagination
+        ref="paginationRef"
         v-bind="mergePaginConfig"
-        v-model:current-page="currentPage"
+        v-model:current-page="page"
         v-model:page-size="pageSize"
-        :size="props.size"
-        :total="total"
         @change="handle_pageAndSizeChange" />
     </footer>
     <el-button>详情</el-button>
@@ -81,9 +74,19 @@
 
 <script lang="ts" setup>
 import { Setting } from '@element-plus/icons-vue';
-import { tableProps, tableEmits, DEFAULT_PAGINATION_CONFIG } from './table';
+import { tableProps, tableEmits } from './table';
+import { DEFAULT_PAGINATION_CONFIG, PaginationConfig } from './pagination';
 import { useNamespace } from '@strive-molu/hooks';
-import { provide, ref, reactive, toRef, onBeforeMount, computed } from 'vue';
+import {
+  provide,
+  ref,
+  reactive,
+  toRef,
+  onBeforeMount,
+  computed,
+  getCurrentInstance,
+  onMounted
+} from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
 import {
@@ -94,11 +97,18 @@ import {
   genTableHash
 } from './utils';
 import TableColumn from './table-column/index.vue';
-import { buttonGroupContextKey } from 'element-plus';
+import {
+  FormContext,
+  buttonGroupContextKey,
+  formContextKey
+} from 'element-plus';
+import { isFunction } from '@strive-molu/utils';
 
 defineOptions({
   name: 'SmTable'
 });
+
+const context = getCurrentInstance();
 
 const props = defineProps(tableProps);
 const emits = defineEmits(tableEmits);
@@ -113,6 +123,14 @@ provide(
   })
 );
 
+// 透传size给el-form相关组件
+provide(
+  formContextKey,
+  reactive({
+    size: toRef(props, 'size')
+  }) as FormContext
+);
+
 // #region 自定义列相关代码逻辑
 
 // 控制自定义选择展示列的弹框
@@ -121,6 +139,9 @@ const visible = ref<any>(false);
 const onClick_openDialog = () => {
   visible.value = true;
 };
+
+const tableRef = ref(null);
+const paginationRef = ref(null);
 
 // 表格展示的列
 const tableShowColumns = ref<Array<Column>>([]);
@@ -180,39 +201,46 @@ const setLastColumnAutoWidth = () => {
 // #endregion 自定义列相关代码逻辑
 
 // #region 处理表格分页相关逻辑
-const currentPage = ref(DEFAULT_PAGINATION_CONFIG.defaultCurrentPage);
-const pageSize = ref(DEFAULT_PAGINATION_CONFIG.defaultPageSize);
+const page = defineModel<number>('page', {
+  default: DEFAULT_PAGINATION_CONFIG.defaultCurrentPage
+});
+const pageSize = defineModel<number>('pageSize', {
+  default: DEFAULT_PAGINATION_CONFIG.defaultPageSize
+});
 
 // 合并分页配置
 const mergePaginConfig = ref<any>({});
 onBeforeMount(() => {
   let mConfig = Object.assign(
     DEFAULT_PAGINATION_CONFIG,
-    props.paginationConfig
+    props.paginationConfig,
+    {
+      defaultCurrentPage: page.value,
+      defaultPageSize: pageSize.value
+    }
   );
-  let config: any = {
-    ...mConfig
+  let config: PaginationConfig = {
+    ...mConfig,
+    total: props.total,
+    size: props.size,
+    hideOnSinglePage: props.hideOnSinglePage
   };
 
   if (mConfig.layout?.length) {
-    config.layout = mConfig.layout.join(',');
+    Reflect.set(config, 'layout', mConfig.layout.join(','));
   }
   // 如果传入的pageSize不在pageSizes内，就添加
   if (!mConfig.pageSizes?.includes(mConfig.defaultPageSize as number)) {
-    config.pageSizes = mConfig.pageSizes
-      ?.concat(mConfig.defaultPageSize as number)
-      .sort((a: number, b: number) => a - b);
+    Reflect.set(
+      config,
+      'pageSizes',
+      mConfig.pageSizes
+        ?.concat(mConfig.defaultPageSize as number)
+        .sort((a: number, b: number) => a - b)
+    );
   }
   mergePaginConfig.value = config;
-
-  currentPage.value = config.defaultCurrentPage;
-  pageSize.value = config.defaultPageSize;
 });
-
-// 是否显示分页组件
-const isPaginationCompShow = computed(
-  () => props.total / (pageSize.value as number) > 1
-);
 
 /**
  * @desc 处理分页器currentPage或pageSize改变
@@ -221,6 +249,7 @@ const isPaginationCompShow = computed(
  */
 const handle_pageAndSizeChange = (page: number, size: number) => {
   console.log('==组件更改==', page, size);
+
   emits('pageAndSizeChange', page, size, resetFlag.value);
   resetFlag.value = false;
 };
@@ -231,20 +260,47 @@ const resetFlag = ref(false);
 // 重置分页配置信息
 const resetPageAndSize = () => {
   let { defaultCurrentPage, defaultPageSize } = mergePaginConfig.value;
-  if (
-    defaultCurrentPage != currentPage.value ||
-    defaultPageSize != pageSize.value
-  ) {
-    currentPage.value = defaultCurrentPage;
+  if (defaultCurrentPage != page.value || defaultPageSize != pageSize.value) {
+    page.value = defaultCurrentPage;
     pageSize.value = defaultPageSize;
     resetFlag.value = true;
-
     console.log('==手动更改==', defaultCurrentPage, defaultPageSize);
   }
+
+  emits(
+    'pageAndSizeChange',
+    defaultCurrentPage,
+    defaultPageSize,
+    resetFlag.value
+  );
 };
 
 defineExpose({
   resetPageAndSize
 });
+
+// 绑定table exposes给当前组件实例
+const bindTableExpose = () => {
+  if (!tableRef.value || !context) return;
+
+  if (!context.exposed) {
+    context.exposed = {};
+  }
+  for (const key in tableRef.value as any) {
+    if (isFunction((tableRef.value as unknown as Record<string, any>)[key])) {
+      Reflect.set(
+        context.exposed,
+        key,
+        (tableRef.value as unknown as Record<string, any>)[key].bind(
+          tableRef.value
+        )
+      );
+    }
+  }
+};
+onMounted(() => {
+  bindTableExpose();
+});
+
 // #endregion
 </script>

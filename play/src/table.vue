@@ -2,21 +2,24 @@
   <div class="wp">
     <SmTable
       ref="smTableRef"
+      v-model:page="pageSize.page"
+      v-model:pageSize="pageSize.size"
       :data="tableData"
       :columns="columns"
       :total="total"
+      row-key="id"
       border
       can-custom-column
-      size="small"
-      row-key="id"
-      :pagination-config="{
-        defaultCurrentPage: pageSize.page,
-        defaultPageSize: pageSize.size
-      }"
       @page-and-size-change="handle_pagesizeChane">
       <template #name="{ row }">{{ row.name }}</template>
       <template #oprate="{ row }">
-        <el-button @click="onClick_view(row)">详情</el-button>
+        <el-button
+          type="primary"
+          link
+          @click="onClick_view(row)"
+          >详情</el-button
+        >
+        <!-- <el-input placeholder="输入框"></el-input> -->
       </template>
     </SmTable>
     <div>
@@ -35,6 +38,7 @@ import { reactive, ref } from 'vue';
 const smTableRef = ref();
 const ond = () => {
   smTableRef.value!.resetPageAndSize();
+  console.log(smTableRef.value.getSelectionRows());
 };
 
 const onClick_view = (row) => {
@@ -46,6 +50,10 @@ const pageSize = reactive({
   size: 5
 });
 const columns: Column[] = [
+  {
+    prop: 'id',
+    type: 'selection'
+  },
   {
     prop: 'name',
     label: '名字',
@@ -74,23 +82,9 @@ const columns: Column[] = [
 const data = reactive([
   {
     id: 1,
-    name: '',
+    name: '22',
     age: 23,
-    address: '重庆市云游戏地方',
-    children: [
-      {
-        id: 2,
-        name: '大概的',
-        age: null,
-        address: '南京地方空当接龙'
-      },
-      {
-        id: 3,
-        name: '菜单',
-        age: 138,
-        address: '对的撒'
-      }
-    ]
+    address: '重庆市云游戏地方'
   },
   {
     id: 4,

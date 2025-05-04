@@ -56,6 +56,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     // 设置预构建的包
     optimizeDeps: {
       include: ['vue', '@vue/shared', ...dependencies]
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          silenceDeprecations: ['legacy-js-api']
+        }
+      }
     }
   };
 });

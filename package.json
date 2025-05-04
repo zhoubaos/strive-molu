@@ -39,7 +39,7 @@
     "postinstall": "pnpm stub && concurrently \"pnpm gen:version\""
   },
   "peerDependencies": {
-    "vue": "^3.3.13"
+    "vue": "^3.4.12"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
