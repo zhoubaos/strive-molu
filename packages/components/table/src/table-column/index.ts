@@ -1,5 +1,6 @@
-import { buildProps, definePropType } from '@strive-molu/utils';
+import { SetRequiredKey, buildProps, definePropType } from '@strive-molu/utils';
 import type { ExtractPropTypes } from 'vue';
+import { TableColumnCtx } from 'element-plus';
 
 // 表格排序值
 export type SortByItem = 'ascending' | 'descending' | null;
@@ -15,32 +16,10 @@ export type Slots = {
   customRender?: string;
 };
 // 大部分配置都来自 element-plus TableColumn 组件的prop
-export type Column = {
-  /**
-   * @desc 字段名称 对应列内容的字段名
-   */
-  prop: string;
-  /**
-   * @desc 表头标题名称，必须填写，在自定义列时会使用其作为lable
-   */
-  label?: string;
-  columnKey?: string;
-  type?: 'selection' | 'index' | 'expand';
-  index?: (index: number) => number | string;
-  width?: string | number;
-  minWidth?: string | number;
-  fixed?: true | 'left' | 'right';
-  /**
-   *  @desc 表格数据排序方式 true 在当前页排序 custom 自定义排序方式
-   */
-  sortable?: 'custom' | true | false;
-  sortMethod?: (a: any, b: any) => any;
-  sortBy?: (row: any, index: number) => any | string | string[];
-  sortOrders?: SortByItem[];
-  formatter?: (...reset: any[]) => any;
-  selectable?: (row: any, index: number) => boolean;
-  showOverflowTooltip?: boolean;
-  align?: 'left' | 'center' | 'right';
+export type Column<T = any> = SetRequiredKey<
+  Partial<TableColumnCtx<T>>,
+  'prop'
+> & {
   /**
    * @desc 在使用自定义列的功能时，该属性用于约束该列属性一直可以显示
    * @default false
@@ -50,12 +29,6 @@ export type Column = {
    * @desc 表格的表头或内容插槽
    */
   slots?: Slots;
-  /**
-   * 配置表格的多级表头
-   */
-  children?: Column[];
-} & {
-  [k in string]: any;
 };
 
 export const tableColumnProps = buildProps({

@@ -51,6 +51,9 @@ const pageSize = reactive({
 });
 const columns: Column[] = [
   {
+    prop: 't'
+  },
+  {
     prop: 'id',
     type: 'selection'
   },
