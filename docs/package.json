@@ -15,10 +15,11 @@
     "clipboard-copy": "^4.0.1",
     "element-plus": "^2.7.8",
     "markdown-it": "^14.1.0",
-    "strive-molu": "npm:element-plus@latest"
+    "strive-molu": "npm:strive-molu@latest"
   },
   "devDependencies": {
     "@strive-molu/build-constants": "workspace:^",
+    "@strive-molu/build-utils": "workspace:^",
     "@types/markdown-it": "^13.0.7",
     "chalk": "^5.3.0",
     "consola": "^3.2.3",

@@ -17,12 +17,15 @@ const props = withDefaults(
 <template>
   <div class="example-showcase vp-raw">
     <ClientOnly>
-      <component :is="demo" v-if="demo" v-bind="$attrs" />
+      <component
+        :is="demo"
+        v-if="demo"
+        v-bind="$attrs" />
     </ClientOnly>
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .example-showcase {
   padding: 1.5rem;
   margin: 0.5px;

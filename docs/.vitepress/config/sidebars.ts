@@ -1,14 +1,18 @@
-import component from '../vp-config-options/component';
-import directive from '../vp-config-options/directive';
-import util from '../vp-config-options/util';
+import component from '../slidebar-options/component';
+import directive from '../slidebar-options/directive';
+import util from '../slidebar-options/util';
 
 // 获取组件的侧边栏配置
 function getComponentSidebar() {
-  return Object.values(component).map((item) => mapAddPrefix(item, '/component'));
+  return Object.values(component).map((item) =>
+    mapAddPrefix(item, '/component')
+  );
 }
 // 获取指令的侧边栏配置
 function getDirectiveSidebar() {
-  return Object.values(directive).map((item) => mapAddPrefix(item, '/directive'));
+  return Object.values(directive).map((item) =>
+    mapAddPrefix(item, '/directive')
+  );
 }
 // 获取工具函数的侧边栏配置
 function getUtilSidebar() {

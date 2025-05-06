@@ -1,4 +1,4 @@
-import type { NavOption } from '@/typescript/option';
+import type { NavOption } from '../typescript/option';
 // 导航配置
 export const nav: NavOption[] = [
   { text: '组件', link: '/pages/component/table', activeMatch: '/component/' },

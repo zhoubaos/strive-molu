@@ -1,18 +1,18 @@
 import '@csstools/normalize.css';
 
+// element-plus
 import 'element-plus/dist/index.css';
 // reset
-import '../../../packages/theme/src/reset.less';
-import '../../../packages/theme/src/index.less';
+import '../../../packages/theme/src/reset.scss';
+import '../../../packages/theme/src/index.scss';
 
 // 动态改变主题色
-import './styles/css/rainbow.css';
-import './styles/css/css-vars.css';
-import './styles/index.less';
+import './styles/css-var/index.scss';
+import './styles/app.scss';
 
 import 'virtual:uno.css';
 
-import type { Component } from 'vue';
+import { type Component } from 'vue';
 // 和vitepress关联的组件
 import VPDemo from './components/vp-demo/index.vue';
 
@@ -22,5 +22,3 @@ export const globals: [string, Component | any][] = [
   ['Demo', VPDemo],
   ['ApiTyping', ApiTyping]
 ];
-
-//

@@ -1,0 +1,48 @@
+:root {
+  // colors
+  --text-color: var(--sm-text-color-primary);
+  --text-color-light: var(--sm-text-color-regular);
+  --text-color-lighter: var(--sm-text-color-secondary);
+
+  --brand-color: var(--sm-color-primary);
+  --brand-color-light: var(--sm-color-primary-light-1);
+  --bg-brand-color: var(--sm-color-primary-light-9);
+
+  --bg-color: var(--sm-bg-color);
+  --bg-color-rgb: 255, 255, 255;
+  --border-color: var(--sm-border-color);
+  --border-color-light: var(--sm-border-color-lighter);
+
+  --font-family: var(--sm-font-family);
+
+  // info
+  --success-color: var(--sm-color-success);
+  --warning-color: var(--sm-color-warning);
+  --danger-color: var(--sm-color-danger);
+
+  /* 按钮 */
+  --vp-button-brand-bg: var(--vp-c-brand-1);
+  --vp-button-brand-border: var(--vp-c-brand-lighter);
+
+  --vp-button-brand-hover-border: var(--vp-c-brand-light);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-light);
+
+  /* 首页标题和图片 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    var(--vp-c-brand-1),
+    var(--vp-c-brand-next)
+  );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    var(--vp-c-brand-1) 30%,
+    var(--vp-c-brand-next)
+  );
+  --vp-home-hero-image-filter: blur(120px);
+
+  /* custom tip */
+  --vp-custom-block-tip-bg: rgba(var(--sm-color-primary-rgb), 0.1);
+  --vp-custom-block-tip-code-bg: rgba(var(--sm-color-primary-rgb), 0.2);
+  --vp-c-tip-1: var(--sm-color-primary);
+}

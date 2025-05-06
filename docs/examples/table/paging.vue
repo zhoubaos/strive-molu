@@ -130,7 +130,7 @@ const tableColumns: Column[] = [
   }
 ];
 </script>
-<style scoped lang="less">
+<style scoped lang="scss">
 .btn {
   margin-bottom: 16px;
 }

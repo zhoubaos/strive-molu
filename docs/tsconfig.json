@@ -17,6 +17,9 @@
     ],
     "paths": {
       //路径映射，配合vite配置的resolve.alias相关联别名使用
+      "strive-molu": [
+        "../packages/strive-molu"
+      ],
       "@/*": [
         "./.vitepress/*"
       ],

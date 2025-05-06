@@ -1,10 +1,10 @@
-.with-bg {
+@mixin with-bg {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: border-color var(--el-transition-duration);
   background-color: var(--el-transition-duration-fast);
 }
 
-.with-border {
+@mixin with-border {
   border-bottom: 1px solid var(--border-color);
 }

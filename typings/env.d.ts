@@ -1,4 +1,5 @@
 import type { Component, vShow } from 'vue';
+import { INSTALLED_KEY } from '@strive-molu/constants';
 
 declare global {
   const process: {
@@ -25,6 +26,10 @@ declare module '*.vue' {
  * @description 扩展vue实例类型支持
  */
 declare module 'vue' {
+  export interface App {
+    [INSTALLED_KEY]?: boolean;
+  }
+
   export interface GlobalComponents {
     Component: (props: { is: Component | string }) => void;
   }

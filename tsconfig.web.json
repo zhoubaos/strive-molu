@@ -17,7 +17,6 @@
   "include": [
     "packages",
     "typings/env.d.ts",
-    "typings/global.d.ts",
     "typings/element-plus.d.ts"
   ],
   "exclude": [

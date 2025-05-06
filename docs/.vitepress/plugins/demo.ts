@@ -1,36 +1,16 @@
+import { MarkdownRenderer } from 'vitepress';
 import path from 'path';
 import fs from 'fs';
-// @ts-ignore
-import MarkdownIt from 'markdown-it';
-// @ts-ignore
-import mdContainer from 'markdown-it-container';
-import { highlight } from '../utils/highlight';
 import { docRoot } from '@strive-molu/build-utils';
-// @ts-ignore
-import type Token from 'markdown-it/lib/token';
-// @ts-ignore
-import type Renderer from 'markdown-it/lib/renderer';
-import consola from 'consola';
-
-const localMd = MarkdownIt();
-const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/;
 
 interface ContainerOpts {
   marker?: string | undefined;
-
   validate?(params: string): boolean;
-
-  render?(
-    tokens: Token[],
-    index: number,
-    options: any,
-    env: any,
-    self: Renderer
-  ): string;
+  render?: MarkdownRenderer['renderer']['rules']['container'];
 }
 
-export const mdPlugin = (md: MarkdownIt) => {
-  md.use(mdContainer, 'demo', {
+function createDemoContainer(md: MarkdownRenderer): ContainerOpts {
+  return {
     validate(params) {
       return !!params.trim().match(/^demo\s*(.*)$/);
     },
@@ -55,15 +35,17 @@ export const mdPlugin = (md: MarkdownIt) => {
 
         // opening tag
         return `<Demo
-                  :demos="demos" 
-                  source="${encodeURIComponent(highlight(source, 'vue'))}"
-                  path="${sourceFile}"
-                  rawSource="${encodeURIComponent(source)}"
-                  description="${encodeURIComponent(localMd.render(description))}">`;
+                      :demos="demos" 
+                      source="${encodeURIComponent(md.render(`\`\`\` vue\n${source}\`\`\``))}"
+                      path="${sourceFile}"
+                      rawSource="${encodeURIComponent(source)}"
+                      description="${encodeURIComponent(md.render(description))}">`;
       } else {
         // closing tag
         return '</Demo>\n';
       }
     }
-  } as ContainerOpts);
-};
+  };
+}
+
+export default createDemoContainer;

@@ -166,10 +166,10 @@ const copyCode = async () => {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .example {
   border: 1px solid var(--border-color);
-  border-radius: var(--el-border-radius-base);
+  border-radius: var(--sm-border-radius-base);
 
   .op-btns {
     padding: 0.5rem;
