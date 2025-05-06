@@ -24,7 +24,8 @@ const { dependencies: epDeps } = getPackageDependencies(smPackage);
 const { dependencies: docsDeps } = getPackageDependencies(docPackage);
 const optimizeDeps = [...new Set([...epDeps, ...docsDeps])].filter(
   (dep) =>
-    !dep.startsWith('@types/') && !['strive-nolu', 'element-plus'].includes(dep)
+    !dep.startsWith('@types/') &&
+    !['strive-nolu', 'element-plus', 'normalize.css'].includes(dep)
 );
 
 optimizeDeps.push(
@@ -33,8 +34,6 @@ optimizeDeps.push(
     onlyFiles: true
   }))
 );
-
-console.log(chalk.green(`${path.resolve(__dirname, '..')}/`));
 
 const alias: AliasOptions = [
   {

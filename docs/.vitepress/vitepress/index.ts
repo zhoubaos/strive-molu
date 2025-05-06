@@ -1,4 +1,5 @@
-import '@csstools/normalize.css';
+//  统一不同浏览器的默认样式
+import 'normalize.css';
 
 // element-plus
 import 'element-plus/dist/index.css';
@@ -13,6 +14,7 @@ import './styles/app.scss';
 import 'virtual:uno.css';
 
 import { type Component } from 'vue';
+
 // 和vitepress关联的组件
 import VPDemo from './components/vp-demo/index.vue';
 
