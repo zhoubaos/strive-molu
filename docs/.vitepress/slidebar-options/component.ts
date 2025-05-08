@@ -8,10 +8,6 @@ const options: Option[] = [
       {
         text: 'Table 表格',
         link: '/table'
-      },
-      {
-        text: 'Button',
-        link: '/button'
       }
     ]
   },

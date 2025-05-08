@@ -3,7 +3,7 @@
     <SmTable
       ref="smTableRef"
       v-model:page="pageSize.page"
-      v-model:pageSize="pageSize.size"
+      v-model:page-size="pageSize.size"
       :data="tableData"
       :columns="columns"
       :total="total"

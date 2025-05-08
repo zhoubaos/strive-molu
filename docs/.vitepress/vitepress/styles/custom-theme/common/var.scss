@@ -1,0 +1,71 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:color';
+@use 'sass:string';
+
+$types: 'gray', 'indigo', 'purple', 'green', 'yellow', 'red';
+
+$color-white: #ffffff;
+$color-black: #000000;
+
+// vitepress 主体颜色
+$colors: () !default;
+$colors: (
+  'gray': (
+    'base': #dddde3
+  ),
+  'indigo': (
+    'base': #0057fd
+  ),
+  'purple': (
+    'base': #6222c2
+  ),
+  'green': (
+    'base': #10d431
+  ),
+  'yellow': (
+    'base': #ff8935
+  ),
+  'red': (
+    'base': #fb5555
+  )
+);
+
+$color-gray: map.get($colors, 'gray', 'base');
+$color-indigo: map.get($colors, 'indigo', 'base');
+$color-purple: #6222c2;
+$color-green: map.get($colors, 'green', 'base');
+$color-yellow: map.get($colors, 'yellow', 'base');
+$color-red: map.get($colors, 'red', 'base');
+
+@mixin set-color-mix-level(
+  $type,
+  $number,
+  $mode: 'light',
+  $mix-color: $color-white
+) {
+  $colors: map.deep-merge(
+    (
+      $type: (
+        '#{$mode}-#{$number}': color.mix(
+            $mix-color,
+            map.get($colors, $type, 'base'),
+            math.percentage(math.div($number, 10))
+          )
+      )
+    ),
+    $colors
+  ) !global;
+}
+
+// 设置type 的light mix-level
+@each $type in $types {
+  @for $i from 1 through 9 {
+    @include set-color-mix-level($type, $i, 'light', $color-white);
+  }
+}
+
+// 设置type 的dark mix-level
+@each $type in $types {
+  @include set-color-mix-level($type, 2, 'dark', $color-black);
+}

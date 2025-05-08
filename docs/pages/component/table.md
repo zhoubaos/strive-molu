@@ -8,7 +8,7 @@
 
 ## 基础用法
 
-:::demo 使用 `data` 属用于接收渲染数据，`columns` 来配置表格每一列的属性。当单元格属性值为 `''` 、 `null` 和 `undefined` 时会默认显示 `--` 占位符。
+:::demo 使用 `data` 属用于接收渲染数据，`columns` 来配置表格每一列的属性。当单元格属性值为 `""` 、 `null` 和 `undefined` 时会默认显示 `--` 占位符。
 table/basic
 :::
 

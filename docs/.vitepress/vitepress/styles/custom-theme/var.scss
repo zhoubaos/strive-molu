@@ -1,0 +1,40 @@
+@use './common/var.scss' as *;
+@use '../mixins/mixins.scss' as *;
+
+@use 'sass:map';
+
+// common
+:root {
+  @include set-css-var-value(('c', 'color-white'), $color-white);
+  @include set-css-var-value(('c', 'color-black'), $color-black);
+}
+
+// light
+:root {
+  color-scheme: light;
+  @each $type in $types {
+    // --vp-c-#{$type}-1
+    @include set-css-var-value(
+      ('c', $type, '1'),
+      map.get($colors, $type, 'base')
+    );
+
+    // --vp-c-#{$type}-2
+    @include set-css-var-value(
+      ('c', $type, '2'),
+      map.get($colors, $type, 'light-2')
+    );
+
+    // --vp-c-#{$type}-3
+    @include set-css-var-value(
+      ('c', $type, '3'),
+      map.get($colors, $type, 'light-3')
+    );
+
+    // --vp-c-#{$type}-soft
+    @include set-css-var-value(
+      ('c', $type, 'soft'),
+      rgba(map.get($colors, $type, 'light-4'), 0.14)
+    );
+  }
+}
