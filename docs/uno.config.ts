@@ -1,11 +1,16 @@
-import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss';
+import {
+  defineConfig,
+  presetAttributify,
+  presetIcons,
+  presetWind
+} from 'unocss';
 
 export default defineConfig({
+  presets: [presetWind(), presetAttributify(), presetIcons()],
   content: {
     pipeline: {
-      include: [`${__dirname}/**/*.{vue,md,html,jsx,tsx}`],
-      exclude: [`${__dirname}/node_modules/**/*`]
+      include: [`./**/*`],
+      exclude: [`./node_modules/**/*`, `./.vitepress/cache/**/*`]
     }
-  },
-  presets: [presetUno(), presetAttributify(), presetIcons()]
+  }
 });

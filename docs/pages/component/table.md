@@ -1,3 +1,7 @@
+---
+title: Table
+---
+
 # Table 表格
 
 基于ElementPlus二次封装的表格组件，采用js对象配置的方式生成表格。详情配置请参考[El TableColumn](https://element-plus.org/zh-CN/component/table.html#table-column-api)。

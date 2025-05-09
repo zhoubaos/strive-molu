@@ -6,19 +6,19 @@
       v-html="decodedDescription"></p>
 
     <div class="example">
-      <Example
+      <vp-example
         :file="path"
         :demo="formatPathDemos[path]" />
 
-      <ElDivider class="m-0" />
+      <el-divider class="m-0" />
 
       <div class="op-btns">
-        <ElTooltip
+        <el-tooltip
           content="复制代码"
           :show-arrow="false"
           :trigger="['hover', 'focus']"
           :trigger-keys="[]">
-          <ElIcon
+          <el-icon
             :size="16"
             aria-label="复制代码"
             class="op-btn"
@@ -28,9 +28,9 @@
             @keydown.prevent.enter="copyCode"
             @keydown.prevent.space="copyCode">
             <i-ri-file-copy-line />
-          </ElIcon>
-        </ElTooltip>
-        <ElTooltip
+          </el-icon>
+        </el-tooltip>
+        <el-tooltip
           content="查看源代码"
           :show-arrow="false"
           :trigger="['hover', 'focus']"
@@ -40,18 +40,18 @@
             :aria-label="sourceVisible ? '隐藏源代码' : '查看源代码'"
             class="reset-btn el-icon op-btn"
             @click="toggleSourceVisible()">
-            <ElIcon :size="16">
+            <el-icon :size="16">
               <i-ri-code-line />
-            </ElIcon>
+            </el-icon>
           </button>
-        </ElTooltip>
+        </el-tooltip>
       </div>
 
-      <ElCollapseTransition>
+      <el-collapse-transition>
         <SourceCode
           v-show="sourceVisible"
           :source="source" />
-      </ElCollapseTransition>
+      </el-collapse-transition>
 
       <Transition name="el-fade-in-linear">
         <div
@@ -61,9 +61,9 @@
           role="button"
           @click="toggleSourceVisible(false)"
           @keydown="onSourceVisibleKeydown">
-          <ElIcon :size="16">
+          <el-icon :size="16">
             <CaretTop />
-          </ElIcon>
+          </el-icon>
           <span>隐藏源代码</span>
         </div>
       </Transition>
@@ -73,12 +73,10 @@
 
 <script setup lang="ts">
 import { computed, getCurrentInstance, ref, toRef } from 'vue';
-import { isClient, useClipboard, useToggle } from '@vueuse/core';
-
-// @ts-ignore
+import { useClipboard, useToggle } from '@vueuse/core';
 import { CaretTop } from '@element-plus/icons-vue';
 
-import Example from './vp-example.vue';
+import VpExample from './vp-example.vue';
 import SourceCode from './vp-source-code.vue';
 
 const props = withDefaults(
@@ -152,8 +150,9 @@ const { copy, isSupported } = useClipboard({
  */
 const copyCode = async () => {
   const { $message } = vm.appContext.config.globalProperties;
-  if (!isSupported || !navigator.clipboard) {
-    $message.error('复制失败');
+
+  if (!isSupported.value || !navigator.clipboard) {
+    $message.error(`没有复制权限`);
     return;
   }
   try {

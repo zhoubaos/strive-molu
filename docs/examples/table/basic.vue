@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { SmTable, type Column } from 'strive-molu';
+import { type Column } from 'strive-molu';
 
 const tableData = [
   {
@@ -48,3 +48,4 @@ const tableColumns: Column[] = [
   }
 ];
 </script>
+<style></style>

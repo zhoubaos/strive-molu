@@ -68,7 +68,6 @@
         v-model:page-size="pageSize"
         @change="handle_pageAndSizeChange" />
     </footer>
-    <el-button>详情</el-button>
   </div>
 </template>
 
@@ -85,7 +84,8 @@ import {
   onBeforeMount,
   computed,
   getCurrentInstance,
-  onMounted
+  onMounted,
+  toRaw
 } from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
@@ -140,7 +140,7 @@ const onClick_openDialog = () => {
   visible.value = true;
 };
 
-const tableRef = ref(null);
+const tableRef = ref<any>(null);
 const paginationRef = ref(null);
 
 // 表格展示的列
@@ -275,31 +275,17 @@ const resetPageAndSize = () => {
   );
 };
 
-defineExpose({
-  resetPageAndSize
-});
-
-// 绑定table exposes给当前组件实例
-const bindTableExpose = () => {
-  if (!tableRef.value || !context) return;
-
-  if (!context.exposed) {
-    context.exposed = {};
-  }
-  for (const key in tableRef.value as any) {
-    if (isFunction((tableRef.value as unknown as Record<string, any>)[key])) {
-      Reflect.set(
-        context.exposed,
-        key,
-        (tableRef.value as unknown as Record<string, any>)[key].bind(
-          tableRef.value
-        )
-      );
-    }
-  }
+const clearSelection = (...args: any[]) => {
+  tableRef.value?.clearSelection(...args);
 };
-onMounted(() => {
-  bindTableExpose();
+const getSelectionRows = (...args: any[]) => {
+  return tableRef.value?.getSelectionRows(...args);
+};
+
+defineExpose({
+  resetPageAndSize,
+  clearSelection,
+  getSelectionRows
 });
 
 // #endregion

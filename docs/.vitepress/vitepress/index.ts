@@ -8,8 +8,7 @@ import '../../../packages/theme/src/reset.scss';
 import '../../../packages/theme/src/index.scss';
 
 // 动态改变主题色
-import './styles/custom-theme/index.scss';
-import './styles/app.scss';
+import './styles/index.scss';
 
 import 'virtual:uno.css';
 

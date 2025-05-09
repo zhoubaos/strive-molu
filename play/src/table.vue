@@ -36,6 +36,9 @@ import '@strive-molu/components/table/style/index';
 import { reactive, ref } from 'vue';
 
 const smTableRef = ref();
+const add = (a, b) => {
+  return a + b;
+};
 const ond = () => {
   smTableRef.value!.resetPageAndSize();
   console.log(smTableRef.value.getSelectionRows());
@@ -50,9 +53,6 @@ const pageSize = reactive({
   size: 5
 });
 const columns: Column[] = [
-  {
-    prop: 't'
-  },
   {
     prop: 'id',
     type: 'selection'

@@ -1,0 +1,77 @@
+@use './common/var.scss' as *;
+@use './mixins/mixins.scss' as *;
+
+@use 'sass:map';
+
+// common
+:root {
+  @include set-css-var-value(('c', 'color-white'), $color-white);
+  @include set-css-var-value(('c', 'color-black'), $color-black);
+}
+
+// light
+:root {
+  color-scheme: light;
+
+  // 主体基础色
+  @each $type in $types {
+    // --vp-c-#{$type}-1
+    @include set-css-var-value(
+      ('c', $type, '1'),
+      map.get($colors, $type, 'base')
+    );
+
+    // --vp-c-#{$type}-2
+    @include set-css-var-value(
+      ('c', $type, '2'),
+      map.get($colors, $type, 'light-2')
+    );
+
+    // --vp-c-#{$type}-3
+    @include set-css-var-value(
+      ('c', $type, '3'),
+      map.get($colors, $type, 'light-3')
+    );
+
+    // --vp-c-#{$type}-soft
+    @if $type == 'gray' {
+      @include set-css-var-value(
+        ('c', $type, 'soft'),
+        rgba(map.get($colors, $type, 'light-4'), 0.44)
+      );
+    } @else {
+      @include set-css-var-value(
+        ('c', $type, 'soft'),
+        rgba(map.get($colors, $type, 'light-4'), 0.14)
+      );
+    }
+  }
+}
+
+// vitepress custom
+:root {
+  --vp-c-text-1: var(--sm-text-color-primary);
+}
+
+// custom
+:root {
+  // colors
+  --text-color: var(--sm-text-color-primary);
+  --text-color-light: var(--sm-text-color-regular);
+  --text-color-lighter: var(--sm-text-color-secondary);
+
+  --brand-color: var(--sm-color-primary);
+  --brand-color-light: var(--sm-color-primary-light-1);
+  --bg-brand-color: var(--sm-color-primary-light-9);
+
+  --bg-color: var(--sm-bg-color);
+  --bg-color-rgb: 255, 255, 255;
+  --border-color: var(--sm-border-color);
+  --border-color-light: var(--sm-border-color-lighter);
+
+  --font-family: var(--sm-font-family);
+
+  --success-color: var(--sm-color-success);
+  --warning-color: var(--sm-color-warning);
+  --danger-color: var(--sm-color-danger);
+}

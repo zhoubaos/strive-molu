@@ -69,3 +69,20 @@ $color-red: map.get($colors, 'red', 'base');
 @each $type in $types {
   @include set-color-mix-level($type, 2, 'dark', $color-black);
 }
+
+// breakpoints
+$breakpoint-max: 1680px !default;
+$breakpoint-xxl: 1440px !default;
+$breakpoint-xlg: 1280px !default;
+$breakpoint-lg: 960px !default;
+$breakpoint-md: 768px !default;
+$breakpoint-sm: 480px !default;
+
+$breakpoints: (
+  'sm': #{$breakpoint-sm},
+  'md': #{$breakpoint-md},
+  'lg': #{$breakpoint-lg},
+  'xlg': #{$breakpoint-xlg},
+  'xxl': #{$breakpoint-xxl},
+  'max': #{$breakpoint-max}
+) !default;

@@ -2,6 +2,7 @@ import { loadEnv } from 'vite';
 import path from 'path';
 import glob from 'fast-glob';
 import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import mkcert from 'vite-plugin-mkcert';
 import {
   docPackage,
@@ -79,19 +80,21 @@ export const getViteConfig = ({ mode }): ViteConfig => {
       alias
     },
     plugins: [
+      UnoCSS({
+        inspector: false
+      }) as any,
       Components({
         dirs: ['.vitepress/vitepress/components'],
         resolvers: [
+          // ElementPlusResolver(),
           // auto import icons
           // https://github.com/antfu/unplugin-icons
-
           IconsResolver()
         ],
         allowOverrides: true,
         include: [/\.vue$/, /\.vue\?vue/]
       }),
       Icons(),
-      UnoCSS() as any,
       MarkdownTransform()
       // mkcert({
       //   source: 'coding'
