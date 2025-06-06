@@ -1,0 +1,11 @@
+/* @tailwind base; */
+/* @tailwind components; */
+@tailwind utilities;
+
+/* 快速调整和定制页面中的具体样式，保持高灵活性 */
+@layer utilities {
+  /* eg */
+  .text-center {
+    text-align: center;
+  }
+}

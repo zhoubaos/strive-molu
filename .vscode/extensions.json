@@ -3,7 +3,7 @@
     "vue.official",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "antfu.unocss", // warn: 因为安装的unocss版本是0.6x.x，所以插件也只能安装0.6x.x，否则没有智能提示
+    "bradlc.vscode-tailwindcss",
     "vitest.explorer"
   ]
 }

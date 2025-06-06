@@ -47,7 +47,10 @@ export type SmPropMergeType<Type, Value, Validator> =
 /**
  * 处理输入参数的默认值（约束）
  */
-export type SmPropInputDefault<Required extends boolean, Default> = Required extends true
+export type SmPropInputDefault<
+  Required extends boolean,
+  Default
+> = Required extends true
   ? never
   : Default extends Record<string, unknown> | Array<any>
     ? () => Default
@@ -56,7 +59,11 @@ export type SmPropInputDefault<Required extends boolean, Default> = Required ext
 /**
  * 原生 prop `类型，BooleanConstructor`、`StringConstructor`、`null`、`undefined` 等
  */
-export type NativePropType = ((...args: any) => any) | { new (...args: any): any } | undefined | null;
+export type NativePropType =
+  | ((...args: any) => any)
+  | { new (...args: any): any }
+  | undefined
+  | null;
 export type IfNativePropType<T, Y, N> = [T] extends [NativePropType] ? Y : N;
 
 /**
@@ -117,7 +124,13 @@ export type IfSmProp<T, Y, N> = T extends { [smPropKey]: true } ? Y : N;
  * 将输入转换为输出
  */
 export type SmPropConvert<Input> =
-  Input extends SmPropInput<infer Type, infer Value, infer Validator, any, infer Required>
+  Input extends SmPropInput<
+    infer Type,
+    infer Value,
+    infer Validator,
+    any,
+    infer Required
+  >
     ? SmPropFinalized<Type, Value, Validator, Input['default'], Required>
     : never;
 

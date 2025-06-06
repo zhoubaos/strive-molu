@@ -10,7 +10,7 @@ import '../../../packages/theme/src/index.scss';
 // 动态改变主题色
 import './styles/index.scss';
 
-import 'virtual:uno.css';
+import './styles/tailwind.css';
 
 import { type Component } from 'vue';
 

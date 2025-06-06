@@ -30,7 +30,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "unocss.root": "./docs",
   // 控制文件嵌套
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {

@@ -1,23 +1,27 @@
+import { buildProps, definePropType } from '@strive-molu/utils';
 import type { ExtractPropTypes, PropType } from 'vue';
 
-export const lazyPictureProps = {
+export const lazyPictureProps = buildProps({
   /**
    * @desc 网络图片地址
    */
-  lazyUrl: {
+  url: {
     type: String,
     required: true
   },
   /**
-   * @desc 图片loading显示的图片地址
+   * @desc 图片loading地址
    */
-  loadUrl: {
+  loadingUrl: {
     type: String,
     default: ''
   },
   objectFit: {
-    type: Object as PropType<'contain' | 'cover' | 'fill' | 'none' | 'scale-down'>,
+    type: definePropType<'contain' | 'cover' | 'fill' | 'none' | 'scale-down'>(
+      String
+    ),
     default: 'contain'
   }
-};
+});
+
 export type LazyPictureProps = ExtractPropTypes<typeof lazyPictureProps>;

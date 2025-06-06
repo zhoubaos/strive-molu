@@ -19,7 +19,10 @@ if [ -d "$DIRNAME" ]; then
   exit 1
 fi
 
+# 首字母大写
 NAME=$(echo $NAME | awk -F'-' '{ for(i=1; i<=NF; i++) { $i = toupper(substr($i,1,1)) tolower(substr($i,2)) } print $0 }' OFS='')
+
+# 驼峰
 PROP_NAME=$(echo "${NAME:0:1}" | tr '[:upper:]' '[:lower:]')${NAME:1}
 
 mkdir -p "$DIRNAME"
@@ -35,6 +38,7 @@ cat > $DIRNAME/src/$INPUT_NAME.vue <<EOF
 </template>
 
 <script lang="ts" setup>
+import { useNamespace } from '@strive-molu/hooks';
 import { ${PROP_NAME}Emits, ${PROP_NAME}Props } from './$INPUT_NAME'
 
 defineOptions({
@@ -43,6 +47,8 @@ defineOptions({
 
 const props = defineProps(${PROP_NAME}Props)
 const emit = defineEmits(${PROP_NAME}Emits)
+
+const ns$NAME = useNamespace('${INPUT_NAME}');
 
 // init here
 </script>

@@ -1,137 +1,78 @@
 <template>
-  <el-button
-    class="btn"
-    @click="onClick_reset"
-    >重置分页</el-button
-  >
+  <el-button @click="onClick_resetTable">重置</el-button>
   <sm-table
     ref="smTableRef"
+    v-model:page="pageSize.page"
+    v-model:page-size="pageSize.size"
     :data="tableData"
     :columns="tableColumns"
-    :total="total"
-    :pagination-config="paginaConfig"
-    @page-and-size-change="handle_pagesizeChane"></sm-table>
+    :total="tableTotal"
+    :pagination-config="{
+      pageSizes: [10, 20],
+      layout: ['pager', 'total', 'sizes']
+    }"
+    @page-and-size-change="handle_pagesizeChane">
+  </sm-table>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import { SmTable, type Column } from 'strive-molu';
-const smTableRef = ref();
-const onClick_reset = () => {
-  smTableRef.value?.resetPageAndSize();
-};
+import { type Column } from 'strive-molu';
+import { onBeforeMount, reactive, ref } from 'vue';
 
-const data = reactive([
-  {
-    id: 1,
-    name: '',
-    age: 23,
-    address: '重庆市云游戏地方'
-  },
-  {
-    id: 4,
-    name: '打广告',
-    age: 15,
-    address: '大法师'
-  },
-  {
-    id: 5,
-    name: '上档次',
-    age: 18,
-    address: '等等的点点滴滴'
-  },
-  {
-    id: 6,
-    name: '地方',
-    age: 34,
-    address: '水电费水电费'
-  },
-  {
-    id: 7,
-    name: '打得过',
-    age: 153,
-    address: '温文峰'
-  },
-  {
-    id: 8,
-    name: '水电费',
-    age: 143,
-    address: '胜多负少'
-  },
-  {
-    id: 9,
-    name: '收到',
-    age: 133,
-    address: '出去胜多负少'
-  },
-  {
-    id: 10,
-    name: '胜多负少',
-    age: 1453,
-    address: '江苏地第三方'
-  },
-  {
-    id: 11,
-    name: '胜sd多负少',
-    age: 153,
-    address: '北京收到了'
-  },
-  {
-    id: 10,
-    name: '胜多负少',
-    age: 1453,
-    address: '江苏地第三方'
-  },
-  {
-    id: 11,
-    name: '胜sd多负少',
-    age: 153,
-    address: '北京收到了'
-  }
-]);
+const smTableRef = ref();
 const pageSize = reactive({
   page: 1,
   size: 5
 });
 
-const paginaConfig = reactive({
-  defaultCurrentPage: pageSize.page,
-  defaultPageSize: pageSize.size
+const data = new Array(12).fill(0).map((_, index) => {
+  return {
+    date: '2016-05-03',
+    name: 'Tom' + index,
+    address: index % 2 === 0 ? '' : 'No. 189, Grove St, Los Angeles'
+  };
 });
-const tableData = ref<any>([]);
-const total = ref(data.length);
 
-const checkData = () => {
-  let s = (pageSize.page - 1) * pageSize.size;
-  tableData.value = data.slice(s, s + pageSize.size);
-};
-checkData();
+const tableData = ref<any[]>([]);
 
-const handle_pagesizeChane = (page, size, isReset) => {
-  console.log(page, size, isReset);
-
-  pageSize.page = page;
-  pageSize.size = size;
-  checkData();
-};
+const tableTotal = ref(12);
 
 const tableColumns: Column[] = [
   {
-    prop: 'name',
-    label: '名字'
+    prop: 'date',
+    label: '日期'
   },
   {
-    prop: 'age',
-    label: '年龄'
+    prop: 'name',
+    label: '名称'
   },
   {
     prop: 'address',
-    label: '地址'
+    label: '地址',
+    width: 300
   }
 ];
+
+const handle_pagesizeChane = (page, size, isReset) => {
+  console.log(page, size, isReset);
+  getTableData();
+};
+
+const getTableData = () => {
+  tableData.value = data.slice(
+    pageSize.page - 1,
+    pageSize.page - 1 + pageSize.size
+  );
+};
+onBeforeMount(() => {
+  getTableData();
+});
+
+/**
+ * 重置表格分页
+ */
+const onClick_resetTable = () => {
+  smTableRef.value?.resetPageAndSize();
+};
 </script>
-<style scoped lang="scss">
-.btn {
-  margin-bottom: 16px;
-}
-</style>
+<style></style>

@@ -4,9 +4,10 @@ declare module 'vue' {
   // GlobalComponents for Volar
 
   export interface GlobalComponents {
-    SmButton: (typeof import('strive-molu'))['SmButton'];
     SmTable: (typeof import('strive-molu'))['SmTable'];
-    SmMBox: typeof import('strive-molu')['SmMBox']
+    SmLazyPicture: (typeof import('strive-molu'))['SmLazyPicture'];
+    SmMultipleInputBox: typeof import('strive-molu')['SmMultipleInputBox']
+    SmMultipleInput: typeof import('strive-molu')['SmMultipleInput']
   }
 }
 export {};

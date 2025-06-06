@@ -1,10 +1,22 @@
 <template>
   <el-table-column v-bind="excludeColumnAttrs">
-    <template v-if="customTitle" #header="{ column, $index }">
-      <slot :name="customTitle" :column="column" :index="$index"></slot>
+    <template
+      v-if="customTitle"
+      #header="{ column, $index }">
+      <slot
+        :name="customTitle"
+        :column="column"
+        :index="$index"></slot>
     </template>
-    <template v-if="customRender" #default="{ row, column, $index }">
-      <slot :name="customRender" :text="row[column.prop]" :column="column" :row="row" :index="$index"></slot>
+    <template
+      v-if="customRender"
+      #default="{ row, column, $index }">
+      <slot
+        :name="customRender"
+        :text="row[column.prop]"
+        :column="column"
+        :row="row"
+        :index="$index"></slot>
     </template>
     <template v-if="columnChildren.length">
       <table-column
@@ -13,11 +25,22 @@
         :column="item"
         :placeholder="placeholder"
         :empty-values="emptyValues">
-        <template v-for="title in getColumnTitles(item)" #[title]="{ column, index }">
-          <slot :name="title" :column="column" :index="index"></slot>
+        <template
+          v-for="title in getColumnTitles(item)"
+          #[title]="{ column, index }">
+          <slot
+            :name="title"
+            :column="column"
+            :index="index"></slot>
         </template>
-        <template v-for="render in getColumnRenders(item)" #[render]="{ row, column, index }">
-          <slot :name="render" :column="column" :row="row" :index="index"></slot>
+        <template
+          v-for="render in getColumnRenders(item)"
+          #[render]="{ row, column, index }">
+          <slot
+            :name="render"
+            :column="column"
+            :row="row"
+            :index="index"></slot>
         </template>
       </table-column>
     </template>
@@ -44,11 +67,18 @@ const excludeColumnAttrs = computed(() => {
   let res: Record<string, any> = {};
   for (const resKey in props.column) {
     if (!['children', 'isRequired', 'slots'].includes(resKey)) {
-      res[resKey] = props.column[resKey];
+      res[resKey] = (props.column as Record<string, any>)[resKey];
     }
     // 给每列数据的空白数据添加占位符
-    res['formatter'] = (row: any, column: any, cellValue: any, index: number) => {
-      return props.emptyValues.includes(cellValue) ? props.placeholder : cellValue;
+    res['formatter'] = (
+      row: any,
+      column: any,
+      cellValue: any,
+      index: number
+    ) => {
+      return props.emptyValues.includes(cellValue)
+        ? props.placeholder
+        : cellValue;
     };
   }
 

@@ -3,6 +3,7 @@
 
 @include b(lazy-picture) {
   @include utils-wh;
+  background-color: getCssVar('fill-color', 'light');
 
   @include e(load) {
     @include utils-wh;

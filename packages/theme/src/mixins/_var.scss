@@ -28,7 +28,7 @@
     $namespace
   );
 
-  // el 或 sm primary
+  // 只重新生成el 或 sm 的primary主题css变量
   @if $namespace == 'el' or $type == 'primary' {
     @each $i in (3, 5, 7, 8, 9) {
       @include set-css-var-value(

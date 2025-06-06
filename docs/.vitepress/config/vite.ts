@@ -10,7 +10,6 @@ import {
   getPackageDependencies,
   projRoot
 } from '@strive-molu/build-utils';
-import UnoCSS from 'unocss/vite';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import { MarkdownTransform } from '../plugins/markdown-transform';
@@ -80,9 +79,6 @@ export const getViteConfig = ({ mode }): ViteConfig => {
       alias
     },
     plugins: [
-      UnoCSS({
-        inspector: false
-      }) as any,
       Components({
         dirs: ['.vitepress/vitepress/components'],
         resolvers: [

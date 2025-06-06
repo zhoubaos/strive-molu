@@ -35,9 +35,10 @@
   "include": [
     "**/*",
     ".vitepress/**/*",
-    "../typings/global.d.ts"
+    "../typings/global.d.ts",
+    "../typings/element-plus.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
   ]
 }

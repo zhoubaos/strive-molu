@@ -10,7 +10,7 @@ defineProps({
 
 <template>
   <span class="inline-flex items-center">
-    <code class="api-typing mr-1">
+    <code class="api-typing mr-4">
       {{ type }}
     </code>
     <ClientOnly>
@@ -20,13 +20,13 @@ defineProps({
         <ElButton
           text
           :icon="Warning"
-          class="p-2 text-4" />
+          class="p-8 text-16" />
         <template #content>
           <slot>
             <div
-              class="m-1"
+              class="m-4"
               style="max-width: 600px">
-              <code>
+              <code class="text-primary-light">
                 {{ details }}
               </code>
             </div>

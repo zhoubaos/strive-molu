@@ -102,7 +102,6 @@ import {
   buttonGroupContextKey,
   formContextKey
 } from 'element-plus';
-import { isFunction } from '@strive-molu/utils';
 
 defineOptions({
   name: 'SmTable'
