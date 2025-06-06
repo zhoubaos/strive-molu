@@ -77,12 +77,7 @@ $color-info: map.get($colors, 'info', 'base') !default;
 ///         'light-9': #ecf5ff, // 90%
 ///     )
 /// ) !global;
-@mixin set-color-mix-level(
-  $type,
-  $number,
-  $mode: 'light',
-  $mix-color: $color-white
-) {
+@mixin set-color-mix-level($type, $number, $mode: 'light', $mix-color: $color-white) {
   $colors: map.deep-merge(
     (
       $type: (
@@ -171,8 +166,9 @@ $border-color-hover: getCssVar('text-color', 'disabled') !default;
 $border-radius: () !default;
 $border-radius: map.merge(
   (
-    'base': 4px,
     'small': 2px,
+    'base': 4px,
+    'large': 6px,
     'round': 20px,
     'circle': 100%
   ),

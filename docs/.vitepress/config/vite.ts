@@ -1,15 +1,10 @@
-import { loadEnv } from 'vite';
+import { loadEnv, PluginOption } from 'vite';
 import path from 'path';
 import glob from 'fast-glob';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import mkcert from 'vite-plugin-mkcert';
-import {
-  docPackage,
-  smPackage,
-  getPackageDependencies,
-  projRoot
-} from '@strive-molu/build-utils';
+import { docPackage, smPackage, getPackageDependencies, projRoot } from '@strive-molu/build-utils';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import { MarkdownTransform } from '../plugins/markdown-transform';
@@ -23,9 +18,7 @@ type AliasOptions = Required<ResolveOptions>['alias'];
 const { dependencies: epDeps } = getPackageDependencies(smPackage);
 const { dependencies: docsDeps } = getPackageDependencies(docPackage);
 const optimizeDeps = [...new Set([...epDeps, ...docsDeps])].filter(
-  (dep) =>
-    !dep.startsWith('@types/') &&
-    !['strive-nolu', 'element-plus', 'normalize.css'].includes(dep)
+  (dep) => !dep.startsWith('@types/') && !['strive-nolu', 'element-plus', 'normalize.css'].includes(dep)
 );
 
 optimizeDeps.push(
@@ -95,7 +88,7 @@ export const getViteConfig = ({ mode }): ViteConfig => {
       // mkcert({
       //   source: 'coding'
       // })
-    ],
+    ] as any,
     optimizeDeps: {
       include: optimizeDeps
     }

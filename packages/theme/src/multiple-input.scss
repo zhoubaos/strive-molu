@@ -1,0 +1,147 @@
+@use 'mixins/utils' as *;
+@use 'mixins/mixins.scss' as *;
+
+@include b(multiple-input) {
+  color: getCssVar('text-color', 'primary');
+  font-size: getCssVar('font-size', 'small');
+  .el-button {
+    &.is-link {
+      span {
+        font-size: getCssVar('font-size', 'small');
+      }
+    }
+  }
+}
+
+@include b(multiple-input-section) {
+  border-radius: getCssVar('radius', 'base');
+  border: getCssVar('border');
+  @include e(header) {
+    @include utils-flex-center-y;
+    justify-content: space-between;
+    height: 44px;
+    padding: 0 14px;
+    background-color: getCssVar('fill-color', 'light');
+    @include e(title) {
+      display: flex;
+      font-size: getCssVar('font-size', 'base');
+      font-weight: 500;
+      @include m(highlight) {
+        color: getCssVar('color', 'primary');
+      }
+    }
+
+    @include e(operate) {
+    }
+
+    @include e(tips) {
+      padding: 0 14px;
+      line-height: 34px;
+      color: getCssVar('color', 'primary');
+      background-color: #eef7ff;
+    }
+  }
+
+  @include e(main) {
+    height: 220px;
+    overflow-y: auto;
+    @include e(row) {
+      float: left;
+      min-height: 100%;
+      width: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 4px 3px;
+      border-right: getCssVar('border');
+      border-color: #f0f0f0;
+      box-sizing: border-box;
+      @include m(number-wp) {
+        @include utils-flex-center-y;
+        flex-shrink: 0;
+        height: 30px;
+      }
+
+      @include m(number) {
+        @include utils-wh(100%, 24px);
+        line-height: 24px;
+        text-align: center;
+        @include when(error) {
+          color: getCssVar('color', 'error');
+          background-color: #f4646421;
+          border-radius: getCssVar('border-radius', 'base');
+        }
+      }
+    }
+
+    @include e(input-list) {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 4px;
+      margin-left: 30px;
+      .el-input {
+        height: 30px;
+        box-shadow: none !important;
+        border: none !important;
+        outline: none !important;
+        .el-input__wrapper {
+          box-shadow: none !important;
+          border: none !important;
+          outline: none !important;
+          border-radius: 4px;
+          &:hover {
+            background-color: #f6f6f6;
+            .close-icon {
+              display: block;
+            }
+          }
+          .el-input__inner {
+            @include utils-ellipsis-single;
+            flex: 1;
+            margin-right: 10px;
+          }
+          .el-input__suffix {
+            width: 20px;
+          }
+          input::-webkit-input-placeholder {
+            color: #999 !important;
+            font-size: getCssVar('font-size', 'small');
+          }
+        }
+      }
+    }
+  }
+
+  @include m(close) {
+    display: none;
+    cursor: pointer;
+  }
+}
+
+@include b(multiple-input-footer) {
+  @include e(errors) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px 0;
+    margin-top: 12px;
+  }
+  @include e(error-item) {
+    display: flex;
+    line-height: 14px;
+    @include m(lable) {
+      margin-right: 4px;
+      flex-shrink: 0;
+      color: getCssVar('color', 'error');
+    }
+    @include m(row) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+      color: getCssVar('color', 'primary');
+      > span {
+        cursor: pointer;
+      }
+    }
+  }
+}

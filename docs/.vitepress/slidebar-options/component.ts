@@ -17,11 +17,15 @@ const options: Option[] = [
       {
         text: 'LazyPicture 懒加载图片',
         link: '/lazy-picture'
-      }
+      },
       // {
       //   text: 'DynamicForm 动态表单',
       //   link: '/dynamic-form'
       // }
+      {
+        text: 'MultipleInput 多行输入',
+        link: '/multiple-input'
+      }
     ]
   }
 ];

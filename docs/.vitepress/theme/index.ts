@@ -1,6 +1,6 @@
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
-import StriveMolu from 'strive-molu';
+import striveMolu from 'strive-molu';
 import { globals } from '../vitepress';
 import elementPlus from 'element-plus';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
@@ -8,7 +8,8 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 export default <Theme>{
   extends: DefaultTheme,
   enhanceApp: ({ app }) => {
-    app.use(StriveMolu);
+    app.use(striveMolu);
+
     app.use(elementPlus, {
       locale: zhCn
     });
