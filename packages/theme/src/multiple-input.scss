@@ -6,6 +6,7 @@
   font-size: getCssVar('font-size', 'small');
   .el-button {
     &.is-link {
+      padding: 0;
       span {
         font-size: getCssVar('font-size', 'small');
       }

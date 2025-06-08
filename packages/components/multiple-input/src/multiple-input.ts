@@ -16,7 +16,7 @@ export interface ValidateItem {
    *    return text.trim().length >=5 && text.trim().length <=55
    * }
    */
-  validate: (text: string, otherTexts: string[], before?: string[], after?: string[]) => boolean;
+  validate: (text: string, otherTexts: string[], before: string[], after: string[]) => boolean;
   /**
    * @desc 用于在输入文本不能通过校验函数时，给出的提示
    * @example 以下标题内容只能在5~55字符之间

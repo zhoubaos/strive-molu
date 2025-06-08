@@ -8,6 +8,14 @@ title: multiple-input
 
 ## 基础用法
 
-:::demo
+:::demo 通过`enter`键向下插入一行。
 multiple-input/basic
+:::
+
+## 验证
+
+通过`validate-list`属性设置验证规则。
+
+:::demo
+multiple-input/validate
 :::
