@@ -83,7 +83,6 @@ const props = withDefaults(
   defineProps<{
     /**
      * 所有demo组件源文件
-     * 暂时没用
      */
     demos: object;
     /**
@@ -115,17 +114,14 @@ const formatPathDemos = computed(() => {
   const demos = {};
 
   Object.keys(props.demos).forEach((key) => {
-    demos[key.replace('../../examples/', '').replace('.vue', '')] =
-      props.demos[key].default;
+    demos[key.replace('../../examples/component/', '').replace('.vue', '')] = props.demos[key].default;
   });
 
   return demos;
 });
 
 // 描述
-const decodedDescription = computed(() =>
-  decodeURIComponent(props.description)
-);
+const decodedDescription = computed(() => decodeURIComponent(props.description));
 
 const [sourceVisible, toggleSourceVisible] = useToggle();
 

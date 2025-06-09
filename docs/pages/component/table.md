@@ -58,13 +58,15 @@ table/slot
 table/custom-column
 :::
 
-## 属性
+## API
+
+### 属性
 
 :::tip
 除了以下属性，同时支持[ElTable](https://element-plus.org/zh-CN/component/table.html#table-%E5%B1%9E%E6%80%A7)的属性。
 :::
 
-| 属性名                      | 说明                                                                                                                       | 类型                        | 默认值              |
+| 名称                        | 说明                                                                                                                       | 类型                        | 默认值              |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------- | ------------------- |
 | data                        | 表格数据                                                                                                                   | ^[array]`any[]`             | []                  |
 | columns                     | 表格的列配置，详情情况下面                                                                                                 | ^[array]`Column[]`          | []                  |
@@ -78,7 +80,7 @@ table/custom-column
 | paginationConfig            | 表格分页属性配置，详情查看[El Pagination组件](https://element-plus.org/zh-CN/component/pagination.html#%E5%B1%9E%E6%80%A7) | ^[object]`PaginationConfig` | —                   |
 | round                       | 是否为圆角                                                                                                                 | `boolean`                   | false               |
 
-### Column属性
+#### Column属性
 
 :::tip
 除了以下属性，其余属性请参考[ElTableColumn](https://element-plus.org/zh-CN/component/table.html#table-column-api)。
@@ -92,22 +94,22 @@ table/custom-column
 | slots      | 定义表头或单元格插槽名称。title配置表头插槽名称，customRender配置单元格名称。 | ^[object]`Slots`   | —      |
 | children   | 配置多级表头时会使用。                                                        | ^[array]`Column[]` | —      |
 
-## 事件
+### 事件
 
 :::tip
 除了以下事件，还支持[ElTable](https://element-plus.org/zh-CN/component/table.html#table-%E4%BA%8B%E4%BB%B6)的事件，但不保证所有事件都能正常使用。
 :::
 
-| 事件名               | 说明                                                                                         | 类型                                                                   |
+| 名称                 | 说明                                                                                         | 类型                                                                   |
 | -------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | page-and-size-change | 当切换页数和切换每页条数时会触发该事件。当调用 `resetPageAndSize`方法时，第3个参数返回true。 | ^[Function]`(page: number, pageSize: number, isReset: boolen) => void` |
 
-## 方法
+### 方法
 
 :::tip
 除了以下方法，还支持[ElTable](https://element-plus.org/zh-CN/component/table.html#table-exposes)的方法，但不保证所有方法都能正常使用。
 :::
 
-| 方法名           | 说明                                                                              | 类型     |
+| 名称             | 说明                                                                              | 类型     |
 | ---------------- | --------------------------------------------------------------------------------- | -------- |
 | resetPageAndSize | 让分页器重置页数和每页条数，且`page-and-size-change` 方法返回的第3个参数为 `true` | Function |

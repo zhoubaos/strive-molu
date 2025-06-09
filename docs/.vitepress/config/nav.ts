@@ -3,5 +3,5 @@ import type { NavOption } from '../typescript/option';
 export const nav: NavOption[] = [
   { text: '组件', link: '/pages/component/table', activeMatch: '/component/' },
   { text: '指令', link: '/pages/directive/', activeMatch: '/directive/' },
-  { text: '工具函数', link: '/pages/util/tree', activeMatch: '/util/' }
+  { text: '工具函数', link: '/pages/util/tree-tools', activeMatch: '/util/' }
 ];

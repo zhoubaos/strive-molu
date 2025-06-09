@@ -1,11 +1,4 @@
-interface Task {
-  (...args: any[]): void;
-}
-
-// 调度器
-interface Scheduler {
-  (chunk: (isGoOn: () => boolean) => void): void;
-}
+import { Scheduler, Task } from './typing';
 
 /**
  * 用于自定义执行任务时机，以及每次任务执行数量

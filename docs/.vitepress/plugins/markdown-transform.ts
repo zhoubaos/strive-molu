@@ -28,7 +28,7 @@ export function MarkdownTransform(): Plugin {
       const append: Append = {
         headers: [],
         footers: [],
-        scriptSetups: [`const demos = import.meta.glob('../../examples/${componentId}/*.vue',{eager:true})`]
+        scriptSetups: [`const demos = import.meta.glob('../../examples/component/${componentId}/*.vue',{eager:true})`]
       };
 
       code = transformVpScriptSetup(code, append);
@@ -72,7 +72,7 @@ const GITHUB_BLOB_URL = `https://github.com/${REPO_PATH}/blob/${REPO_BRANCH}`;
 const GITHUB_TREE_URL = `https://github.com/${REPO_PATH}/tree/${REPO_BRANCH}`;
 const transformComponentMarkdown = (id: string, componentId: string, code: string, append: Append) => {
   // const lang = getLang(id);
-  const docUrl = `${GITHUB_BLOB_URL}/${docsDirName}/en-US/component/${componentId}.md`;
+  const docUrl = `${GITHUB_BLOB_URL}/${docsDirName}/pages/component/${componentId}.md`;
   const componentUrl = `${GITHUB_TREE_URL}/packages/components/${componentId}`;
   const componentPath = path.resolve(projRoot, `packages/components/${componentId}`);
   const isComponent = fs.existsSync(componentPath);
