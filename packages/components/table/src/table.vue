@@ -76,32 +76,12 @@ import { Setting } from '@element-plus/icons-vue';
 import { tableProps, tableEmits } from './table';
 import { DEFAULT_PAGINATION_CONFIG, PaginationConfig } from './pagination';
 import { useNamespace } from '@strive-molu/hooks';
-import {
-  provide,
-  ref,
-  reactive,
-  toRef,
-  onBeforeMount,
-  computed,
-  getCurrentInstance,
-  onMounted,
-  toRaw
-} from 'vue';
+import { provide, ref, reactive, toRef, onBeforeMount, computed, getCurrentInstance, onMounted, toRaw } from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
-import {
-  getColumnTitles,
-  getColumnRenders,
-  getLocalColumnProps,
-  setLocalColumnProps,
-  genTableHash
-} from './utils';
+import { getColumnTitles, getColumnRenders, getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
 import TableColumn from './table-column/index.vue';
-import {
-  FormContext,
-  buttonGroupContextKey,
-  formContextKey
-} from 'element-plus';
+import { FormContext, buttonGroupContextKey, formContextKey } from 'element-plus';
 
 defineOptions({
   name: 'SmTable'
@@ -169,9 +149,7 @@ const handleCustomColumns = () => {
     const columnprops = tableShowColumns.value.map((item) => item.prop);
     setLocalColumnProps(tableHash.value, columnprops);
   } else {
-    tableShowColumns.value = props.columns.filter((item) =>
-      localProps.includes(item.prop)
-    );
+    tableShowColumns.value = props.columns.filter((item) => localProps.includes(item.prop));
   }
 };
 
@@ -180,9 +158,7 @@ const handleCustomColumns = () => {
  * @param columnProps
  */
 const handle_checkedColumnprops = (columnProps: string[]) => {
-  tableShowColumns.value = props.columns.filter((item) =>
-    columnProps.includes(item.prop)
-  );
+  tableShowColumns.value = props.columns.filter((item) => columnProps.includes(item.prop));
   setLastColumnAutoWidth();
 };
 
@@ -210,14 +186,10 @@ const pageSize = defineModel<number>('pageSize', {
 // 合并分页配置
 const mergePaginConfig = ref<any>({});
 onBeforeMount(() => {
-  let mConfig = Object.assign(
-    DEFAULT_PAGINATION_CONFIG,
-    props.paginationConfig,
-    {
-      defaultCurrentPage: page.value,
-      defaultPageSize: pageSize.value
-    }
-  );
+  let mConfig = Object.assign(DEFAULT_PAGINATION_CONFIG, props.paginationConfig, {
+    defaultCurrentPage: page.value,
+    defaultPageSize: pageSize.value
+  });
   let config: PaginationConfig = {
     ...mConfig,
     total: props.total,
@@ -233,9 +205,7 @@ onBeforeMount(() => {
     Reflect.set(
       config,
       'pageSizes',
-      mConfig.pageSizes
-        ?.concat(mConfig.defaultPageSize as number)
-        .sort((a: number, b: number) => a - b)
+      mConfig.pageSizes?.concat(mConfig.defaultPageSize as number).sort((a: number, b: number) => a - b)
     );
   }
   mergePaginConfig.value = config;
@@ -266,12 +236,7 @@ const resetPageAndSize = () => {
     console.log('==手动更改==', defaultCurrentPage, defaultPageSize);
   }
 
-  emits(
-    'pageAndSizeChange',
-    defaultCurrentPage,
-    defaultPageSize,
-    resetFlag.value
-  );
+  emits('pageAndSizeChange', defaultCurrentPage, defaultPageSize, resetFlag.value);
 };
 
 const clearSelection = (...args: any[]) => {
