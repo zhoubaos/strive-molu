@@ -64,9 +64,11 @@ export const getViteConfig = ({ mode }): ViteConfig => {
     },
     server: {
       host: true,
+      open: true,
       fs: {
         allow: [projRoot]
-      }
+      },
+      port: 5001
     },
     resolve: {
       alias

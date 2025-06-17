@@ -2,7 +2,7 @@
   "name": "@strive-molu/docs",
   "private": true,
   "scripts": {
-    "dev": "vitepress dev . --port 5001",
+    "dev": "vitepress dev . ",
     "build": "vitepress build .",
     "preview": "vitepress preview ."
   },

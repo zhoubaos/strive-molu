@@ -68,10 +68,7 @@ const handle_pagesizeChane = (page, size, isReset) => {
 };
 
 const getTableData = () => {
-  tableData.value = data.slice(
-    pageSize.page - 1,
-    pageSize.page - 1 + pageSize.size
-  );
+  tableData.value = data.slice(pageSize.page - 1, pageSize.page - 1 + pageSize.size);
 };
 onBeforeMount(() => {
   getTableData();

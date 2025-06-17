@@ -8,13 +8,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import StriveMolu from 'unplugin-strive-molu/vite';
 import ElementPlus from 'unplugin-element-plus/vite';
 
-import {
-  smPackage,
-  smRoot,
-  getPackageDependencies,
-  pkgRoot,
-  projRoot
-} from '@strive-molu/build-utils';
+import { smPackage, smRoot, getPackageDependencies, pkgRoot, projRoot } from '@strive-molu/build-utils';
 import './vite.init';
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
@@ -48,6 +42,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     },
     server: {
       host: true,
+      open: true,
       port: 5174
     },
     // 设置预构建的包
