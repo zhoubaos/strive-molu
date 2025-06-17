@@ -34,10 +34,7 @@ const nsLazyPicture = useNamespace('lazy-picture');
 
 // 默认load占位图
 const loadingUrl = computed(() => {
-  let defaultUrl = new URL(
-    '@strive-molu/assets/src/images/lazy-picture-load.png',
-    import.meta.url
-  ).href;
+  let defaultUrl = new URL('@strive-molu/assets/src/images/lazy-picture-load.png', import.meta.url).href;
   return props.loadingUrl || defaultUrl;
 });
 
@@ -50,23 +47,20 @@ const isLoading = ref(true);
  * @param callback 获取加载完成的图片的回调函数
  */
 const handleLazyLoadPicture = () => {
-  const { stop } = useIntersectionObserver(
-    lazyPictureRef as any,
-    ([{ isIntersecting }]) => {
-      if (isIntersecting) {
-        stop();
-        let img = new Image();
-        img.src = props.url || '';
-        img.onload = () => {
-          loadedUrl.value = img.src;
-          isLoading.value = false;
-        };
-        img.onerror = (e) => {
-          console.error(e);
-        };
-      }
+  const { stop } = useIntersectionObserver(lazyPictureRef as any, ([{ isIntersecting }]) => {
+    if (isIntersecting) {
+      stop();
+      let img = new Image();
+      img.src = props.url || '';
+      img.onload = () => {
+        loadedUrl.value = img.src;
+        isLoading.value = false;
+      };
+      img.onerror = (e) => {
+        console.error(e);
+      };
     }
-  );
+  });
 };
 
 onBeforeMount(() => {
