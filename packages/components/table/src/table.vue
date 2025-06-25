@@ -15,7 +15,7 @@
       <custom-column
         :key="visible"
         v-model:visible="visible"
-        :columns="columns"
+        :columns="props.columns"
         :table-hash="tableHash"
         @checked-column-props="handle_checkedColumnprops" />
     </header>
@@ -24,7 +24,10 @@
       ref="tableRef"
       :class="[nsTable.b('body'), nsTable.is('round', props.round)]"
       v-bind="$attrs"
-      :data="data">
+      :data="props.data"
+      :style="{
+        height: isNumber(props.height) ? `${props.height}px` : props.height
+      }">
       <template #empty>
         <div :class="nsTable.e('empty')">
           <img
@@ -76,23 +79,20 @@ import { Setting } from '@element-plus/icons-vue';
 import { tableProps, tableEmits } from './table';
 import { DEFAULT_PAGINATION_CONFIG, PaginationConfig } from './pagination';
 import { useNamespace } from '@strive-molu/hooks';
-import { provide, ref, reactive, toRef, onBeforeMount, computed, getCurrentInstance, onMounted, toRaw } from 'vue';
+import { provide, ref, reactive, toRef, onBeforeMount } from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
 import { getColumnTitles, getColumnRenders, getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
 import TableColumn from './table-column/index.vue';
 import { FormContext, buttonGroupContextKey, formContextKey } from 'element-plus';
+import { isNumber } from 'lodash-es';
 
 defineOptions({
   name: 'SmTable'
 });
 
-const context = getCurrentInstance();
-
 const props = defineProps(tableProps);
 const emits = defineEmits(tableEmits);
-
-const slotKeys = props.columns.map((column) => column?.slots?.customRender || column?.slots?.title).filter(Boolean);
 
 const nsTable = useNamespace('table');
 

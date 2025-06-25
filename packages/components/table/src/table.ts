@@ -2,11 +2,7 @@ import { buildProps, definePropType, isNumber } from '@strive-molu/utils';
 import type { ExtractPropTypes } from 'vue';
 import { type Column } from './table-column';
 import { useSizeProp } from '@strive-molu/hooks';
-import {
-  UPDATE_MODEL_EVENT,
-  UPDATE_PAGE_EVENT,
-  UPDATE_PAGE_SIZE_EVENT
-} from '@strive-molu/constants';
+import { UPDATE_MODEL_EVENT, UPDATE_PAGE_EVENT, UPDATE_PAGE_SIZE_EVENT } from '@strive-molu/constants';
 import { PaginationConfig, DEFAULT_PAGINATION_CONFIG } from './pagination';
 
 export const tableProps = buildProps({
@@ -77,12 +73,17 @@ export const tableProps = buildProps({
   /**
    * 大小
    */
-  size: useSizeProp
+  size: useSizeProp,
+  /**
+   * table 高度
+   */
+  height: {
+    type: [String, Number]
+  }
 } as const);
 
 export const tableEmits = {
-  pageAndSizeChange: (page: number, size: number, isReset?: boolean) =>
-    isNumber(page) && isNumber(size)
+  pageAndSizeChange: (page: number, size: number, isReset?: boolean) => isNumber(page) && isNumber(size)
 };
 
 // 获取运行时且面向内部的prop类型
