@@ -7,6 +7,7 @@ declare module 'vue' {
     SmTable: (typeof import('strive-molu'))['SmTable'];
     SmLazyPicture: (typeof import('strive-molu'))['SmLazyPicture'];
     SmMultipleInput: (typeof import('strive-molu'))['SmMultipleInput'];
+    SmFormFrame: (typeof import('strive-molu'))['SmFormFrame'];
   }
 }
 export {};

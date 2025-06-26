@@ -8,6 +8,10 @@ const options: Option[] = [
       {
         text: 'Table 表格',
         link: '/table'
+      },
+      {
+        text: 'FormFrame 表单框架',
+        link: '/form-frame'
       }
     ]
   },

@@ -1,0 +1,94 @@
+@use 'mixins/utils' as *;
+@use 'mixins/mixins.scss' as *;
+
+@include b(form-frame) {
+  @include utils-flex-center-y;
+  height: 30px;
+  color: getCssVar('text-color', 'primary');
+  overflow: hidden;
+  border-radius: getCssVar('border-radius', 'base');
+  border: getCssVar('border');
+  box-sizing: border-box;
+  @include when(disabled) {
+    color: getCssVar('text-color', 'disabled');
+    background-color: getCssVar('fill-color', 'light');
+    cursor: not-allowed !important;
+  }
+
+  @include e(left) {
+    @include utils-flex-center-y;
+    height: 100%;
+    @include m(label) {
+      padding: 0 8px;
+      line-height: 16px;
+      font-size: getCssVar('font-size', 'smaller');
+      border-right: getCssVar('border');
+    }
+    @include m(select-label) {
+      width: 100%;
+      border-right: getCssVar('border');
+    }
+    .el-select {
+      width: 100%;
+      .el-select__placeholder {
+        color: #333;
+      }
+      .el-select__wrapper {
+        padding: 0 8px !important;
+      }
+    }
+  }
+  @include e(main) {
+    flex: 1;
+    overflow: hidden;
+  }
+  @include e(right) {
+    height: 100%;
+    .is-disabled {
+      background-color: getCssVar('fill-color', 'darker');
+      cursor: not-allowed;
+    }
+  }
+
+  // 修改 el 表单元素样式
+  .el-select,
+  .el-cascader,
+  .el-input,
+  .el-date-editor,
+  .el-range-editor {
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    color: #333 !important;
+    &.is-focus {
+      .el-input__wrapper {
+        box-shadow: none !important;
+        border: none !important;
+        outline: none !important;
+      }
+    }
+
+    .el-input__wrapper,
+    .el-select__wrapper {
+      box-shadow: none !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    input::-webkit-input-placeholder {
+      font-family: getCssVar('font-family');
+      color: getCssVar('text-color', 'placeholder') !important;
+      font-size: getCssVar('font-size', 'small');
+      font-weight: normal;
+    }
+  }
+  .el-date-editor {
+    --el-date-editor-daterange-width: 264px;
+  }
+
+  .el-input-group__append {
+    box-shadow: none !important;
+    border-right: getCssVar('border');
+    border-color: getCssVar('border-color', 'light');
+  }
+}

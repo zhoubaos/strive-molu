@@ -1,0 +1,12 @@
+{
+  "name": "@strive-molu/directives",
+  "version": "0.0.1",
+  "description": "directives",
+  "main": "index.js",
+  "module": "index.ts",
+  "keywords": [],
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "license": "ISC"
+}

@@ -11,3 +11,5 @@ export * from './typeScriptUtils'; //ts相关类型工具函数
 export * from './countdown';
 export * from './task'; //任务控制相关函数
 export * from './tree'; // 树结构相关函数
+export * from './animation-fn'; // js动画函数
+export * from './common'; //常用函数

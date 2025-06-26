@@ -109,10 +109,10 @@ $text-color: () !default;
 $text-color: map.merge(
   (
     'primary': #333333,
-    'regular': #8b8b8b,
+    'regular': #606266,
     'secondary': #bcbcbc,
     'placeholder': #a8abb2,
-    'disabled': #d1d1d1
+    'disabled': #a8abb2
   ),
   $text-color
 );
@@ -216,6 +216,7 @@ $font-size: map.merge(
     'large': 18px,
     'medium': 16px,
     'base': 14px,
+    'smaller': 13px,
     'small': 12px,
     'extra-small': 10px
   ),

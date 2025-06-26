@@ -47,6 +47,7 @@
     "@strive-molu/build-constants": "workspace:^",
     "@strive-molu/components": "workspace:*",
     "@strive-molu/constants": "workspace:^",
+    "@strive-molu/directives": "workspace:^",
     "@strive-molu/hooks": "workspace:^",
     "@strive-molu/theme": "workspace:*",
     "@strive-molu/utils": "workspace:*",

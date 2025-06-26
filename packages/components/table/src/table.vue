@@ -85,7 +85,7 @@ import { type Column } from './table-column';
 import { getColumnTitles, getColumnRenders, getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
 import TableColumn from './table-column/index.vue';
 import { FormContext, buttonGroupContextKey, formContextKey } from 'element-plus';
-import { isNumber } from 'lodash-es';
+import { isNumber } from '@strive-molu/utils';
 
 defineOptions({
   name: 'SmTable'
