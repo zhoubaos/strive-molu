@@ -2,7 +2,7 @@
 title: TreeTools
 ---
 
-# TreeTools相关
+# TreeTools
 
 给`Tree`结构扩展属性，方法，便于对其进行操作。
 

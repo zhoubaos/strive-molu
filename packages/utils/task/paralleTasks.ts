@@ -5,7 +5,7 @@ import { PromiseTask } from './typing';
  * @param {Function[]} tasks 任务集合
  * @param {Nmuber} paralleCount 最大同时运行并发数量
  */
-export default function paralleTask(tasks: PromiseTask[], paralleCount = 2) {
+export function paralleTask(tasks: PromiseTask[], paralleCount = 2) {
   return new Promise((resolve) => {
     if (tasks.length === 0) {
       resolve(undefined);

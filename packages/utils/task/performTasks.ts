@@ -40,8 +40,8 @@ export function idlePerformTasks(tasks: Task[]) {
 /**
  * 控制每次执行任务的数量，以及执行的时间
  * @param tasks
- * @param count 执行数量
- * @param delay 执行时间
+ * @param count 并发数量
+ * @param delay 每批次任务执行时时间
  */
 export function countPerformTasks(tasks: Task[], count: number, delay: number) {
   const scheduler: Scheduler = (chunk) => {

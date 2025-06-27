@@ -1,17 +1,11 @@
 <template>
-  <div>
-    <hs-input
-      name="名称"
-      placeholder="111">
-      <template #append> 22 </template>
-    </hs-input>
-    <div v-number-lazy:8000:4="666.566"></div>
-  </div>
+  <div></div>
 </template>
 
 <script setup lang="ts">
-import HsInput from './hs-input.vue';
-import { NumberLazy as vNumberLazy } from '@strive-molu/directives';
+import { performTasks, idlePerformTasks, countPerformTasks, mockPromiseTasks } from '@strive-molu/utils';
+
+countPerformTasks(mockPromiseTasks(10, true), 3, 1000);
 </script>
 
 <style scoped></style>

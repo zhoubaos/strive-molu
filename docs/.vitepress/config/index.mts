@@ -7,6 +7,7 @@ const setupConfig = (configEnv) => {
   const config: UserConfig<any> = {
     title: 'strive-molu',
     description: '组件，指令，插件，工具函数等等',
+    appearance: false,
     themeConfig: {
       // repo: REPO_PATH, // git仓库路径
       // docsBranch: REPO_BRANCH,

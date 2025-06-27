@@ -2,16 +2,12 @@ import type { Option } from '@/typescript/option';
 
 const options: Option[] = [
   {
-    text: 'Tree相关',
-    items: [
-      {
-        text: 'TreeTools',
-        link: '/tree-tools'
-      }
-    ]
+    text: 'Tree Tree工具类',
+    link: '/tree-tools'
   },
   {
-    text: 'Task相关'
+    text: 'Task 任务相关',
+    link: '/task'
   }
 ];
 

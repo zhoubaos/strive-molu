@@ -4,6 +4,7 @@ import fsGlob from 'fast-glob';
 import type { Plugin } from 'vite';
 import { docRoot, docsDirName, projRoot } from '@strive-molu/build-utils';
 import { REPO_BRANCH, REPO_PATH } from '@strive-molu/build-constants';
+import { camelize } from '@vue/shared';
 
 type Append = Record<'headers' | 'footers' | 'scriptSetups', string[]>;
 
@@ -99,4 +100,23 @@ const transformComponentMarkdown = (id: string, componentId: string, code: strin
   // append.footers.push(sourceSection, isComponent ? contributorsSection : '');
 
   return code;
+};
+
+const getExampleImports = (componentId: string) => {
+  const examplePath = path.resolve(docRoot, 'examples', componentId);
+  console.log(`Example path: ${examplePath}`);
+
+  if (!fs.existsSync(examplePath)) return [];
+  const files = fs.readdirSync(examplePath);
+  const imports: string[] = [];
+
+  for (const item of files) {
+    if (!/\.vue$/.test(item)) continue;
+    const file = item.replace(/\.vue$/, '');
+    const name = camelize(`Ep-${componentId}-${file}`);
+
+    imports.push(`import ${name} from '../../examples/${componentId}/${file}.vue'`);
+  }
+
+  return imports;
 };
