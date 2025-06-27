@@ -1,11 +1,12 @@
-import { Directive } from 'vue';
-import { animationFn, toThousands } from '@strive-molu/utils';
+import { Directive, DirectiveBinding, ObjectDirective } from 'vue';
+import { animationFn } from '@strive-molu/utils';
 
 /**
- * @arg Number 动画持续时间 （默认400）
+ * @arg1 Number 动画持续时间ms （默认400）
+ * @arg2 Number 保留小数位数
  * @value Number 数字内容 必填
  */
-export const NumberLazy: Directive = (el, binding) => {
+export const NumberLazy: Directive = (el, binding: DirectiveBinding<number, 'isThousands'>) => {
   const {
     value = 0,
     oldValue = 0,
@@ -14,9 +15,12 @@ export const NumberLazy: Directive = (el, binding) => {
   } = binding;
   if (value !== 0 && value === oldValue) return value;
   // 指令默认参数
-  const defaultArg = [400, 0];
+  const defaultArg = [400, undefined];
   // 获取传入指令的参数，通过 v-numberLazy:param1:param2的方式传入 ，param1为动画执行时间，param2为保留小数位数
-  const aArg = Object.assign(defaultArg, typeof arg === 'string' ? arg.split(':').map((item) => Number(item)) : []);
+  const [duration, decimal] = Object.assign(
+    defaultArg,
+    typeof arg === 'string' ? arg.split(':').map((item) => Number(item)) : []
+  );
   const numValue = Number(value);
   if (Number.isNaN(numValue)) {
     el.textContent = value;
@@ -26,11 +30,11 @@ export const NumberLazy: Directive = (el, binding) => {
       {
         from: 0,
         to: numValue,
-        duration: aArg[0],
-        decimalCount: aArg[1]
+        duration,
+        decimal
       },
       (val) => {
-        el.textContent = isThousands ? toThousands(val, true) : val;
+        el.textContent = isThousands ? val.toLocaleString('en-US') : val;
       }
     );
   }

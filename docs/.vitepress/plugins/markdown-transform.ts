@@ -13,7 +13,7 @@ export function MarkdownTransform(): Plugin {
     name: 'md-transform',
     enforce: 'pre',
     async buildStart() {
-      const pattern = `pages/component`;
+      const pattern = [`pages/component`, `pages/directive`];
 
       compPaths = await fsGlob(pattern, {
         cwd: docRoot,
@@ -28,7 +28,9 @@ export function MarkdownTransform(): Plugin {
       const append: Append = {
         headers: [],
         footers: [],
-        scriptSetups: [`const demos = import.meta.glob('../../examples/component/${componentId}/*.vue',{eager:true})`]
+        scriptSetups: [
+          `const demos = import.meta.glob('../../examples/${id.includes('directive') ? 'directive' : 'component'}/${componentId}/*.vue',{eager:true})`
+        ]
       };
 
       code = transformVpScriptSetup(code, append);

@@ -114,7 +114,7 @@ const formatPathDemos = computed(() => {
   const demos = {};
 
   Object.keys(props.demos).forEach((key) => {
-    demos[key.replace('../../examples/component/', '').replace('.vue', '')] = props.demos[key].default;
+    demos[key.replace('../../examples/', '').replace('.vue', '')] = props.demos[key].default;
   });
 
   return demos;

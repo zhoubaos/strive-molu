@@ -1,4 +1,4 @@
-import { MarkdownRenderer } from 'vitepress';
+import { MarkdownRenderer, useData } from 'vitepress';
 import path from 'path';
 import fs from 'fs';
 import { docRoot } from '@strive-molu/build-utils';
@@ -22,10 +22,13 @@ function createDemoContainer(md: MarkdownRenderer): ContainerOpts {
         let source = '';
 
         // demo文件基于examples目录的路径
-        const sourceFile = sourceFileToken.children?.[0].content ?? '';
+        const _sourceFile = sourceFileToken.children?.[0].content ?? '';
+
+        const sourceFile = _sourceFile.startsWith('directive/') ? _sourceFile : `component/${_sourceFile}`;
+
         if (sourceFileToken.type === 'inline') {
           // 读取示列代码文件
-          source = fs.readFileSync(path.resolve(docRoot, 'examples', 'component', `${sourceFile}.vue`), 'utf-8');
+          source = fs.readFileSync(path.resolve(docRoot, 'examples', `${sourceFile}.vue`), 'utf-8');
         }
 
         if (!source) throw new Error(`源文件不正确: ${sourceFile}`);
