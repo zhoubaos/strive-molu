@@ -83,7 +83,10 @@
     }
   }
   .el-date-editor {
-    --el-date-editor-daterange-width: 264px;
+    --el-date-editor-daterange-width: auto;
+    &.el-input {
+      width: auto;
+    }
   }
 
   .el-input-group__append {

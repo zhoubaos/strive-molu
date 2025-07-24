@@ -1,0 +1,16 @@
+@use 'mixins/utils' as *;
+@use 'mixins/mixins.scss' as *;
+
+@include b(empty) {
+  @include utils-flex-center;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px 0;
+  @include e(img) {
+  }
+  @include e(text) {
+    margin-top: 12px;
+    line-height: getCssVar('line-height', 'small');
+    color: getCssVar('text-color', 'placeholder');
+  }
+}

@@ -1,0 +1,81 @@
+@use 'mixins/utils' as *;
+@use 'mixins/mixins.scss' as *;
+
+@include b(cascader) {
+  display: flex;
+  height: 100%;
+  max-height: 300px;
+  border: getCssVar('border');
+  border-color: #ececec;
+  font-size: getCssVar('font-size', 'small');
+  color: getCssVar('text-color', 'primary');
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  @include b(cascader-container) {
+    // height: 100%;
+    flex: 1;
+    // flex-shrink: 0;
+    border-right: getCssVar('border');
+    border-color: #f0f0f0;
+    box-sizing: border-box;
+    &:nth-last-of-type(1) {
+      border-right: none;
+    }
+
+    @include e(header) {
+      @include utils-flex-center-y;
+      justify-content: space-between;
+      height: 36px;
+      padding: 0 10px;
+      line-height: 36px;
+      font-weight: 500;
+      background-color: #f6f7fa;
+      .el-checkbox__label {
+        font-size: 12px;
+      }
+    }
+
+    @include e(section) {
+      height: calc(100% - 36px);
+      padding: 4px 0;
+      box-sizing: border-box;
+      @include e(list) {
+      }
+      @include e(node) {
+        display: flex;
+        align-items: center;
+        height: 26px;
+        line-height: 23px;
+        cursor: pointer;
+        padding: 0 8px;
+        .el-checkbox {
+          height: 100%;
+        }
+        @include when(active) {
+          color: getCssVar('color', 'primary');
+        }
+        &:hover {
+          background-color: #f8f8f9;
+        }
+
+        @include m(wrapper) {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-left: 8px;
+          @include m(label) {
+          }
+          @include m(postfix) {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  @include e(empty) {
+    @include m(text) {
+    }
+  }
+}

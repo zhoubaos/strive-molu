@@ -9,6 +9,9 @@ title: ParalleTask
 ## paralleTask
 
 用于并发执行异步任务，可以指定并发数量，返回一个`promise`对象。
+:::tip
+`mockPromiseTasks` 函数用于生成一组异步任务
+:::
 
 <<< @/examples/util/task/paralle.ts
 
@@ -20,7 +23,7 @@ title: ParalleTask
 
 以下函数基于`performTask`实现。
 
-<<< @/examples/util/task/\_perform.ts
+<<< @/examples/util/task/perform01.ts
 
 ## 形参
 

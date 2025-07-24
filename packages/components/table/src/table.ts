@@ -2,7 +2,6 @@ import { buildProps, definePropType, isNumber } from '@strive-molu/utils';
 import type { ExtractPropTypes } from 'vue';
 import { type Column } from './table-column';
 import { useSizeProp } from '@strive-molu/hooks';
-import { UPDATE_MODEL_EVENT, UPDATE_PAGE_EVENT, UPDATE_PAGE_SIZE_EVENT } from '@strive-molu/constants';
 import { PaginationConfig, DEFAULT_PAGINATION_CONFIG } from './pagination';
 
 export const tableProps = buildProps({
@@ -73,13 +72,7 @@ export const tableProps = buildProps({
   /**
    * 大小
    */
-  size: useSizeProp,
-  /**
-   * table 高度
-   */
-  height: {
-    type: [String, Number]
-  }
+  size: useSizeProp
 } as const);
 
 export const tableEmits = {

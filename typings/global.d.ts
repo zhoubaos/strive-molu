@@ -8,6 +8,8 @@ declare module 'vue' {
     SmLazyPicture: (typeof import('strive-molu'))['SmLazyPicture'];
     SmMultipleInput: (typeof import('strive-molu'))['SmMultipleInput'];
     SmFormFrame: (typeof import('strive-molu'))['SmFormFrame'];
+    SmCascader: (typeof import('strive-molu'))['SmCascader'];
+    SmEmpty: (typeof import('strive-molu'))['SmEmpty'];
   }
 }
 export {};

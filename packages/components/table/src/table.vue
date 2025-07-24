@@ -23,18 +23,10 @@
     <el-table
       ref="tableRef"
       :class="[nsTable.b('body'), nsTable.is('round', props.round)]"
-      v-bind="$attrs"
-      :data="props.data"
-      :style="{
-        height: isNumber(props.height) ? `${props.height}px` : props.height
-      }">
+      v-bind="props"
+      :data="props.data">
       <template #empty>
-        <div :class="nsTable.e('empty')">
-          <img
-            src="@strive-molu/assets/src/images/404.png"
-            alt="" />
-          <p :class="nsTable.em('empty', 'text')">暂无数据~</p>
-        </div>
+        <sm-empty />
       </template>
       <table-column
         v-for="col in tableShowColumns"
@@ -79,19 +71,20 @@ import { Setting } from '@element-plus/icons-vue';
 import { tableProps, tableEmits } from './table';
 import { DEFAULT_PAGINATION_CONFIG, PaginationConfig } from './pagination';
 import { useNamespace } from '@strive-molu/hooks';
-import { provide, ref, reactive, toRef, onBeforeMount } from 'vue';
+import { provide, ref, reactive, toRef, onBeforeMount, useAttrs } from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
 import { getColumnTitles, getColumnRenders, getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
 import TableColumn from './table-column/index.vue';
 import { FormContext, buttonGroupContextKey, formContextKey } from 'element-plus';
 import { isNumber } from '@strive-molu/utils';
+import elTableProps, { TableProps as ElTableProps } from 'element-plus/es/components/table/src/table/defaults';
 
 defineOptions({
   name: 'SmTable'
 });
 
-const props = defineProps(tableProps);
+const props = defineProps({ ...elTableProps, ...tableProps });
 const emits = defineEmits(tableEmits);
 
 const nsTable = useNamespace('table');

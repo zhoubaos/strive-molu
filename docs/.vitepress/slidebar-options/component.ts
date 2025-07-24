@@ -29,6 +29,10 @@ const options: Option[] = [
       {
         text: 'MultipleInput 多行输入',
         link: '/multiple-input'
+      },
+      {
+        text: 'Cascader 级联选择器',
+        link: '/cascader'
       }
     ]
   }

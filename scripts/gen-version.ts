@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 import path from 'path';
-import consola from 'consola';
+import { consola } from 'consola';
 import { smRoot } from '@strive-molu/build-utils';
 import pkg from '../packages/strive-molu/package.json'; // need to be checked
 
