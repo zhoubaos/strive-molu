@@ -3,7 +3,7 @@ import DefaultTheme from 'vitepress/theme';
 import striveMolu from 'strive-molu';
 import { globals } from '../vitepress';
 import elementPlus from 'element-plus';
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import zhCn from 'element-plus/es/locale/lang/zh-cn';
 
 export default <Theme>{
   extends: DefaultTheme,

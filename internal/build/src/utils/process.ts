@@ -1,6 +1,6 @@
 import { spawn } from 'child_process'; // 用于创建子进程模块 spawn 用于启动新的进程，并与其进行交互
 import chalk from 'chalk';
-import consola from 'consola';
+import { consola } from 'consola';
 import { projRoot } from '@strive-molu/build-utils';
 /**
  * 创建一个子进程执行终端shell命令

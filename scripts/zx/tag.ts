@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 
 import { $, question, cd, path, argv, fs, os, chalk, usePowerShell } from 'zx';
-import consola from 'consola';
+import { consola } from 'consola';
 
 // 让powerShell可以兼容运行该脚本
 if (os.platform() === 'win32') {

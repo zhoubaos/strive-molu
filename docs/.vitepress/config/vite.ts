@@ -73,6 +73,9 @@ export const getViteConfig = ({ mode }): ViteConfig => {
     resolve: {
       alias
     },
+    ssr: {
+      noExternal: ['vue/server-renderer']
+    },
     plugins: [
       Components({
         dirs: ['.vitepress/vitepress/components'],

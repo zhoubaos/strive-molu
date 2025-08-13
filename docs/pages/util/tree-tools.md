@@ -4,7 +4,7 @@ title: TreeTools
 
 # TreeTools
 
-给`Tree`结构扩展属性，方法，便于对其进行操作。
+给树型结构扩展属性，方法，便于对其进行操作。
 
 ## 基础用法
 
@@ -36,9 +36,9 @@ title: TreeTools
 
 ### 实例方法
 
-| 名称              | 说明                                | 类型                                                         |
-| ----------------- | ----------------------------------- | ------------------------------------------------------------ |
-| addCustomAttr     | 为每个节点设置自定义属性            | ^[function]`(attr: string, value: any) => void`              |
-| getLeafIds        | 获取指定ids的叶子节点id集合         | ^[function]`(ids: Array<string \| number>, tree?: TreeNode[]) => void` |
+| 名称              | 说明                                | 类型                                                                      |
+| ----------------- | ----------------------------------- | ------------------------------------------------------------------------- |
+| addCustomAttr     | 为每个节点设置自定义属性            | ^[function]`(attr: string, value: any) => void`                           |
+| getLeafIds        | 获取指定ids的叶子节点id集合         | ^[function]`(ids: Array<string \| number>, tree?: TreeNode[]) => void`    |
 | getNodesByLeafIds | 获取叶子节点是指定ids的子集的父节点 | ^[function]`(leafIds: Array<string \|number>, tree?: TreeNode[]) => void` |
-| getNodes          | 获取指定ids的节点集合               | ^[function]`(ids: Array<string \| number>, tree?: TreeNode[]) => void` |
+| getNodes          | 获取指定ids的节点集合               | ^[function]`(ids: Array<string \| number>, tree?: TreeNode[]) => void`    |

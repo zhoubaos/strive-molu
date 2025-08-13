@@ -16,10 +16,7 @@ export type Slots = {
   customRender?: string;
 };
 // 大部分配置都来自 element-plus TableColumn 组件的prop
-export type Column<T = any> = SetRequiredKey<
-  Partial<TableColumnCtx<T>>,
-  'prop'
-> & {
+export type Column<T = any> = SetRequiredKey<Partial<TableColumnCtx<T>>, 'prop'> & {
   /**
    * @desc 在使用自定义列的功能时，该属性用于约束该列属性一直可以显示
    * @default false
@@ -56,5 +53,9 @@ export const tableColumnProps = buildProps({
     default: () => [null, undefined, '']
   }
 });
+
+export type TableColumnSlots = {
+  [k: string]: (props: { column?: string; index?: number; row?: any; [k: string]: any }) => void;
+};
 
 export type TableColumnProps = ExtractPropTypes<typeof tableColumnProps>;

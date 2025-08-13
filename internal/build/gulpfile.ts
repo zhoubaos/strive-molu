@@ -12,7 +12,7 @@ export const copyFiles = () =>
   Promise.all([
     copyFile(smPackage, path.join(smOutput, 'package.json')),
     copyFile(path.resolve(projRoot, 'README.md'), path.resolve(smOutput, 'README.md')),
-    copyFile(path.resolve(projRoot, 'global.d.ts'), path.resolve(smOutput, 'global.d.ts'))
+    copyFile(path.resolve(projRoot, 'typings', 'global.d.ts'), path.resolve(smOutput, 'global.d.ts'))
     // copyFile(path.resolve(projRoot, 'typings/element-plus.d.ts'), path.resolve(smOutput, 'typings/element-plus.d.ts'))
   ]);
 // 拷贝 dist/types/packages 目录下的文件到 dist/esm 和 dist/cjs 目录下

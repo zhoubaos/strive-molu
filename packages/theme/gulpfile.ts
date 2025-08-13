@@ -6,7 +6,7 @@ import gulpSass from 'gulp-sass';
 import dSass from 'sass';
 import autoprefixer from 'gulp-autoprefixer';
 import rename from 'gulp-rename';
-import consola from 'consola';
+import { consola } from 'consola';
 import postcss from 'postcss';
 import cssnano from 'cssnano';
 import { smOutput } from '@strive-molu/build-utils';
@@ -68,11 +68,7 @@ const buildTheme = () => {
   // 不需要添加 sm 前缀的文件名
   const noSmPrefixFile = /(index|base)/;
   return (
-    src(
-      ['src/*.scss', 'src/element-plus/*.scss'].map((glob) =>
-        path.resolve(__dirname, glob)
-      )
-    )
+    src(['src/*.scss', 'src/element-plus/*.scss'].map((glob) => path.resolve(__dirname, glob)))
       .pipe(sass.sync()) // scss转css
       .pipe(autoprefixer({ cascade: false })) // css属性添加浏览器兼容前缀
       // .pipe(compressWithCssnano()) // TODO：压缩css
@@ -104,13 +100,8 @@ export const copyThemeBundle = () => {
  * @returns
  */
 export const copyThemeSource = () => {
-  return src(path.resolve(__dirname, 'src/**')).pipe(
-    dest(path.resolve(distBundle, 'src'))
-  );
+  return src(path.resolve(__dirname, 'src/**')).pipe(dest(path.resolve(distBundle, 'src')));
 };
 
-export const build: TaskFunction = parallel(
-  copyThemeSource,
-  series(buildTheme, copyThemeBundle)
-);
+export const build: TaskFunction = parallel(copyThemeSource, series(buildTheme, copyThemeBundle));
 export default build;

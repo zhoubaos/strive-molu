@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "vitepress dev . ",
-    "build": "vitepress build .",
+    "build": "NODE_ENV=production && vitepress build .",
     "preview": "vitepress preview ."
   },
   "dependencies": {
@@ -14,7 +14,8 @@
     "element-plus": "^2.7.8",
     "markdown-it": "^14.1.0",
     "normalize.css": "^8.0.1",
-    "strive-molu": "npm:strive-molu@latest"
+    "strive-molu": "npm:strive-molu@latest",
+    "vue": "~3.5.18"
   },
   "devDependencies": {
     "@strive-molu/build-constants": "workspace:^",
@@ -33,6 +34,6 @@
     "unplugin-icons": "^0.18.5",
     "unplugin-strive-molu": "0.0.1",
     "unplugin-vue-components": "^0.26.0",
-    "vitepress": "^1.2.3"
+    "vitepress": "^1.5.0"
   }
 }

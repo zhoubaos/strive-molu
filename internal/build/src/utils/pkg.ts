@@ -12,7 +12,7 @@ export const pathRewriter = (module: Module) => {
 
   return (id: string) => {
     id = id.replaceAll(`${PKG_PREFIX}/theme`, `${PKG_NAME}/theme`);
-    id = id.replaceAll(`${PKG_PREFIX}/assets`, `${PKG_NAME}/assets`);
+    id = id.replaceAll(`${PKG_PREFIX}/assets/src`, `${PKG_NAME}/assets`);
     id = id.replaceAll(`${PKG_PREFIX}/`, `${config.bundle.path}/`);
     return id;
   };

@@ -3,6 +3,7 @@ import { getViteConfig } from './vite';
 import { nav } from './nav';
 import { sidebar } from './sidebars';
 import { mdPlugin } from './plugin';
+import { vueCompiler } from './vue-compiler';
 const setupConfig = (configEnv) => {
   const config: UserConfig<any> = {
     title: 'strive-molu',
@@ -34,9 +35,13 @@ const setupConfig = (configEnv) => {
       nav,
       sidebar
     },
+    outDir: './build/dist',
     vite: getViteConfig(configEnv),
     markdown: {
       config: (md) => mdPlugin(md)
+    },
+    vue: {
+      compiler: vueCompiler
     }
   };
 

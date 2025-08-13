@@ -22,6 +22,8 @@ defineOptions({
 const props = defineProps(emptyProps);
 const emit = defineEmits(emptyEmits);
 
+// const emptyImag = new URL('./img.png', import.meta.url).href
+
 const nsEmpty = useNamespace('empty');
 
 const imgStyle = computed(() => {

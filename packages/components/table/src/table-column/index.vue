@@ -49,13 +49,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { tableColumnProps } from './index';
+import { tableColumnProps, TableColumnSlots } from './index';
 import { getColumnTitles, getColumnRenders } from '../utils';
 import TableColumn from './index.vue';
 defineOptions({
   name: 'SmTableColumn'
 });
 const props = defineProps(tableColumnProps);
+defineSlots<TableColumnSlots>();
 // 自定义表头
 const customTitle = props.column?.slots?.title;
 // 自定义列
@@ -70,15 +71,8 @@ const excludeColumnAttrs = computed(() => {
       res[resKey] = (props.column as Record<string, any>)[resKey];
     }
     // 给每列数据的空白数据添加占位符
-    res['formatter'] = (
-      row: any,
-      column: any,
-      cellValue: any,
-      index: number
-    ) => {
-      return props.emptyValues.includes(cellValue)
-        ? props.placeholder
-        : cellValue;
+    res['formatter'] = (row: any, column: any, cellValue: any, index: number) => {
+      return props.emptyValues.includes(cellValue) ? props.placeholder : cellValue;
     };
   }
 

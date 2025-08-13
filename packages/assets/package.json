@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "静态资源",
   "scripts": {
-    "build": "gulp -r node_modules/@esbuild-kit/cjs-loader",
+    "build": "gulp -r ./node_modules/tsx/dist/cjs/index.cjs",
     "clean": "rimraf dist"
   },
   "keywords": [],

@@ -6,7 +6,7 @@ import chalk from 'chalk';
 import escapeHtml from 'escape-html';
 // @ts-ignore
 import prism from 'prismjs';
-import consola from 'consola';
+import { consola } from 'consola';
 
 // prism is listed as actual dep so it's ok to require
 // eslint-disable-next-line @typescript-eslint/no-var-requires
