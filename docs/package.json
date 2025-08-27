@@ -3,8 +3,10 @@
   "private": true,
   "scripts": {
     "dev": "vitepress dev . ",
-    "build": "NODE_ENV=production && vitepress build .",
-    "preview": "vitepress preview ."
+    "build": "bash ./scripts/build.sh",
+    "preview": "vitepress preview .",
+    "publish": "bash ./scripts/publish.sh -o deploy",
+    "back": "bash ./scripts/publish.sh -o back"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",

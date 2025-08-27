@@ -8,6 +8,9 @@ const setupConfig = (configEnv) => {
   const config: UserConfig<any> = {
     title: 'strive-molu',
     description: '组件，指令，插件，工具函数等等',
+    base: '/docs',
+    outDir: './build/dist',
+    head: [['link', { rel: 'icon', href: '/docs/logo.svg' }]],
     appearance: false,
     themeConfig: {
       // repo: REPO_PATH, // git仓库路径
@@ -35,7 +38,7 @@ const setupConfig = (configEnv) => {
       nav,
       sidebar
     },
-    outDir: './build/dist',
+
     vite: getViteConfig(configEnv),
     markdown: {
       config: (md) => mdPlugin(md)
