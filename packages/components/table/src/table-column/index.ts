@@ -1,6 +1,7 @@
 import { SetRequiredKey, buildProps, definePropType } from '@strive-molu/utils';
 import type { ExtractPropTypes } from 'vue';
 import { TableColumnCtx } from 'element-plus';
+import { DefaultRow } from 'element-plus/es/components/table/src/table/defaults.mjs';
 
 // 表格排序值
 export type SortByItem = 'ascending' | 'descending' | null;
@@ -16,7 +17,7 @@ export type Slots = {
   customRender?: string;
 };
 // 大部分配置都来自 element-plus TableColumn 组件的prop
-export type Column<T = any> = SetRequiredKey<Partial<TableColumnCtx<T>>, 'prop'> & {
+export type Column<T extends DefaultRow = DefaultRow> = SetRequiredKey<Partial<TableColumnCtx<T>>, 'prop'> & {
   /**
    * @desc 在使用自定义列的功能时，该属性用于约束该列属性一直可以显示
    * @default false
@@ -26,6 +27,19 @@ export type Column<T = any> = SetRequiredKey<Partial<TableColumnCtx<T>>, 'prop'>
    * @desc 表格的表头或内容插槽
    */
   slots?: Slots;
+  /**
+   * @desc 表格列类型
+   * selection: 多选择列
+   * single-select: 单选择列
+   * index: 索引列
+   * expand: 展开列
+   */
+  type?: 'selection' | 'single-select' | 'index' | 'expand';
+
+  /**
+   * 配置多级表头
+   */
+  children?: Array<Column>;
 };
 
 export const tableColumnProps = buildProps({

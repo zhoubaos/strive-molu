@@ -76,9 +76,10 @@ import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
 import { getColumnTitles, getColumnRenders, getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
 import TableColumn from './table-column/index.vue';
+import { SmEmpty } from '@strive-molu/components/empty';
 import { FormContext, buttonGroupContextKey, formContextKey } from 'element-plus';
-import { isNumber } from '@strive-molu/utils';
 import elTableProps, { TableProps as ElTableProps } from 'element-plus/es/components/table/src/table/defaults';
+import { useTable } from './use-table';
 
 defineOptions({
   name: 'SmTable'
@@ -117,36 +118,7 @@ const onClick_openDialog = () => {
 const tableRef = ref<any>(null);
 const paginationRef = ref(null);
 
-// 表格展示的列
-const tableShowColumns = ref<Array<Column>>([]);
-onBeforeMount(() => {
-  if (props.canCustomColumn) {
-    handleCustomColumns();
-  } else {
-    tableShowColumns.value = props.columns;
-  }
-  setLastColumnAutoWidth();
-});
-
-// 表格hash值
-const tableHash = ref('');
-
-// 处理需要有自定义列功能的逻辑
-const handleCustomColumns = () => {
-  const allColumnKeys = props.columns.map((item) => item.prop);
-  // 生成表格的hash值
-  tableHash.value = genTableHash(allColumnKeys);
-
-  const localProps = getLocalColumnProps(tableHash.value);
-
-  if (!localProps.length) {
-    tableShowColumns.value = props.columns;
-    const columnprops = tableShowColumns.value.map((item) => item.prop);
-    setLocalColumnProps(tableHash.value, columnprops);
-  } else {
-    tableShowColumns.value = props.columns.filter((item) => localProps.includes(item.prop));
-  }
-};
+const { tableShowColumns, tableHash, setLastColumnAutoWidth } = useTable(props);
 
 /**
  * @desc 处理自定义列选择的列
@@ -155,17 +127,6 @@ const handleCustomColumns = () => {
 const handle_checkedColumnprops = (columnProps: string[]) => {
   tableShowColumns.value = props.columns.filter((item) => columnProps.includes(item.prop));
   setLastColumnAutoWidth();
-};
-
-// 设置展示列最后一行的宽度为自适应，防止表格未撑满
-const setLastColumnAutoWidth = () => {
-  let len = tableShowColumns.value.length;
-  if (len == 1 && Reflect.has(tableShowColumns.value[len - 1], 'width')) {
-    tableShowColumns.value[len - 1] = {
-      ...tableShowColumns.value[len - 1]
-    };
-    Reflect.deleteProperty(tableShowColumns.value[len - 1], 'width');
-  }
 };
 
 // #endregion 自定义列相关代码逻辑

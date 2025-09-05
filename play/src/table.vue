@@ -41,7 +41,6 @@ const add = (a, b) => {
 };
 const ond = () => {
   smTableRef.value!.resetPageAndSize();
-  console.log(smTableRef.value.getSelectionRows());
 };
 
 const onClick_view = (row) => {
@@ -55,7 +54,7 @@ const pageSize = reactive({
 const columns: Column[] = [
   {
     prop: 'id',
-    type: 'selection'
+    type: 'single-select'
   },
   {
     prop: 'name',
