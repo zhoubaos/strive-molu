@@ -23,12 +23,11 @@
     "@strive-molu/build-constants": "workspace:*",
     "@strive-molu/build-utils": "workspace:*",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
-    "@vue/compiler-sfc": "^3.3.13",
     "autoprefixer": "^10.4.19",
     "chalk": "^5.3.0",
     "components-helper": "^2.2.0",
     "consola": "^3.2.3",
-    "esbuild": "^0.20.2",
+    "esbuild": "^0.21.5",
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
     "gulp": "^5.0.0",
@@ -44,6 +43,6 @@
     "@esbuild-kit/cjs-loader": "2.2.1",
     "@pnpm/types": "^9.4.2",
     "unbuild": "^2.0.0",
-    "vue": "^3.3.13"
+    "vue": "^3.4.38"
   }
 }

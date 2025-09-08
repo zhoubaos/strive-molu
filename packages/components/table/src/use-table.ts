@@ -12,18 +12,6 @@ export function useTable(props: TableProps): any {
     if (props.canCustomColumn) {
       handleCustomColumns();
     } else {
-      // const singleSelectRow = columns.find((item) => item.type == 'single-select');
-      // if (singleSelectRow) {
-      //   columns = [
-      //     {
-      //       ...singleSelectRow,
-      //       slots: {
-      //         customRender: 'single-select-column'
-      //       }
-      //     },
-      //     ...columns.filter((item) => item.type != 'single-select')
-      //   ];
-      // }
       tableShowColumns.value = columns;
     }
   };

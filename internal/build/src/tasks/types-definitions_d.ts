@@ -2,18 +2,12 @@ import process from 'process';
 import path from 'path';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { consola } from 'consola';
-import * as vueCompiler from '@vue/compiler-sfc';
+import * as vueCompiler from 'vue/compiler-sfc';
 import glob from 'fast-glob';
 import chalk from 'chalk';
 import { Project } from 'ts-morph';
 import type { CompilerOptions, SourceFile } from 'ts-morph';
-import {
-  buildOutput,
-  smRoot,
-  excludeFiles,
-  pkgRoot,
-  projRoot
-} from '@strive-molu/build-utils';
+import { buildOutput, smRoot, excludeFiles, pkgRoot, projRoot } from '@strive-molu/build-utils';
 import { pathRewriter } from '../utils';
 
 const TSCONFIG_PATH = path.resolve(projRoot, 'tsconfig.web.json');
@@ -57,9 +51,7 @@ export const generateTypesDefinitions = async () => {
   const tasks = sourceFiles.map(async (sourceFile) => {
     // 获取源文件路径相对pkgRoot目录的路径
     const relativePath = path.relative(pkgRoot, sourceFile.getFilePath());
-    consola.trace(
-      chalk.yellow(`开始生成TS声明文件: ${chalk.bold(relativePath)}`)
-    );
+    consola.trace(chalk.yellow(`开始生成TS声明文件: ${chalk.bold(relativePath)}`));
 
     const emitOutput = sourceFile.getEmitOutput();
     // 获取输出的文件，由于上面设置了emitDeclarationOnly: true，所以只会输出.d.ts文件
@@ -76,15 +68,9 @@ export const generateTypesDefinitions = async () => {
         recursive: true
       });
       // 把输出文件中导入模块的路径进行重写
-      await writeFile(
-        filepath,
-        pathRewriter('esm')(outputFile.getText()),
-        'utf8'
-      );
+      await writeFile(filepath, pathRewriter('esm')(outputFile.getText()), 'utf8');
 
-      consola.success(
-        chalk.green(`TS声明文件: ${chalk.bold(relativePath)} 生成成功！`)
-      );
+      consola.success(chalk.green(`TS声明文件: ${chalk.bold(relativePath)} 生成成功！`));
     });
 
     await Promise.all(subTasks);
@@ -138,8 +124,7 @@ async function addSourceFiles(project: Project) {
         const { script, scriptSetup } = sfc.descriptor;
 
         if (script || scriptSetup) {
-          let content =
-            (hasTsNoCheck ? '// @ts-nocheck\n' : '') + (script?.content ?? '');
+          let content = (hasTsNoCheck ? '// @ts-nocheck\n' : '') + (script?.content ?? '');
 
           if (scriptSetup) {
             const compiled = vueCompiler.compileScript(sfc.descriptor, {
@@ -150,10 +135,7 @@ async function addSourceFiles(project: Project) {
 
           const lang = scriptSetup?.lang || script?.lang || 'js';
           // 通过字符串文本的方式创建源文件，但不会保存在文件系统中，除非调用save方法
-          const sourceFile = project.createSourceFile(
-            `${path.relative(process.cwd(), file)}.${lang}`,
-            content
-          );
+          const sourceFile = project.createSourceFile(`${path.relative(process.cwd(), file)}.${lang}`, content);
           sourceFiles.push(sourceFile);
         }
       } else {
@@ -163,9 +145,7 @@ async function addSourceFiles(project: Project) {
     }),
     ...epPaths.map(async (file) => {
       const content = await readFile(path.resolve(smRoot, file), 'utf-8');
-      sourceFiles.push(
-        project.createSourceFile(path.resolve(pkgRoot, file), content)
-      );
+      sourceFiles.push(project.createSourceFile(path.resolve(pkgRoot, file), content));
     })
   ]);
 
