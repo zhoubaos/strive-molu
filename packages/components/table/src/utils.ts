@@ -1,5 +1,7 @@
+import { isFunction } from 'lodash-es';
 import type { Column } from './table-column';
 import { Md5 } from 'ts-md5';
+import { SmTableContext } from './table';
 /**
  * @desc 返回一个一维数组，获取表格配置的自定义title的属性名（主要运用于有多级表头配置）
  * @param columns 表格配置
@@ -64,4 +66,13 @@ export const setLocalColumnProps = (key: string, props: string[]) => {
 export const genTableHash = (props: string[], extra?: string) => {
   const path = location.pathname.replace(/^\//, '') || 'no-path';
   return `columnsProps-${path.split('#')}-${Md5.hashStr(props.join(''))}`;
+};
+// 获取row key
+export const getRowKey = (rowKey: SmTableContext['rowKey'], row: any) => {
+  const key = isFunction(rowKey) ? rowKey(row) : (rowKey as string);
+  if (!key) {
+    console.warn('[SmTable] rowKey is required when using row selection or single selection');
+    return '';
+  }
+  return key;
 };

@@ -58,6 +58,12 @@ table/slot
 table/custom-column
 :::
 
+## 单选
+
+:::demo 表格配置项的`type`属性设置为`single-select`来启用单选功能。通过监听`current-change`事件获取当前选中行数据。
+table/single-select
+:::
+
 ## API
 
 ### 属性

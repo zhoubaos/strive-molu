@@ -24,7 +24,8 @@
       ref="tableRef"
       :class="[nsTable.b('body'), nsTable.is('round', props.round)]"
       v-bind="props"
-      :data="props.data">
+      :data="props.data"
+      @row-click="handleRowClick">
       <template #empty>
         <sm-empty />
       </template>
@@ -68,13 +69,13 @@
 
 <script lang="ts" setup>
 import { Setting } from '@element-plus/icons-vue';
-import { tableProps, tableEmits } from './table';
+import { tableProps, smTableContextKey, TableEmits } from './table';
 import { DEFAULT_PAGINATION_CONFIG, PaginationConfig } from './pagination';
 import { useNamespace } from '@strive-molu/hooks';
-import { provide, ref, reactive, toRef, onBeforeMount, useAttrs } from 'vue';
+import { provide, ref, reactive, toRef, onBeforeMount, useAttrs, computed } from 'vue';
 import CustomColumn from './custom-column/index.vue';
 import { type Column } from './table-column';
-import { getColumnTitles, getColumnRenders, getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
+import { getColumnTitles, getColumnRenders, getRowKey } from './utils';
 import TableColumn from './table-column/index.vue';
 import { SmEmpty } from '@strive-molu/components/empty';
 import { FormContext, buttonGroupContextKey, formContextKey } from 'element-plus';
@@ -86,7 +87,7 @@ defineOptions({
 });
 
 const props = defineProps({ ...elTableProps, ...tableProps });
-const emits = defineEmits(tableEmits);
+const emits = defineEmits<TableEmits>();
 
 const nsTable = useNamespace('table');
 
@@ -106,6 +107,39 @@ provide(
   }) as FormContext
 );
 
+const tableRef = ref<any>(null);
+const paginationRef = ref(null);
+
+const { tableShowColumns, tableHash, setLastColumnAutoWidth, isSingleSelect } = useTable(props);
+
+//#region 处理单选行逻辑
+
+const singleSelectKey = ref<number | string>('');
+const singleRow = ref(null);
+
+provide(
+  smTableContextKey,
+  reactive({
+    rowKey: toRef(props, 'rowKey'),
+    isSingleSelect,
+    singleSelectKey
+  })
+);
+
+/**
+ * 处理行点击
+ */
+const handleRowClick = (row: any, column: Column, event: Event) => {
+  if (isSingleSelect.value) {
+    singleSelectKey.value = row[getRowKey(props.rowKey, row)];
+    emits('current-change', row, singleRow.value);
+    singleRow.value = row;
+  }
+  emits('rowClick', row, column, event);
+};
+
+//#endregion
+
 // #region 自定义列相关代码逻辑
 
 // 控制自定义选择展示列的弹框
@@ -114,11 +148,6 @@ const visible = ref<any>(false);
 const onClick_openDialog = () => {
   visible.value = true;
 };
-
-const tableRef = ref<any>(null);
-const paginationRef = ref(null);
-
-const { tableShowColumns, tableHash, setLastColumnAutoWidth } = useTable(props);
 
 /**
  * @desc 处理自定义列选择的列

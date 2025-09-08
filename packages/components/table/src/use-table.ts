@@ -1,31 +1,29 @@
-import { onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 import { TableProps } from './table';
 import { Column } from './table-column';
 import { getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
 import { deepClone } from '@strive-molu/utils';
 
 export function useTable(props: TableProps): any {
-  // 处理
   const tableShowColumns = ref<Array<Column>>([]);
-
   const setTableShowColumns = () => {
-    let columns: Array<Column> = deepClone(props.columns);
+    const columns: Array<Column> = deepClone(props.columns);
     // 支持自定义列
     if (props.canCustomColumn) {
       handleCustomColumns();
     } else {
-      const singleSelectRow = columns.find((item) => item.type == 'single-select');
-      if (singleSelectRow) {
-        columns = [
-          {
-            ...singleSelectRow,
-            slots: {
-              customRender: 'single-select-column'
-            }
-          },
-          ...columns.filter((item) => item.type != 'single-select')
-        ];
-      }
+      // const singleSelectRow = columns.find((item) => item.type == 'single-select');
+      // if (singleSelectRow) {
+      //   columns = [
+      //     {
+      //       ...singleSelectRow,
+      //       slots: {
+      //         customRender: 'single-select-column'
+      //       }
+      //     },
+      //     ...columns.filter((item) => item.type != 'single-select')
+      //   ];
+      // }
       tableShowColumns.value = columns;
     }
   };
@@ -63,8 +61,12 @@ export function useTable(props: TableProps): any {
     }
   };
 
+  // 是否启用单选列
+  const isSingleSelect = computed(() => tableShowColumns.value.some((item: Column) => item.type == 'single-select'));
+
   return {
     tableShowColumns,
+    isSingleSelect,
     tableHash,
     setLastColumnAutoWidth
   };

@@ -1,8 +1,9 @@
 import { buildProps, definePropType, isNumber } from '@strive-molu/utils';
-import type { ExtractPropTypes } from 'vue';
+import type { ExtractPropTypes, InjectionKey } from 'vue';
 import { type Column } from './table-column';
 import { useSizeProp } from '@strive-molu/hooks';
 import { PaginationConfig, DEFAULT_PAGINATION_CONFIG } from './pagination';
+import { TableProps as ElTableProps } from 'element-plus/es/components/table/src/table/defaults';
 
 export const tableProps = buildProps({
   /**
@@ -75,11 +76,19 @@ export const tableProps = buildProps({
   size: useSizeProp
 } as const);
 
-export const tableEmits = {
-  pageAndSizeChange: (page: number, size: number, isReset?: boolean) => isNumber(page) && isNumber(size)
-};
+export interface TableEmits {
+  (e: 'pageAndSizeChange', page: number, size: number, isReset?: boolean): void;
+  (e: 'rowClick', row: any, column: Column, event: Event): void;
+  (e: 'current-change', curRow: any, oldRow: any): void;
+}
+
+export interface SmTableContext {
+  rowKey?: ElTableProps<any>['rowKey'];
+  isSingleSelect: boolean;
+  singleSelectKey?: string | number;
+}
+export const smTableContextKey: InjectionKey<SmTableContext> = Symbol('smTableContextKey');
 
 // 获取运行时且面向内部的prop类型
 // eg：https://cn.vuejs.org/api/utility-types.html#extractproptypes
 export type TableProps = ExtractPropTypes<typeof tableProps>;
-export type TableEmits = typeof tableEmits;

@@ -10,7 +10,8 @@
       row-key="id"
       border
       can-custom-column
-      @page-and-size-change="handle_pagesizeChane">
+      @page-and-size-change="handle_pagesizeChane"
+      @current-change="handle_currentChange">
       <template #name="{ row }">{{ row.name }}</template>
       <template #oprate="{ row }">
         <el-button
@@ -53,6 +54,7 @@ const pageSize = reactive({
 });
 const columns: Column[] = [
   {
+    width: 50,
     prop: 'id',
     type: 'single-select'
   },
@@ -137,13 +139,13 @@ const data = reactive([
     address: '北京收到了'
   },
   {
-    id: 10,
+    id: 12,
     name: '胜多负少',
     age: 1453,
     address: '江苏地第三方'
   },
   {
-    id: 11,
+    id: 13,
     name: '胜sd多负少',
     age: 153,
     address: '北京收到了'
@@ -165,6 +167,10 @@ const handle_pagesizeChane = (page, size, isReset) => {
   pageSize.page = page;
   pageSize.size = size;
   checkData();
+};
+
+const handle_currentChange = (curRow, oldRow) => {
+  console.log(curRow, oldRow);
 };
 </script>
 

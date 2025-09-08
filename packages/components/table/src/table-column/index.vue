@@ -9,9 +9,15 @@
         :index="$index"></slot>
     </template>
     <template
-      v-if="customRender"
+      v-if="customRender || smTableContext?.isSingleSelect"
       #default="{ row, column, $index }">
+      <!-- 单选 -->
+      <el-radio
+        v-if="props.column?.type == 'single-select'"
+        :model-value="row[getRowKey(smTableContext?.rowKey, row)] === smTableContext?.singleSelectKey"
+        :value="true"></el-radio>
       <slot
+        v-else-if="customRender"
         :name="customRender"
         :text="row[column.prop]"
         :column="column"
@@ -48,15 +54,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import { tableColumnProps, TableColumnSlots } from './index';
-import { getColumnTitles, getColumnRenders } from '../utils';
+import { getColumnTitles, getColumnRenders, getRowKey } from '../utils';
 import TableColumn from './index.vue';
+import { smTableContextKey } from '../table';
+
 defineOptions({
   name: 'SmTableColumn'
 });
 const props = defineProps(tableColumnProps);
 defineSlots<TableColumnSlots>();
+
+const smTableContext = inject(smTableContextKey, undefined);
+
 // 自定义表头
 const customTitle = props.column?.slots?.title;
 // 自定义列

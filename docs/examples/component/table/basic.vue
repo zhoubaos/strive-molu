@@ -20,18 +20,16 @@ const pageSize = reactive({
   size: 5
 });
 
-const data = new Array(5).fill(0).map((_, index) => {
+const tableData = ref<any[]>([]);
+const tableTotal = ref(5);
+const data = new Array(tableTotal.value).fill(0).map((_, index) => {
   return {
+    id: index,
     date: '2016-05-03',
     name: 'Tom' + index,
     address: 'No. 189, Grove St, Los Angeles'
   };
 });
-
-const tableData = ref<any[]>([]);
-
-const tableTotal = ref(5);
-
 const tableColumns: Column[] = [
   {
     prop: 'date',
