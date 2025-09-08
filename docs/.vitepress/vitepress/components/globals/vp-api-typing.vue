@@ -3,8 +3,14 @@ import { computed } from 'vue';
 import { Warning } from '@element-plus/icons-vue';
 
 defineProps({
-  type: String,
-  details: String
+  type: {
+    type: String,
+    required: true
+  },
+  details: {
+    type: String,
+    required: true
+  }
 });
 </script>
 
