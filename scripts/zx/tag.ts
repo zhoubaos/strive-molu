@@ -17,8 +17,23 @@ void (async function () {
     exitWithError('当前不是main或master分支');
   }
 
-  // 获取本地当前所有的标签
-  const tagList = (await $`git tag`).stdout.trim().split('\n');
+  //获取远程标签并处理
+  consola.info('正在获取远程标签...');
+  const tagsOutput = await $`git ls-remote --tags origin`;
+  // 处理输出，提取并过滤标签
+  const tags = tagsOutput.stdout
+    .split('\n')
+    .map((line) => {
+      // 从每行中提取标签名（格式: <hash>	refs/tags/<tag>）
+      const match = line.match(/refs\/tags\/(.*)/);
+      return match ? match[1] : null;
+    })
+    .filter((tag) => {
+      // 过滤掉null值和注解标签的指向（以^{}结尾的）
+      return tag && !tag.endsWith('^{}');
+    });
+
+  consola.info(`最后一次标签：${tags.at(-1)}`);
 
   // 标签名称
   const tagName = await question('请输入标签名（eg：0.0.1 | 0.0.1-beta | 0.0.1-beta.1）：');
@@ -29,7 +44,7 @@ void (async function () {
   const tagNameReg = /^\d+\.\d+\.\d+(-\w+(\.\d+)?)?$/;
   if (!tagNameReg.test(tagName)) {
     exitWithError('标签不满足规则');
-  } else if (tagList.includes(tagName)) {
+  } else if (tags.includes(tagName)) {
     exitWithError('标签已经存在');
   }
 
