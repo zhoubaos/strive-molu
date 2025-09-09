@@ -4,7 +4,7 @@
   "description": "组件css样式",
   "main": "index.css",
   "scripts": {
-    "build": "gulp -r node_modules/@esbuild-kit/cjs-loader",
+    "build": "rimraf dist && gulp -r node_modules/@esbuild-kit/cjs-loader",
     "clean": "rimraf dist"
   },
   "keywords": [],

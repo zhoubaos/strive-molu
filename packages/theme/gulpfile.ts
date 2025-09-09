@@ -75,11 +75,14 @@ const buildTheme = () => {
       .pipe(
         rename((path, file) => {
           //给组件样式文件添加前缀
-          if (!noSmPrefixFile.test(path.basename)) {
-            if (file.dirname.includes('element-plus')) {
-              path.dirname = `element-plus/${path.dirname}`;
+
+          if (file.dirname.includes('element-plus')) {
+            path.dirname = `element-plus/${path.dirname}`;
+            if (!noSmPrefixFile.test(path.basename)) {
               path.basename = `el-${path.basename}`;
-            } else {
+            }
+          } else {
+            if (!noSmPrefixFile.test(path.basename)) {
               path.basename = `sm-${path.basename}`;
             }
           }

@@ -62,6 +62,7 @@
         v-bind="mergePaginConfig"
         v-model:current-page="page"
         v-model:page-size="pageSize"
+        :total="props.total"
         @change="handle_pageAndSizeChange" />
     </footer>
   </div>
@@ -177,7 +178,6 @@ onBeforeMount(() => {
   });
   let config: PaginationConfig = {
     ...mConfig,
-    total: props.total,
     size: props.size,
     hideOnSinglePage: props.hideOnSinglePage
   };
