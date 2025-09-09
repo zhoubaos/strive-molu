@@ -90,7 +90,7 @@ jobs:
 
       # 打包发布
       - name: Build&Publish
-        run: pnpm run zx:publish
+        run: pnpm run publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}} # npm access token
           TAG_VERSION: ${{env.TAG_VERSION}}
