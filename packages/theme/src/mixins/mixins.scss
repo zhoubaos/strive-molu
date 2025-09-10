@@ -37,12 +37,7 @@ $E: null;
   /// @include e(('header','left')) => .sm-button__header,.sm-button__left
   $currentSelector: '';
   @each $unit in $elements {
-    $currentSelector: #{$currentSelector +
-      '.' +
-      $B +
-      $element-separator +
-      $unit +
-      ','};
+    $currentSelector: #{$currentSelector + '.' + $B + $element-separator + $unit + ','};
   }
 
   /// 跳出当前嵌套层级，直接在根选择器下输出
@@ -81,11 +76,7 @@ $E: null;
   $selector: &;
   $currentSelector: '';
   @each $unit in $modifier {
-    $currentSelector: #{$currentSelector +
-      $selector +
-      $modifier-separator +
-      $unit +
-      ','};
+    $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit + ','};
   }
 
   @at-root {
@@ -121,12 +112,7 @@ $E: null;
   }
 }
 
-@mixin spec-selector(
-  $specSelector: '',
-  $element: $E,
-  $modifier: false,
-  $block: $B
-) {
+@mixin spec-selector($specSelector: '', $element: $E, $modifier: false, $block: $B) {
   $modifierCombo: '';
 
   @if $modifier {
@@ -134,10 +120,7 @@ $E: null;
   }
 
   @at-root {
-    #{&}#{$specSelector}.#{$block
-      + $element-separator
-      + $element
-      + $modifierCombo} {
+    #{&}#{$specSelector}.#{$block + $element-separator + $element + $modifierCombo} {
       @content;
     }
   }
@@ -154,6 +137,23 @@ $E: null;
   @at-root {
     #{$selector} {
       .#{$block + $element-separator + $element + $modifierCombo} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin mb($modifier: false, $block: $B) {
+  $selector: &;
+  $modifierCombo: '';
+
+  @if $modifier {
+    $modifierCombo: $modifier-separator + $modifier;
+  }
+
+  @at-root {
+    #{$selector} {
+      .#{$block + $modifierCombo} {
         @content;
       }
     }

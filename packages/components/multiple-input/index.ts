@@ -6,4 +6,6 @@ export const SmMultipleInput: SFCWithInstall<typeof MultipleInput> = withInstall
 export default SmMultipleInput;
 
 export * from './src/multiple-input';
+export * from './src/types';
+export * from './src/utils';
 export type { MultipleInputInstance } from './src/instance';

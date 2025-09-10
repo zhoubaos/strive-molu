@@ -14,19 +14,20 @@
         </div>
         <div :class="[nsMultipleInput.be('section', 'operate')]">
           <el-button
-            v-for="item in operateBtnConfig"
+            v-for="item in quickBtnConfig"
             :key="item.name"
             type="primary"
             link
-            @click="item.click">
+            :disabled="props.disabled"
+            @click="handleQuickAction(item)">
             {{ item.name }}
           </el-button>
         </div>
       </div>
       <div
-        v-if="tips"
-        :class="[nsMultipleInput.be('section', 'tips')]">
-        {{ tips }}
+        v-if="tip"
+        :class="[nsMultipleInput.be('section', 'tip')]">
+        {{ tip }}
       </div>
       <div :class="[nsMultipleInput.be('section', 'main')]">
         <div
@@ -38,7 +39,11 @@
             :key="item.id"
             :class="[nsMultipleInput.bem('section', 'row', 'number-wp')]">
             <div
-              :class="[nsMultipleInput.bem('section', 'row', 'number'), nsMultipleInput.is('error', !item.validate)]">
+              :class="[
+                nsMultipleInput.bem('section', 'row', 'number'),
+                nsMultipleInput.is('error', !item.validate),
+                nsMultipleInput.is('disabled', props.disabled)
+              ]">
               {{ ind + 1 }}
             </div>
           </div>
@@ -49,7 +54,8 @@
             :id="`input-${ind}`"
             :key="item.id"
             v-model="item.value"
-            :placeholder="placeholder"
+            :placeholder="props.placeholder"
+            :disabled="props.disabled"
             @input="() => handleInput(ind)"
             @keyup.enter="handleEnterKeydown(item, ind, $event)"
             @keyup.down="handleDownKeyUpOrDown('down', ind, $event)"
@@ -57,7 +63,7 @@
             @paste="handlePaste(item, ind, $event)">
             <template #suffix>
               <el-icon
-                :class="[nsMultipleInput.bm('section', 'close')]"
+                :class="[nsMultipleInput.bm('section', 'close'), nsMultipleInput.is('disabled', props.disabled)]"
                 size="12"
                 @click="onClick_delInputItem(item)">
                 <Close />
@@ -68,7 +74,7 @@
       </div>
     </section>
     <footer
-      v-if="errorValidList.length"
+      v-if="errorValidList.length && !props.disabled"
       :class="[nsMultipleInput.b('footer')]">
       <div :class="[nsMultipleInput.be('footer', 'errors')]">
         <template
@@ -102,9 +108,13 @@
 
 <script lang="ts" setup>
 import { useNamespace } from '@strive-molu/hooks';
-import { ErrorValidItem, InputItem, multipleInputEmits, multipleInputProps } from './multiple-input';
+import { multipleInputEmits, multipleInputProps } from './multiple-input';
 import { Close } from '@element-plus/icons-vue';
 import { nextTick, onBeforeMount, reactive, ref } from 'vue';
+import { useGenerateInputConfig } from './utils';
+import { useQuickActions } from './use-quick-action';
+import { ErrorValidItem, InputItem, QuickBtnConfig } from './types';
+import { isFunction } from '@strive-molu/utils';
 
 defineOptions({
   name: 'SmMultipleInput'
@@ -114,21 +124,6 @@ const props = defineProps(multipleInputProps);
 const emit = defineEmits(multipleInputEmits);
 
 const nsMultipleInput = useNamespace('multiple-input');
-
-/**
- * @desc 生成input配置
- */
-const useGenerateInputConfig = (() => {
-  let n = 1;
-  return (defaultValue = '') => {
-    return {
-      id: n++,
-      value: defaultValue,
-      validate: false,
-      el: null
-    };
-  };
-})();
 
 const rowNumberWpRef = ref<HTMLElement | null>(null);
 // 输入项列表
@@ -160,6 +155,7 @@ const validateInputItems = () => {
   // for 循环索引
   let ind = 0;
   errorValidList.value = [];
+
   for (const input of inputList.value) {
     // before,after
     const before = [],
@@ -253,6 +249,8 @@ const handleDownKeyUpOrDown = (type: 'down' | 'up', ind: number, event: Event) =
  * @desc 处理粘贴事件
  */
 const handlePaste = ({ id }: InputItem, ind: number, event: ClipboardEvent) => {
+  if (props.disabled) return;
+
   event.preventDefault();
 
   let pasteText = event.clipboardData?.getData('text') ?? '';
@@ -337,28 +335,24 @@ const onClick_clearErrorItem = () => {
   validateInputItems();
 };
 
-// 输入内容操作配置
-const operateBtnConfig = reactive([
-  {
-    name: '清空',
-    click: () => {
-      inputList.value = [useGenerateInputConfig()];
-      validateInputItems();
-    }
+/**
+ * @desc 快捷操作按钮配置
+ */
+const { quickBtnConfig } = useQuickActions(props);
+
+const handleQuickAction = (item: QuickBtnConfig) => {
+  if (!isFunction(item.handleCallback)) {
+    console.warn(`[${item.name}][handleCallback] is not a function`);
+    return;
   }
-]);
-onBeforeMount(() => {
-  if (props.supporOutSort) {
-    operateBtnConfig.unshift({
-      name: '乱序',
-      click: () => {
-        console.log('乱序');
-        inputList.value = inputList.value.sort(() => Math.random() - 0.5);
-        validateInputItems();
-      }
-    });
+  let r = item.handleCallback(inputList.value);
+  if (!Array.isArray(r)) {
+    console.warn(`[${item.name}][handleCallback] return value is not an array`);
+    return;
   }
-});
+  inputList.value = r;
+  validateInputItems();
+};
 
 /**
  * @desc 获取输入内容
@@ -369,10 +363,20 @@ const getInputTexts = () => {
     textList: inputList.value.map((item) => item.value)
   };
 };
+
+/**
+ * @desc 设置默认输入内容
+ */
+const setDefaultInputTexts = (textList: string[]) => {
+  inputList.value = textList.map(useGenerateInputConfig);
+  validateInputItems();
+};
+
 defineExpose({
   getInputTexts,
+  setDefaultInputTexts,
   clear: () => {
-    operateBtnConfig[0].click();
+    handleQuickAction(quickBtnConfig[0]);
   }
 });
 

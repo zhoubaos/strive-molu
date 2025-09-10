@@ -7,7 +7,7 @@ title: Table
 基于ElementPlus二次封装的表格组件，采用js对象配置的方式生成表格。详情配置请参考[El TableColumn](https://element-plus.org/zh-CN/component/table.html#table-column-api)。
 
 :::warning
-该组件只对 `el-table-column` 组件常用属性进行了适配，使用其余属性可能会有问题。
+该组件只对 `el-table-column` 组件常用属性进行了适配，使用其他属性可能会有问题。
 :::
 
 ## 基础用法

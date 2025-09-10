@@ -1,44 +1,7 @@
 import { buildProps, definePropType } from '@strive-molu/utils';
 
 import type { ExtractPropTypes } from 'vue';
-
-export interface ValidateItem {
-  /**
-   * @desc 自定义验证的方法
-   * @param text 当前输入框的值
-   * @param otherTexts 其他输入框非空值
-   * @param before 当前输入框之前的文本
-   * @param after 当前输入框之后的文本
-   * @example
-   *
-   * // 验证输入文本的长度是否在5 ~ 55 之间
-   * validate(text, otherTexts) {
-   *    return text.trim().length >=5 && text.trim().length <=55
-   * }
-   */
-  validate: (text: string, otherTexts: string[], before: string[], after: string[]) => boolean;
-  /**
-   * @desc 用于在输入文本不能通过校验函数时，给出的提示
-   * @example 以下标题内容只能在5~55字符之间
-   */
-  errLabel: string; //校验失败文本
-  /**
-   * @desc 排除源文本
-   * @default false
-   */
-  excludeSource?: boolean;
-}
-export interface InputItem {
-  id: number; // 唯一表示
-  value: string;
-  validate: boolean; // 验证状态
-  el: any; // el实例
-}
-
-export interface ErrorValidItem {
-  label: string;
-  rowNums: number[]; // 验证失败的行数
-}
+import { QuickBtnConfig, ValidateItem } from './types';
 
 export const multipleInputProps = buildProps({
   /**
@@ -61,6 +24,7 @@ export const multipleInputProps = buildProps({
   width: String,
   /**
    * @desc 最大行数，默认无限制
+   * @default Infinity
    */
   max: Number,
   /**
@@ -74,16 +38,27 @@ export const multipleInputProps = buildProps({
   /**
    * @desc 提示信息
    */
-  tips: String,
+  tip: String,
+  /**
+   * @desc 输入框的占位符
+   */
   placeholder: {
     type: String,
-    default: '请输入内容'
+    default: '请粘贴或输入，回车可换行'
   },
   /**
    * @desc 是否支持乱序
    * @default false
    */
   supporOutSort: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @desc 所有功能不能操作，只能展示
+   * @default false
+   */
+  disabled: {
     type: Boolean,
     default: false
   },
@@ -111,6 +86,13 @@ export const multipleInputProps = buildProps({
     default: (val: string) => {
       return val.split('\n');
     }
+  },
+  /**
+   * @desc 扩展快速操作
+   */
+  extendQuickActions: {
+    type: definePropType<QuickBtnConfig[]>(Array),
+    default: () => [] as QuickBtnConfig[]
   }
 } as const);
 export type MultipleInputProps = ExtractPropTypes<typeof multipleInputProps>;

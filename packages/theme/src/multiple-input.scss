@@ -15,7 +15,7 @@
 }
 
 @include b(multiple-input-section) {
-  border-radius: getCssVar('radius', 'base');
+  border-radius: getCssVar('border-radius', 'base');
   border: getCssVar('border');
   @include e(header) {
     @include utils-flex-center-y;
@@ -35,7 +35,7 @@
     @include e(operate) {
     }
 
-    @include e(tips) {
+    @include e(tip) {
       padding: 0 14px;
       line-height: 34px;
       color: getCssVar('color', 'primary');
@@ -72,6 +72,10 @@
           background-color: #f4646421;
           border-radius: getCssVar('border-radius', 'base');
         }
+        @include when(disabled) {
+          color: getCssVar('disabled', 'text-color');
+          background-color: transparent;
+        }
       }
     }
 
@@ -93,7 +97,7 @@
           border-radius: 4px;
           &:hover {
             background-color: #f6f6f6;
-            .close-icon {
+            .sm-multiple-input-section--close {
               display: block;
             }
           }
@@ -117,6 +121,9 @@
   @include m(close) {
     display: none;
     cursor: pointer;
+    @include when(disabled) {
+      display: none !important;
+    }
   }
 }
 
