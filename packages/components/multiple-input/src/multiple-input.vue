@@ -274,6 +274,12 @@ const handlePaste = ({ id }: InputItem, ind: number, event: ClipboardEvent) => {
       }
       startInd++;
     }
+    // 添加一个空的输入框
+    inputList.value.push(useGenerateInputConfig());
+    let lastInd = inputList.value.length - 1;
+    nextTick(() => {
+      document.querySelector<HTMLInputElement>(`#input-${lastInd}`)?.focus();
+    });
   }
 
   validateInputItems();
