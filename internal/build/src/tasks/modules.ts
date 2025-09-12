@@ -49,6 +49,7 @@ export const buildModules = async () => {
       esbuild({
         sourceMap: true,
         target,
+        drop: ['console'],
         loaders: {
           '.vue': 'ts'
         }

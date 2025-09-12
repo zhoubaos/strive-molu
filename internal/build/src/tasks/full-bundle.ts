@@ -54,8 +54,9 @@ async function buildFullEntry(minify: boolean) {
       define: {
         'process.env.NODE_ENV': JSON.stringify('production') // 设置全局变量值
       },
+      pure: ['console.log'],
       treeShaking: true,
-      legalComments: 'eof' //处理打包后的代码注释 eof: 保留最后一个注释
+      legalComments: 'eof'
     }),
     Components({
       //自动导入ElementPlus组件，并设置生成dts文件路径
