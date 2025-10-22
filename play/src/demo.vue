@@ -1,11 +1,7 @@
 <template>
-  <div></div>
+  <div>测试页面</div>
 </template>
 
-<script setup lang="ts">
-import { performTasks, idlePerformTasks, countPerformTasks, mockPromiseTasks } from '@strive-molu/utils';
-
-countPerformTasks(mockPromiseTasks(10, true), 3, 1000);
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>
