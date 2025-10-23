@@ -23,7 +23,7 @@
     <el-table
       ref="tableRef"
       :class="[nsTable.b('body'), nsTable.is('round', props.round)]"
-      v-bind="props"
+      v-bind="{ ...$attrs, ...props }"
       :data="props.data"
       @row-click="handleRowClick">
       <template #empty>

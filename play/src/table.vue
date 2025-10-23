@@ -11,7 +11,7 @@
       border
       can-custom-column
       @page-and-size-change="handle_pagesizeChane"
-      @current-change="handle_currentChange">
+      @selection-change="handle_selectChange">
       <template #name="{ row }">{{ row.name }}</template>
       <template #oprate="{ row }">
         <el-button
@@ -56,7 +56,7 @@ const columns: Column[] = [
   {
     width: 50,
     prop: 'id',
-    type: 'single-select'
+    type: 'selection'
   },
   {
     prop: 'name',
@@ -171,6 +171,9 @@ const handle_pagesizeChane = (page, size, isReset) => {
 
 const handle_currentChange = (curRow, oldRow) => {
   console.log(curRow, oldRow);
+};
+const handle_selectChange = (selection) => {
+  console.log(selection);
 };
 </script>
 
