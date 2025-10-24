@@ -202,8 +202,6 @@ onBeforeMount(() => {
  * @param size
  */
 const handle_pageAndSizeChange = (page: number, size: number) => {
-  console.log('==组件更改==', page, size);
-
   emits('pageAndSizeChange', page, size, resetFlag.value);
   resetFlag.value = false;
 };
@@ -224,17 +222,45 @@ const resetPageAndSize = () => {
   emits('pageAndSizeChange', defaultCurrentPage, defaultPageSize, resetFlag.value);
 };
 
+// 清空多选框
 const clearSelection = (...args: any[]) => {
-  tableRef.value?.clearSelection(...args);
+  if (isSingleSelect.value) {
+    singleRow.value = null;
+    singleSelectKey.value = '';
+  } else {
+    tableRef.value?.clearSelection(...args);
+  }
 };
-const getSelectionRows = (...args: any[]) => {
-  return tableRef.value?.getSelectionRows(...args);
+// 获取单选或多选的行
+const getSelectionRows = () => {
+  // 单选
+  if (isSingleSelect.value) {
+    return singleRow.value ? [singleRow.value] : [];
+  }
+  return tableRef.value?.getSelectionRows();
+};
+// 选择或取消选择多选行
+const toggleRowSelection = (row: any, selected: boolean) => {
+  tableRef.value?.toggleRowSelection(row, selected);
+};
+// 用于多选表格，切换全选或全不选
+const toggleAllSelection = () => {
+  tableRef.value?.toggleAllSelection();
+};
+
+// 设置单选行
+const setSingleSelectRow = (row: any) => {
+  singleRow.value = row || null;
+  singleSelectKey.value = row ? row[getRowKey(props.rowKey, row)] : '';
 };
 
 defineExpose({
   resetPageAndSize,
   clearSelection,
-  getSelectionRows
+  getSelectionRows,
+  toggleRowSelection,
+  toggleAllSelection,
+  setSingleSelectRow
 });
 
 // #endregion

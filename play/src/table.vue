@@ -24,7 +24,7 @@
       </template>
     </SmTable>
     <div>
-      <el-button @click="ond">按钮</el-button>
+      <el-button @click="handleClick">按钮</el-button>
     </div>
   </div>
 </template>
@@ -40,8 +40,9 @@ const smTableRef = ref();
 const add = (a, b) => {
   return a + b;
 };
-const ond = () => {
-  smTableRef.value!.resetPageAndSize();
+const handleClick = () => {
+  // smTableRef.value!.resetPageAndSize();
+  smTableRef.value.clearSelection();
 };
 
 const onClick_view = (row) => {
@@ -56,7 +57,7 @@ const columns: Column[] = [
   {
     width: 50,
     prop: 'id',
-    type: 'selection'
+    type: 'single-select'
   },
   {
     prop: 'name',

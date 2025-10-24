@@ -112,10 +112,22 @@ table/single-select
 
 ### 方法
 
-:::tip
-除了以下方法，还支持[ElTable](https://element-plus.org/zh-CN/component/table.html#table-exposes)的方法，但不保证所有方法都能正常使用。
-:::
+#### 组件方法
 
 | 名称             | 说明                                                                              | 类型     |
 | ---------------- | --------------------------------------------------------------------------------- | -------- |
 | resetPageAndSize | 让分页器重置页数和每页条数，且`page-and-size-change` 方法返回的第3个参数为 `true` | Function |
+
+#### ElTable方法
+
+:::tip
+暂只支持以下方法。
+:::
+
+| 名称               | 说明                                                                                  | 类型                                                |
+| ------------------ | ------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| clearSelection     | 清空用户的选择                                                                        | Function                                            |
+| getSelectionRows   | 返回当前选择的行                                                                      | Function                                            |
+| toggleRowSelection | 用于多选表格，切换某一行的选中状态， 如果使用了第二个参数，则可直接设置这一行选中与否 | ^[Function]`(row: any, selected?: boolean) => void` |
+| toggleAllSelection | 用于多选表格，切换全选和全不选                                                        | Function                                            |
+| setSingleSelectRow | 用于单选表格，选择有一行，如果不传参数，则会取消单选选中状态                          | ^[Function]`(row: any) => void`                     |
