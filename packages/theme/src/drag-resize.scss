@@ -1,0 +1,32 @@
+@use 'mixins/utils' as *;
+@use 'mixins/mixins.scss' as *;
+
+@include b(drag-resize) {
+  position: relative;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  @include e(left) {
+    min-width: 100px;
+    background-color: yellow;
+    margin-right: 2px;
+  }
+
+  @include e(right) {
+    flex: 1;
+    margin-left: 2px;
+    background-color: green;
+  }
+
+  @include e(drag-line) {
+    position: absolute;
+    left: 100px;
+    top: 0;
+    background-color: getCssVar('color', 'primary');
+    width: 8px;
+    height: 100%;
+    cursor: ew-resize;
+    -webkit-user-drag: none; /* 禁止元素被拖拽时生成幽灵图标（WebKit内核） */
+    user-drag: none;
+  }
+}

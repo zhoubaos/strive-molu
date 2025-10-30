@@ -16,7 +16,7 @@ const options: Option[] = [
     ]
   },
   {
-    text: '其他组件',
+    text: '自定义组件',
     items: [
       {
         text: 'LazyPicture 懒加载图片',

@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import './index.scss';
+import '@strive-molu/theme/src/index.scss';
 (async () => {
   const apps = import.meta.glob('./src/*.vue');
   const name = location.pathname.replace(/^\//, '') || 'App';

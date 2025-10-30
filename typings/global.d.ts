@@ -10,6 +10,7 @@ declare module 'vue' {
     SmFormFrame: (typeof import('strive-molu'))['SmFormFrame'];
     SmCascader: (typeof import('strive-molu'))['SmCascader'];
     SmEmpty: (typeof import('strive-molu'))['SmEmpty'];
+    SmDragBox: typeof import('strive-molu')['SmDragBox']
   }
 }
 export {};

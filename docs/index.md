@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: Strive Molu
-  text: 基于Element-plus的组件库
+  text: 个人前端工具库
   tagline: 持续学习，持续进步
   image:
     src: /logo.svg
