@@ -33,6 +33,10 @@ const options: Option[] = [
       {
         text: 'Cascader 级联选择器',
         link: '/cascader'
+      },
+      {
+        text: 'DragResize 拖拽缩放盒子',
+        link: '/drag-resize'
       }
     ]
   }

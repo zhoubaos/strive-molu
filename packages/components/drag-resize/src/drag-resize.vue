@@ -1,23 +1,30 @@
 <template>
   <div
+    ref="resizeBoxRef"
     :class="nsDragResize.b()"
-    @dragenter="handleDragEnter"
-    @dragleave="handleDragLeave"
-    @dragover="handleDragOver"
-    @drop="handleDrop">
-    <div :class="nsDragResize.e('left')">
-      <slot name="left">left</slot>
+    @mousemove="handleMouseMove"
+    @mouseleave="handleMouseUpOrLeave"
+    @mouseup="handleMouseUpOrLeave">
+    <div
+      ref="leftBoxRef"
+      :style="leftBoxStyle"
+      :class="nsDragResize.e('left')">
+      <slot name="left"> {{ leftTargetResizeWidth }}</slot>
     </div>
-    <div :class="nsDragResize.e('right')">
-      <slot name="rigth">right</slot>
+    <div
+      :class="nsDragResize.e('right')"
+      :style="rightBoxStyle">
+      <slot></slot>
     </div>
     <!-- 拖拽线 -->
     <div
-      draggable
-      :class="nsDragResize.e('drag-line')"
-      @drag="handleDrag"
-      @dragstart="handleDragsStart"
-      @dragend="handleDragEnd"></div>
+      ref="lineRef"
+      :class="nsDragResize.e('line-wrap')"
+      :style="dragLineStyle">
+      <div
+        :class="nsDragResize.em('line-wrap', 'line')"
+        @mousedown="handleMouseDown"></div>
+    </div>
   </div>
 </template>
 
@@ -35,8 +42,18 @@ const emit = defineEmits(dragResizeEmits);
 
 const nsDragResize = useNamespace('drag-resize');
 
-const { handleDrag, handleDragsStart, handleDragEnd, handleDragEnter, handleDragOver, handleDragLeave, handleDrop } =
-  useDragResize(dragResizeProps);
+const {
+  resizeBoxRef,
+  leftBoxRef,
+  lineRef,
+  leftTargetResizeWidth,
+  leftBoxStyle,
+  rightBoxStyle,
+  dragLineStyle,
+  handleMouseDown,
+  handleMouseUpOrLeave,
+  handleMouseMove
+} = useDragResize(props);
 
 // init here
 </script>
