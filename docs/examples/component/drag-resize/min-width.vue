@@ -1,6 +1,6 @@
 <template>
   <div class="box-wp">
-    <sm-drag-resize>
+    <sm-drag-resize :min-width="0">
       <template #left>
         <div class="left-wp">1</div>
       </template>
@@ -17,6 +17,7 @@
   border: 1px solid #ccc;
 }
 .left-wp {
+  width: 120px;
   background-color: red;
   height: 100%;
 }
