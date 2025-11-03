@@ -17,7 +17,7 @@
   border: 1px solid #ccc;
 }
 .left-wp {
-  width: 120px;
+  min-width: 120px;
   background-color: red;
   height: 100%;
 }
