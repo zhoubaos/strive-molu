@@ -37,6 +37,10 @@ const options: Option[] = [
       {
         text: 'DragResize 拖拽缩放盒子',
         link: '/drag-resize'
+      },
+      {
+        text: 'AutoTransition 自动过渡',
+        link: '/auto-transition'
       }
     ]
   }

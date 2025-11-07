@@ -6,3 +6,4 @@ export * from './form-frame';
 export * from './cascader';
 export * from './empty';
 export * from './drag-resize';
+export * from './auto-transition';

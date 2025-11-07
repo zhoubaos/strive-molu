@@ -1,5 +1,5 @@
 ---
-title: lazy-picture
+title: drag-resize
 ---
 
 # DragResize 拖拽缩放容器

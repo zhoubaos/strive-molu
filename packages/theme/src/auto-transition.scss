@@ -1,0 +1,8 @@
+@use 'mixins/utils' as *;
+@use 'mixins/mixins.scss' as *;
+
+@include b(auto-transition) {
+  width: fit-content;
+  height: auto;
+  overflow: hidden;
+}

@@ -6,7 +6,8 @@ import {
   SmFormFrame,
   SmCascader,
   SmEmpty,
-  SmDragResize
+  SmDragResize,
+  SmAutoTransition
 } from '@strive-molu/components';
 
 import type { Plugin } from 'vue';
@@ -19,5 +20,6 @@ export default [
   SmFormFrame,
   SmCascader,
   SmEmpty,
-  SmDragResize
+  SmDragResize,
+  SmAutoTransition
 ] as Plugin[];

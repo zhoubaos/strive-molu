@@ -11,6 +11,7 @@ declare module 'vue' {
     SmCascader: (typeof import('strive-molu'))['SmCascader'];
     SmEmpty: (typeof import('strive-molu'))['SmEmpty'];
     SmDragResize: (typeof import('strive-molu'))['SmDragResize'];
+    SmAutoTransition: (typeof import('strive-molu'))['SmAutoTransition'];
   }
 }
 export {};
