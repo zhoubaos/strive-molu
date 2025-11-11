@@ -4,11 +4,11 @@ import type { ExtractPropTypes } from 'vue';
 
 export const autoTransitionProps = buildProps({
   /**
-   * 过渡效果
+   * 过渡效果函数
    */
-  transition: {
+  timingFunction: {
     type: String,
-    default: 'all ease-in-out 0.5s'
+    default: 'ease-in-out'
   },
   /**
    * 触发方向

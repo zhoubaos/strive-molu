@@ -1,5 +1,5 @@
 <template>
-  <sm-auto-transition>
+  <sm-auto-transition timing-function="linear">
     <div
       ref="boxRef"
       class="box">

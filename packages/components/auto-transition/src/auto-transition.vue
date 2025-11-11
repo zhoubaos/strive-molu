@@ -31,7 +31,7 @@ const styles = computed(() => {
   }
 
   let sty = {
-    transition: props.transition
+    transition: `all 0.5s ${props.timingFunction}`
   };
 
   if (props.direction == 'vertical') {
