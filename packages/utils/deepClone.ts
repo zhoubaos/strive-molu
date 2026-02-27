@@ -12,8 +12,6 @@ export const deepClone = (target: any, cache = new WeakMap()): any => {
   if (cache.get(target) === null) return cache.get(target);
 
   const copyTarget: any = Array.isArray(target) ? [] : {};
-  Reflect.setPrototypeOf(copyTarget, Reflect.getPrototypeOf(target));
-
   //对于循环引用的值设置为null
   cache.set(target, null);
 
@@ -24,7 +22,12 @@ export const deepClone = (target: any, cache = new WeakMap()): any => {
   } else {
     Reflect.ownKeys(target).forEach((key) => {
       copyTarget[key] = deepClone(target[key as string], cache);
-      Object.defineProperty(copyTarget, key, Reflect.getOwnPropertyDescriptor(target, key) ?? {});
+      Object.defineProperty(copyTarget, key, {
+        //拷贝属性的描述符
+        configurable: Object.getOwnPropertyDescriptor(target, key)?.configurable,
+        enumerable: Object.getOwnPropertyDescriptor(target, key)?.enumerable,
+        writable: Object.getOwnPropertyDescriptor(target, key)?.writable
+      });
     });
   }
 
