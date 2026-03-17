@@ -19,7 +19,7 @@
       <slot
         v-else-if="customRender"
         :name="customRender"
-        :text="row[column.prop]"
+        :text="row[column?.prop]"
         :column="column"
         :row="row"
         :index="$index"></slot>

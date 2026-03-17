@@ -30,16 +30,17 @@
 </template>
 
 <script setup lang="ts">
-import { SmTable, type Column } from 'strive-molu';
+import { deepClone, SmTable, type Column } from 'strive-molu';
 
 // @ts-ignore
 import '@strive-molu/components/table/style/index';
-import { reactive, ref } from 'vue';
+import { nextTick, onBeforeMount, reactive, ref } from 'vue';
 
 const smTableRef = ref();
 const add = (a, b) => {
   return a + b;
 };
+
 const handleClick = () => {
   // smTableRef.value!.resetPageAndSize();
   smTableRef.value.clearSelection();
@@ -156,9 +157,13 @@ const tableData = ref([]);
 const total = ref(data.length);
 
 const checkData = () => {
+  nextTick(() => {
+    smTableRef.value.setSingleSelectRow({ id: 4 });
+  });
   let s = (pageSize.page - 1) * pageSize.size;
-
-  tableData.value = data.slice(s, s + pageSize.size);
+  setTimeout(() => {
+    tableData.value = data.slice(s, s + pageSize.size);
+  }, 2000);
 };
 checkData();
 
