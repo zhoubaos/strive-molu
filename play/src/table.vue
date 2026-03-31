@@ -54,7 +54,7 @@ const pageSize = reactive({
   page: 1,
   size: 5
 });
-const columns: Column[] = [
+const columns: Column[] = reactive([
   {
     width: 50,
     prop: 'id',
@@ -84,7 +84,7 @@ const columns: Column[] = [
     label: '操作',
     slots: { customRender: 'oprate' }
   }
-];
+]);
 const data = reactive([
   {
     id: 1,

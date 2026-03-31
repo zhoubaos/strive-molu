@@ -1,4 +1,4 @@
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, ref, watch } from 'vue';
 import { TableProps } from './table';
 import { Column } from './table-column';
 import { getLocalColumnProps, setLocalColumnProps, genTableHash } from './utils';
@@ -19,6 +19,16 @@ export function useTable(props: TableProps): any {
     setTableShowColumns();
     setLastColumnAutoWidth();
   });
+
+  //
+  watch(
+    () => props.columns,
+    (newV) => {
+      setTableShowColumns();
+      setLastColumnAutoWidth();
+    },
+    { deep: true }
+  );
 
   // 表格hash值
   const tableHash = ref('');
