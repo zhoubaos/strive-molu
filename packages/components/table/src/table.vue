@@ -130,8 +130,13 @@ provide(
  * 处理行点击
  */
 const handleRowClick = (row: any, column: Column, event: Event) => {
-  if (isSingleSelect.value) {
-    singleSelectKey.value = row[getRowKey(props.rowKey, row)];
+  let rKey = getRowKey(props.rowKey, row);
+  let ind = props.data.findIndex((d) => d[rKey] == row[rKey]);
+
+  let selectable = props.columns.find((item) => item.type == 'single-select')?.selectable;
+
+  if (isSingleSelect.value && (!selectable || selectable(row, ind))) {
+    singleSelectKey.value = row[rKey];
     emits('current-change', row, singleRow.value);
     singleRow.value = row;
   }

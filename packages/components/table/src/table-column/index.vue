@@ -15,7 +15,8 @@
       <el-radio
         v-if="props.column?.type == 'single-select'"
         :model-value="row[getRowKey(smTableContext?.rowKey, row)] === smTableContext?.singleSelectKey"
-        :value="true"></el-radio>
+        :value="true"
+        :disabled="!props.column?.selectable?.(row, $index)"></el-radio>
       <slot
         v-else-if="customRender"
         :name="customRender"

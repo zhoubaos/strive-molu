@@ -54,11 +54,15 @@ const pageSize = reactive({
   page: 1,
   size: 5
 });
-const columns: Column[] = reactive([
+const columns = reactive<Column[]>([
   {
     width: 50,
     prop: 'id',
-    type: 'single-select'
+    label: '33',
+    type: 'single-select',
+    selectable: (row, index) => {
+      return index == 3;
+    }
   },
   {
     prop: 'name',
@@ -163,7 +167,7 @@ const checkData = () => {
   let s = (pageSize.page - 1) * pageSize.size;
   setTimeout(() => {
     tableData.value = data.slice(s, s + pageSize.size);
-  }, 2000);
+  }, 1000);
 };
 checkData();
 
