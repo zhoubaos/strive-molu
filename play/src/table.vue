@@ -61,7 +61,7 @@ const columns = reactive<Column[]>([
     label: '33',
     type: 'single-select',
     selectable: (row, index) => {
-      return index == 3;
+      return index != 3;
     }
   },
   {
