@@ -48,7 +48,18 @@ const initSize = ref(0);
 onMounted(() => {
   initSize.value = smAutoTransitionRef.value![props.direction == 'vertical' ? 'offsetHeight' : 'offsetWidth'];
 });
+
 const handleMouseenter = () => {
+  if (props.trigger == 'custom') return;
+  handleExpand();
+};
+
+const handleMouseleave = () => {
+  if (props.trigger == 'custom') return;
+  handleCollapse();
+};
+
+const handleExpand = () => {
   let propertyName = props.direction == 'vertical' ? 'height' : 'width';
 
   // 触发重汇，获取渲染高度
@@ -61,10 +72,15 @@ const handleMouseenter = () => {
   smAutoTransitionRef.value!.style.setProperty(propertyName, size + 'px');
 };
 
-const handleMouseleave = () => {
+const handleCollapse = () => {
   let propertyName = props.direction == 'vertical' ? 'height' : 'width';
   smAutoTransitionRef.value!.style.setProperty(propertyName, initSize.value + 'px');
 };
+
+defineExpose({
+  handleExpand,
+  handleCollapse
+});
 
 // init here
 </script>

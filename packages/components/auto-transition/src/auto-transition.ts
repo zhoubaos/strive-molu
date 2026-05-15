@@ -17,6 +17,15 @@ export const autoTransitionProps = buildProps({
     type: String,
     values: ['vertical', 'horizontal'],
     default: 'vertical'
+  },
+  /**
+   * 触发方式
+   * @default 'hover' // 鼠标移入或移出触发
+   */
+  trigger: {
+    type: String,
+    values: ['custom', 'hover'],
+    default: 'hover'
   }
 } as const);
 export type AutoTransitionProps = ExtractPropTypes<typeof autoTransitionProps>;
