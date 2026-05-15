@@ -22,7 +22,16 @@ auto-transition/horizontal
 
 ### 属性
 
-| 属性           | 说明                                                                                                             | 类型                            | 默认值        |
-| -------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------- | ------------- |
+| 属性           | 说明                                                         | 类型                            | 默认值        |
+| -------------- | ------------------------------------------------------------ | ------------------------------- | ------------- |
 | timingFunction | [过渡效果函数](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Reference/Properties/transition-timing-function) | `string`                        | 'ease-in-out' |
-| direction      | 设置过渡方向                                                                                                     | ^[enum]`vertical \| horizontal` | 'vertical'    |
+| direction      | 设置过渡方向                                                 | ^[enum]`vertical \| horizontal` | 'vertical'    |
+| trigger        | 触发方式                                                     | ^[enum]`hover \|custom`         | 'hover'       |
+
+### slots
+
+| 名称           | 说明     |
+| -------------- | -------- |
+| handleExpand   | 触发收起 |
+| handleCollapse | 触发展开 |
+
