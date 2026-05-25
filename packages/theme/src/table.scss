@@ -10,6 +10,8 @@
 
 @include b(table) {
   @include utils-wh;
+  display: flex;
+  flex-direction: column;
 
   @include b(table-header) {
     margin-bottom: 14px;
@@ -39,6 +41,8 @@
   }
 
   @include b(table-body) {
+    flex-basis: auto;
+    min-height: 0;
     @include e(empty) {
       @include utils-flex-center;
       flex-direction: column;

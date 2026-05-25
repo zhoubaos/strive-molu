@@ -73,7 +73,13 @@ export const tableProps = buildProps({
   /**
    * 大小
    */
-  size: useSizeProp
+  size: useSizeProp,
+  /**
+   * @desc 表格高度
+   */
+  height: {
+    type: [String, Number]
+  }
 } as const);
 
 export interface TableEmits {

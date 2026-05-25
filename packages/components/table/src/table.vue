@@ -1,7 +1,7 @@
 <template>
   <div :class="[nsTable.b(), nsTable.m(props.size)]">
     <!-- 自定义列 -->
-    <header
+    <!-- <header
       v-if="canCustomColumn"
       :class="nsTable.b('header')">
       <div :class="nsTable.be('header', 'custom-btn')">
@@ -18,7 +18,7 @@
         :columns="props.columns"
         :table-hash="tableHash"
         @checked-column-props="handle_checkedColumnprops" />
-    </header>
+    </header> -->
     <!--  自定义列 -->
     <el-table
       ref="tableRef"

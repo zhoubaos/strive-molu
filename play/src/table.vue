@@ -52,7 +52,7 @@ const onClick_view = (row) => {
 
 const pageSize = reactive({
   page: 1,
-  size: 5
+  size: 10
 });
 const columns = reactive<Column[]>([
   {
@@ -190,5 +190,8 @@ const handle_selectChange = (selection) => {
 <style scoped lang="scss">
 .dd {
   height: 100px;
+}
+.wp {
+  // height: 400px;
 }
 </style>
