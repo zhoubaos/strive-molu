@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { errorAndExit, getWorkspacePackages } from '@strive-molu/build-utils';
 import type { Project } from '@pnpm/find-workspace-packages';
 
-// warn：该脚本是执行在github actions的环境中1
+// warn：该脚本是执行在github actions的环境中
 
 async function main() {
   const tagVersion = process.env.TAG_VERSION; // 仓库打标签的版本
