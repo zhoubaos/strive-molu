@@ -10,6 +10,7 @@ const setupConfig = (configEnv) => {
     description: '组件，指令，插件，工具函数等等',
     base: '/docs',
     outDir: './build/dist',
+    cleanUrls: true,
     head: [['link', { rel: 'icon', href: '/docs/logo.svg' }]],
     appearance: false,
     themeConfig: {
