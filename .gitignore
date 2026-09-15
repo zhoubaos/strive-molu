@@ -24,3 +24,5 @@ tmp
 
 # other
 scripts/demo.ts
+
+build-publish.md
