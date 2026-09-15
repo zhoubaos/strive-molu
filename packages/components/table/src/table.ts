@@ -79,6 +79,13 @@ export const tableProps = buildProps({
    */
   height: {
     type: [String, Number]
+  },
+  /**
+   * 分页是否为经凑型
+   */
+  compactPagination: {
+    type: Boolean,
+    default: false
   }
 } as const);
 

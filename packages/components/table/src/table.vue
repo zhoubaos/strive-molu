@@ -178,7 +178,8 @@ const mergePaginConfig = ref<any>({});
 onBeforeMount(() => {
   let mConfig = Object.assign(DEFAULT_PAGINATION_CONFIG, props.paginationConfig, {
     defaultCurrentPage: page.value,
-    defaultPageSize: pageSize.value
+    defaultPageSize: pageSize.value,
+    layout: props.compactPagination ? ['prev', 'pager', 'next'] : props.paginationConfig?.layout
   });
   let config: PaginationConfig = {
     ...mConfig,
