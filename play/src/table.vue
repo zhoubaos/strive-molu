@@ -10,6 +10,7 @@
       row-key="id"
       border
       can-custom-column
+      compact-pagination
       @page-and-size-change="handle_pagesizeChane"
       @selection-change="handle_selectChange">
       <template #name="{ row }">{{ row.name }}</template>

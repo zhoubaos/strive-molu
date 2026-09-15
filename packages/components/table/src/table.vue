@@ -56,7 +56,7 @@
     </el-table>
     <footer
       v-show="!props.hideOnSinglePage"
-      :class="nsTable.b('footer')">
+      :class="[nsTable.b('footer'), nsTable.is('compact', props.compactPagination)]">
       <el-pagination
         ref="paginationRef"
         v-bind="mergePaginConfig"
