@@ -8,7 +8,7 @@ if (os.platform() === 'win32') {
   usePowerShell();
 }
 /**
- * @desc 本地添加 git tag 并推送到远程；可选调用 release 脚本创建 GitHub Release
+ * @desc 本地添加 git tag 并推送到远程
  */
 void (async function () {
   // 当前分支
@@ -87,16 +87,6 @@ void (async function () {
       await $`git tag ${tagCommand}`;
       await $`git push origin ${tagName}`;
       consola.success('本地和远程标签添加成功！');
-
-      // 仅推送 tag 不会触发 Actions；确认后交给独立的 release 脚本创建 GitHub Release
-      const shouldRelease = (
-        await question(`是否立即创建 GitHub Release 并触发 npm 发布？(${chalk.gray('y/N')})：`)
-      ).trim();
-      if (/^(y|yes)$/i.test(shouldRelease)) {
-        await runReleaseScript(tagName, tagRemark);
-      } else {
-        consola.info(`已跳过。稍后可执行：${chalk.yellow(`pnpm gen:release -- --tag ${tagName}`)}`);
-      }
       break;
     }
   }
@@ -168,19 +158,6 @@ async function getCommitsSummary(prevTag: string | undefined, endRef: string) {
     } catch {
       return '';
     }
-  }
-}
-
-/**
- * 调用独立的 release 脚本创建 GitHub Release
- * @param tagName 刚推送的标签名
- * @param tagRemark 标签备注，有值时传给 --notes，否则让 GitHub 自动生成 notes
- */
-async function runReleaseScript(tagName: string, tagRemark: string) {
-  if (tagRemark.length) {
-    await $`tsx scripts/zx/release.ts --tag ${tagName} --notes ${tagRemark}`;
-  } else {
-    await $`tsx scripts/zx/release.ts --tag ${tagName} --generate-notes`;
   }
 }
 
