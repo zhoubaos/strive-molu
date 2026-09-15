@@ -16,6 +16,7 @@
     "gen": "bash ./scripts/gc.sh",
     "gen:version": "tsx scripts/gen-version.ts",
     "gen:tag": "tsx scripts/zx/tag.ts",
+    "gen:release": "tsx scripts/zx/release.ts",
     "publish": "tsx scripts/zx/publish.ts",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json",
     "lint:fix": "pnpm run lint --fix",
