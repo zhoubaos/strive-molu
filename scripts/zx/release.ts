@@ -16,18 +16,22 @@ if (os.platform() === 'win32') {
  * pnpm gen:release -- --tag 0.0.1-beta --generate-notes
  */
 void (async function () {
-  await ensureGhReady();
+  try {
+    await ensureGhReady();
 
-  // 拉取远程 tag，用于校验 Release 必须对应已存在的标签
-  consola.info('正在获取远程标签...');
-  const tags = await getRemoteTags();
-  consola.info(`最后一次标签：${tags.at(-1)}`);
+    // 拉取远程 tag，用于校验 Release 必须对应已存在的标签
+    consola.info('正在获取远程标签...');
+    const tags = await getRemoteTags();
+    consola.info(`最后一次标签：${tags.at(-1)}`);
 
-  // 优先使用命令行参数，便于 tag 脚本直接调用；否则进入交互输入
-  const tagName = await resolveTagName(tags);
-  const tagRemark = await resolveTagRemark();
+    // 优先使用命令行参数，便于 tag 脚本直接调用；否则进入交互输入
+    const tagName = await resolveTagName(tags);
+    const tagRemark = await resolveTagRemark();
 
-  await createGitHubRelease(tagName, tagRemark);
+    await createGitHubRelease(tagName, tagRemark);
+  } catch (error: any) {
+    exitWithError(error?.message);
+  }
 })();
 
 /**
