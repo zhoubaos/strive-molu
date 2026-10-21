@@ -2,7 +2,7 @@
 import { $, question, cd, path, argv, fs, os, chalk, usePowerShell } from 'zx';
 import { consola } from 'consola';
 
-//！改脚本为git action触发运行
+//！该脚本为git action触发运行
 
 // 让powerShell可以兼容运行该脚本
 if (os.platform() === 'win32') {
