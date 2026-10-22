@@ -19,7 +19,7 @@
           v-model="columnCheckAll[columnInd].selected"
           label="全选"
           :indeterminate="columnCheckAll[columnInd].indeterminate"
-          @change="(s) => handleCheckAllChange(columnInd, s as any)" />
+          @change="(s: any) => handleCheckAllChange(columnInd, s)" />
       </div>
       <div :class="[nsCascader.be('container', 'section')]">
         <el-scrollbar>
